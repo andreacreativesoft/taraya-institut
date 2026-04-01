@@ -3,12 +3,12 @@ import CategoryCard from "./CategoryCard";
 import NewCategoryForm from "./NewCategoryForm";
 
 export default async function PricingPage() {
-  const categoriesRaw = await db.pricingCategory
+  const categories = await db.pricingCategory
     .findMany({ orderBy: { order: "asc" }, include: { items: { orderBy: { order: "asc" } } } })
-    .catch(() => null);
-  const categories = categoriesRaw ?? [];
+    .catch(() => [] as { id: string; title: string; active: boolean; order: number; createdAt: Date; updatedAt: Date; items: { id: string; label: string; price: string; order: number; categoryId: string; createdAt: Date; updatedAt: Date }[] }[]);
 
-  const totalItems = categories.reduce((sum: number, c) => sum + c.items.length, 0);
+  let totalItems = 0;
+  for (const c of categories) totalItems += c.items.length;
 
   return (
     <div className="flex flex-col gap-8 max-w-[900px]">
