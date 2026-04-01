@@ -13,7 +13,7 @@ export default function LoginPage() {
       <div className="w-full max-w-[400px] flex flex-col gap-8">
         {/* Logo */}
         <div className="flex justify-center">
-          <img src={imgLogo} alt="Taraya Institut" className="h-[60px] w-auto object-contain" />
+          <img src={imgLogo} alt="Taraya Institut" className="h-auto w-[220px] object-contain" />
         </div>
 
         {/* Card */}

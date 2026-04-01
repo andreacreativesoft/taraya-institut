@@ -7,7 +7,7 @@ export default async function PricingPage() {
     .findMany({ orderBy: { order: "asc" }, include: { items: { orderBy: { order: "asc" } } } })
     .catch(() => []);
 
-  const totalItems = categories.reduce((sum, c) => sum + c.items.length, 0);
+  const totalItems = categories.reduce((sum: number, c) => sum + c.items.length, 0);
 
   return (
     <div className="flex flex-col gap-8 max-w-[900px]">
