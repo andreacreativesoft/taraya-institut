@@ -9,18 +9,8 @@ export default async function PricingPage() {
       orderBy: { order: "asc" },
       include: { items: { orderBy: { order: "asc" } } },
     });
-    categories = rows.map((r) => ({
-      id: r.id,
-      title: r.title,
-      order: r.order,
-      active: r.active,
-      items: r.items.map((i) => ({
-        id: i.id,
-        label: i.label,
-        price: i.price,
-        order: i.order,
-      })),
-    }));
+    // Cast is safe: Prisma result is a superset of Category type
+    categories = rows as unknown as Category[];
   } catch {
     // db unavailable — show empty state
   }
