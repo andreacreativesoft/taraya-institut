@@ -92,6 +92,17 @@ export default function SettingsForm({ settings }: { settings: Settings }) {
         </div>
       </div>
 
+      {/* Analytics */}
+      <div className="bg-white rounded-xl border border-[#dad5cd] p-6 flex flex-col gap-5">
+        <h2 className="font-heading text-[#251d1b] text-[18px] font-bold">Analytics</h2>
+        <div className="flex flex-col gap-1.5">
+          <label className="font-body text-[#251d1b] text-[13px] font-medium">Google Tag Manager ID</label>
+          <input name="gtm_id" defaultValue={get("gtm_id")} placeholder="GTM-XXXXXXX"
+            className="border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b] focus:outline-none focus:border-[#cab3a0] focus:ring-2 focus:ring-[#cab3a0]/20" />
+          <p className="font-body text-[#746e6b] text-[12px]">Laissez vide pour désactiver le tracking.</p>
+        </div>
+      </div>
+
       {state?.success && (
         <p className="text-green-600 font-body text-[13px]">✓ Paramètres enregistrés avec succès</p>
       )}

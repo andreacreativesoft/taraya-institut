@@ -11,6 +11,7 @@ export type SiteSettings = {
   hero_subtitle: string;
   meta_title: string;
   meta_description: string;
+  gtm_id: string;
 };
 
 const defaults: SiteSettings = {
@@ -24,6 +25,7 @@ const defaults: SiteSettings = {
   hero_subtitle: "Uniquement sur rendez-vous",
   meta_title: "Taraya Institut – Soins beauté",
   meta_description: "Institut de beauté certifié Phyt's. Soins visage, massages, épilations et plus.",
+  gtm_id: "",
 };
 
 export async function getSettings(): Promise<SiteSettings> {
