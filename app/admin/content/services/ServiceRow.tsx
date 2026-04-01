@@ -2,7 +2,7 @@
 
 import { deleteService, toggleService } from "@/app/actions/services";
 
-type Service = { id: string; title: string; description: string; active: boolean; order: number };
+export type Service = { id: string; title: string; description: string; active: boolean; order: number };
 
 export default function ServiceRow({ service }: { service: Service }) {
   return (

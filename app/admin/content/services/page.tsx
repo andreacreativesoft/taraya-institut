@@ -1,9 +1,15 @@
 import { db } from "@/lib/db";
-import ServiceRow from "./ServiceRow";
+import ServiceRow, { type Service } from "./ServiceRow";
 import NewServiceForm from "./NewServiceForm";
 
 export default async function ServicesPage() {
-  const services = await db.service.findMany({ orderBy: { order: "asc" } }).catch(() => []);
+  let services: Service[] = [];
+  try {
+    const rows = await db.service.findMany({ orderBy: { order: "asc" } });
+    services = rows as unknown as Service[];
+  } catch {
+    // db unavailable — show empty state
+  }
 
   return (
     <div className="flex flex-col gap-8 max-w-[900px]">
