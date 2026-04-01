@@ -7,9 +7,8 @@ const imgLogo   = "/images/logo.svg";
 const imgHeroBg = "/images/hero-bg.jpg";
 const imgPhone  = "/images/icon-phone.svg";
 
-const WHATSAPP_URL = "https://wa.me/0471824764";
-
-export default function HeroSection() {
+export default function HeroSection({ whatsapp }: { whatsapp: string }) {
+  const WHATSAPP_URL = `https://wa.me/${whatsapp.replace(/\D/g, "")}`;
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (

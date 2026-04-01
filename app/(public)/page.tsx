@@ -1,3 +1,4 @@
+import { getSettings } from "@/lib/settings";
 import HeroSection from "@/components/public/HeroSection";
 import AboutSection from "@/components/public/AboutSection";
 import ForWhoSection from "@/components/public/ForWhoSection";
@@ -9,10 +10,12 @@ import PartnerSection from "@/components/public/PartnerSection";
 import CTASection from "@/components/public/CTASection";
 import Footer from "@/components/public/Footer";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const settings = await getSettings();
+
   return (
     <>
-      <HeroSection />
+      <HeroSection whatsapp={settings.whatsapp} />
       <AboutSection />
       <ForWhoSection />
       <ServicesSection />
@@ -20,8 +23,14 @@ export default function HomePage() {
       <PricingSection />
       <WhyUsSection />
       <PartnerSection />
-      <CTASection />
-      <Footer />
+      <CTASection whatsapp={settings.whatsapp} />
+      <Footer
+        phone={settings.phone}
+        email={settings.email}
+        address={settings.address}
+        instagram={settings.instagram}
+        facebook={settings.facebook}
+      />
     </>
   );
 }

@@ -2,7 +2,18 @@ const imgLogo      = "/images/footer-logo.svg";
 const imgInstagram = "/images/icon-instagram.svg";
 const imgFacebook  = "/images/icon-facebook.svg";
 
-export default function Footer() {
+type Props = {
+  phone: string;
+  email: string;
+  address: string;
+  instagram: string;
+  facebook: string;
+};
+
+export default function Footer({ phone, email, address, instagram, facebook }: Props) {
+  const phoneClean = phone.replace(/\s/g, "");
+  const phoneHref = phoneClean.startsWith("+") ? `tel:${phoneClean}` : `tel:+${phoneClean}`;
+
   return (
     <footer className="bg-[#fbf8ef]">
       <div className="mx-auto max-w-[1280px] px-4 lg:px-6 pt-12 lg:pt-16 pb-10 flex flex-col gap-12">
@@ -16,10 +27,10 @@ export default function Footer() {
           {/* Info columns */}
           <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center lg:text-left w-full">
             {[
-              { title: "Adresse",                content: <p>Waalsestraat 34,<br />1933 Sterrebeek</p> },
-              { title: "Téléphone",              content: <a href="tel:+32471824764" className="hover:opacity-80">0471 82 47 64</a> },
+              { title: "Adresse", content: <p>{address}</p> },
+              { title: "Téléphone", content: <a href={phoneHref} className="hover:opacity-80">{phone}</a> },
               { title: "Heures d\u2019ouverture", content: <p>Du lundi au vendredi,<br />9h à 18h et le Samedi,<br />9h à 13h</p> },
-              { title: "Email",                  content: <a href="mailto:tarayainstitut@hotmail.com" className="hover:opacity-80 break-all">tarayainstitut@hotmail.com</a> },
+              { title: "Email", content: <a href={`mailto:${email}`} className="hover:opacity-80 break-all">{email}</a> },
             ].map(({ title, content }) => (
               <div key={title} className="flex flex-col gap-2 lg:gap-3 items-center lg:items-start">
                 <p className="font-heading text-[#251d1b] text-[16px] lg:text-[18px] font-bold leading-[1.3]">{title}</p>
@@ -36,18 +47,22 @@ export default function Footer() {
               © {new Date().getFullYear()} Taraya Institut. Tous droits réservés.
             </p>
             <div className="flex items-center gap-4">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-                className="relative size-[24px] overflow-hidden shrink-0 hover:opacity-80 transition-opacity">
-                <div className="absolute inset-[12.5%]">
-                  <img src={imgInstagram} alt="" className="absolute inset-0 w-full h-full object-contain" />
-                </div>
-              </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
-                className="relative size-[24px] overflow-hidden shrink-0 hover:opacity-80 transition-opacity">
-                <div className="absolute inset-[8.33%_33.33%_8.33%_29.17%]">
-                  <img src={imgFacebook} alt="" className="absolute inset-0 w-full h-full object-contain" />
-                </div>
-              </a>
+              {instagram && (
+                <a href={instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+                  className="relative size-[24px] overflow-hidden shrink-0 hover:opacity-80 transition-opacity">
+                  <div className="absolute inset-[12.5%]">
+                    <img src={imgInstagram} alt="" className="absolute inset-0 w-full h-full object-contain" />
+                  </div>
+                </a>
+              )}
+              {facebook && (
+                <a href={facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+                  className="relative size-[24px] overflow-hidden shrink-0 hover:opacity-80 transition-opacity">
+                  <div className="absolute inset-[8.33%_33.33%_8.33%_29.17%]">
+                    <img src={imgFacebook} alt="" className="absolute inset-0 w-full h-full object-contain" />
+                  </div>
+                </a>
+              )}
             </div>
           </div>
         </div>

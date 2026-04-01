@@ -1,9 +1,8 @@
 const imgOrnamentRight = "/images/cta-ornament-right.svg";
 const imgOrnamentLeft  = "/images/cta-ornament-left.svg";
 
-const WHATSAPP_URL = "https://wa.me/0471824764";
-
-export default function CTASection() {
+export default function CTASection({ whatsapp }: { whatsapp: string }) {
+  const WHATSAPP_URL = `https://wa.me/${whatsapp.replace(/\D/g, "")}`;
   return (
     <section className="bg-[#44312b] relative py-16 lg:py-24 overflow-hidden">
       {/* Mobile ornaments — percentage-based per Figma mobile */}
