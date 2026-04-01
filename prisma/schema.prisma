@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+// ─── Auth ────────────────────────────────────────────────────────────────────
+
+enum Role {
+  ADMIN
+  SUPER_ADMIN
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      Role     @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Content ─────────────────────────────────────────────────────────────────
+
+/// Toggleable page sections (hero, about, forwho, pedicure, whyus, partner, cta)
+model ContentBlock {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  label     String
+  content   Json
+  active    Boolean  @default(true)
+  order     Int      @default(0)
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Services ────────────────────────────────────────────────────────────────
+
+model Service {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @db.Text
+  image       String?
+  order       Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ─── Pricing ─────────────────────────────────────────────────────────────────
+
+model PricingCategory {
+  id        String        @id @default(cuid())
+  title     String
+  order     Int           @default(0)
+  active    Boolean       @default(true)
+  items     PricingItem[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model PricingItem {
+  id         String          @id @default(cuid())
+  label      String
+  price      String
+  order      Int             @default(0)
+  category   PricingCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId String
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+}
+
+// ─── Form Submissions ────────────────────────────────────────────────────────
+
+model FormSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  service   String?
+  message   String   @db.Text
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+// ─── Site Settings ───────────────────────────────────────────────────────────
+
+model SiteSetting {
+  key   String @id
+  value String @db.Text
+}

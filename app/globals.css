@@ -1,26 +1,50 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@plugin "flowbite/plugin";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Colors — from Figma design tokens */
+  --color-bg-100: #FBF8EF;
+  --color-text-heading: #251D1B;
+  --color-text-body: #746E6B;
+  --color-primary-400: #CAB3A0;
+  --color-stroke-200: #DAD5CD;
+
+  /* Fonts — mapped from CSS variables set in layout.tsx */
+  --font-heading: var(--font-quattrocento);
+  --font-body: var(--font-questrial);
+
+  /* Typography scale */
+  --text-h2: 48px;
+  --text-h2--line-height: 1.2;
+  --text-h5: 20px;
+  --text-h5--line-height: 1.4;
+  --text-body-s: 16px;
+  --text-body-s--line-height: 1.4;
+  --text-body-s--letter-spacing: 1px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Base styles — inside @layer base so Tailwind utilities can override */
+@layer base {
+  body {
+    background-color: var(--color-bg-100);
+    color: var(--color-text-body);
+    font-family: var(--font-body);
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--color-text-heading);
+  }
+
+  h2 {
+    font-size: var(--text-h2);
+    font-weight: 700;
+    line-height: var(--text-h2--line-height);
+  }
+
+  h5 {
+    font-size: var(--text-h5);
+    font-weight: 700;
+    line-height: var(--text-h5--line-height);
+  }
 }
