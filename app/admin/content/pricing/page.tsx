@@ -3,9 +3,10 @@ import CategoryCard from "./CategoryCard";
 import NewCategoryForm from "./NewCategoryForm";
 
 export default async function PricingPage() {
-  const categories = await db.pricingCategory
+  const categoriesRaw = await db.pricingCategory
     .findMany({ orderBy: { order: "asc" }, include: { items: { orderBy: { order: "asc" } } } })
-    .catch(() => []);
+    .catch(() => null);
+  const categories = categoriesRaw ?? [];
 
   const totalItems = categories.reduce((sum: number, c) => sum + c.items.length, 0);
 
