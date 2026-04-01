@@ -1,19 +1,26 @@
-import type { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
-import CategoryCard from "./CategoryCard";
+import CategoryCard, { type Category } from "./CategoryCard";
 import NewCategoryForm from "./NewCategoryForm";
 
-type CategoryWithItems = Prisma.PricingCategoryGetPayload<{
-  include: { items: true };
-}>;
-
 export default async function PricingPage() {
-  let categories: CategoryWithItems[] = [];
+  let categories: Category[] = [];
   try {
-    categories = await db.pricingCategory.findMany({
+    const rows = await db.pricingCategory.findMany({
       orderBy: { order: "asc" },
       include: { items: { orderBy: { order: "asc" } } },
     });
+    categories = rows.map((r) => ({
+      id: r.id,
+      title: r.title,
+      order: r.order,
+      active: r.active,
+      items: r.items.map((i) => ({
+        id: i.id,
+        label: i.label,
+        price: i.price,
+        order: i.order,
+      })),
+    }));
   } catch {
     // db unavailable — show empty state
   }

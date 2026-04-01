@@ -5,8 +5,8 @@ import { deleteCategory, toggleCategory } from "@/app/actions/pricing";
 import ItemRow from "./ItemRow";
 import NewItemForm from "./NewItemForm";
 
-type Item = { id: string; label: string; price: string; order: number };
-type Category = { id: string; title: string; order: number; active: boolean; items: Item[] };
+export type Item = { id: string; label: string; price: string; order: number };
+export type Category = { id: string; title: string; order: number; active: boolean; items: Item[] };
 
 export default function CategoryCard({ category }: { category: Category }) {
   const [expanded, setExpanded] = useState(true);
