@@ -1,8 +1,15 @@
+import type { SiteSetting } from "@prisma/client";
 import { db } from "@/lib/db";
 import SettingsForm from "./SettingsForm";
 
 export default async function SettingsPage() {
-  const rows = await db.siteSetting.findMany().catch(() => []);
+  let rows: SiteSetting[] = [];
+  try {
+    rows = await db.siteSetting.findMany();
+  } catch {
+    // db unavailable — show empty form
+  }
+
   const settings = Object.fromEntries(rows.map((r) => [r.key, r.value]));
 
   return (

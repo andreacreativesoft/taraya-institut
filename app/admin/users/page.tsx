@@ -1,3 +1,4 @@
+import type { User } from "@prisma/client";
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { deleteUser } from "@/app/actions/users";
@@ -5,7 +6,12 @@ import NewUserForm from "./NewUserForm";
 
 export default async function UsersPage() {
   const session = await getSession();
-  const users = await db.user.findMany({ orderBy: { createdAt: "asc" } }).catch(() => []);
+  let users: User[] = [];
+  try {
+    users = await db.user.findMany({ orderBy: { createdAt: "asc" } });
+  } catch {
+    // db unavailable — show empty state
+  }
 
   const isSuperAdmin = session?.role === "SUPER_ADMIN";
 

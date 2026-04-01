@@ -1,11 +1,22 @@
+import type { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import CategoryCard from "./CategoryCard";
 import NewCategoryForm from "./NewCategoryForm";
 
+type CategoryWithItems = Prisma.PricingCategoryGetPayload<{
+  include: { items: true };
+}>;
+
 export default async function PricingPage() {
-  const categories = await db.pricingCategory
-    .findMany({ orderBy: { order: "asc" }, include: { items: { orderBy: { order: "asc" } } } })
-    .catch(() => [] as { id: string; title: string; active: boolean; order: number; createdAt: Date; updatedAt: Date; items: { id: string; label: string; price: string; order: number; categoryId: string; createdAt: Date; updatedAt: Date }[] }[]);
+  let categories: CategoryWithItems[] = [];
+  try {
+    categories = await db.pricingCategory.findMany({
+      orderBy: { order: "asc" },
+      include: { items: { orderBy: { order: "asc" } } },
+    });
+  } catch {
+    // db unavailable — show empty state
+  }
 
   let totalItems = 0;
   for (const c of categories) totalItems += c.items.length;

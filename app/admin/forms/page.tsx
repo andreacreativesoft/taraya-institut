@@ -1,10 +1,14 @@
+import type { FormSubmission } from "@prisma/client";
 import { db } from "@/lib/db";
 import SubmissionActions from "./MarkReadButton";
 
 export default async function FormsPage() {
-  const submissions = await db.formSubmission
-    .findMany({ orderBy: { createdAt: "desc" } })
-    .catch(() => []);
+  let submissions: FormSubmission[] = [];
+  try {
+    submissions = await db.formSubmission.findMany({ orderBy: { createdAt: "desc" } });
+  } catch {
+    // db unavailable — show empty state
+  }
 
   const unread = submissions.filter((s) => !s.read).length;
 
