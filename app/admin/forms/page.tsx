@@ -1,11 +1,13 @@
-import type { FormSubmission } from "@prisma/client";
 import { db } from "@/lib/db";
 import SubmissionActions from "./MarkReadButton";
 
+type Submission = { id: string; name: string; email: string; phone: string | null; service: string | null; message: string; read: boolean; createdAt: Date };
+
 export default async function FormsPage() {
-  let submissions: FormSubmission[] = [];
+  let submissions: Submission[] = [];
   try {
-    submissions = await db.formSubmission.findMany({ orderBy: { createdAt: "desc" } });
+    const rows = await db.formSubmission.findMany({ orderBy: { createdAt: "desc" } });
+    submissions = rows as unknown as Submission[];
   } catch {
     // db unavailable — show empty state
   }
