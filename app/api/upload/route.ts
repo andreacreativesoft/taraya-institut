@@ -1,6 +1,7 @@
-import { put } from "@vercel/blob";
 import { NextResponse } from "next/server";
 import { requireSession } from "@/lib/auth";
+import { writeFile, mkdir } from "fs/promises";
+import { join } from "path";
 
 const MAX_SIZE = 5 * 1024 * 1024; // 5 MB
 const ALLOWED_TYPES: Record<string, string> = {
@@ -29,8 +30,12 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json({ error: "Format non supporté (JPG, PNG, WebP, GIF uniquement)" }, { status: 400 });
   }
 
-  const filename = `services/${crypto.randomUUID()}.${ext}`;
-  const blob = await put(filename, file, { access: "public" });
+  const filename = `${crypto.randomUUID()}.${ext}`;
+  const uploadDir = join(process.cwd(), "public", "uploads", "services");
+  await mkdir(uploadDir, { recursive: true });
+  const buffer = Buffer.from(await file.arrayBuffer());
+  await writeFile(join(uploadDir, filename), buffer);
 
-  return NextResponse.json({ url: blob.url });
+  const url = `/uploads/services/${filename}`;
+  return NextResponse.json({ url });
 }
