@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
 import { requireSession } from "@/lib/auth";
+import { writeAudit } from "@/lib/audit";
 
 const GTM_RE      = /^GTM-[A-Z0-9]{4,10}$/;
 const FB_PIXEL_RE = /^\d{10,20}$/;
@@ -53,7 +54,7 @@ function sanitizeGtm(value: unknown): string {
 }
 
 export async function saveSetting(key: string, value: string) {
-  await requireSession();
+  const session = await requireSession();
   if (!ALLOWED_KEYS.has(key)) throw new Error("Clé de paramètre invalide");
   const sanitized = sanitizeText(value);
   await db.siteSetting.upsert({
@@ -61,12 +62,13 @@ export async function saveSetting(key: string, value: string) {
     update: { value: sanitized },
     create: { key, value: sanitized },
   });
+  await writeAudit(session, "update", "SiteSetting", key);
   revalidatePath("/admin/settings");
   revalidatePath("/");
 }
 
 export async function saveSettings(_: unknown, formData: FormData): Promise<{ success: boolean; errors?: Record<string, string> }> {
-  await requireSession();
+  const session = await requireSession();
 
   const gtmRaw = sanitizeGtm(formData.get("gtm_id"));
   const gtmInput = sanitizeText(formData.get("gtm_id"), 20);
@@ -104,6 +106,7 @@ export async function saveSettings(_: unknown, formData: FormData): Promise<{ su
     )
   );
 
+  await writeAudit(session, "update", "SiteSettings", "Paramètres du site");
   revalidatePath("/admin/settings");
   revalidatePath("/");
   return { success: true };

@@ -4,12 +4,13 @@ import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
 import { UserSchema } from "@/lib/definitions";
 import { requireSuperAdmin } from "@/lib/auth";
+import { writeAudit } from "@/lib/audit";
 import bcrypt from "bcryptjs";
 
 export type UserState = { errors?: Record<string, string[]>; success?: boolean } | undefined;
 
 export async function createUser(_: UserState, formData: FormData): Promise<UserState> {
-  await requireSuperAdmin();
+  const session = await requireSuperAdmin();
 
   const validated = UserSchema.safeParse({
     name: formData.get("name"),
@@ -24,13 +25,16 @@ export async function createUser(_: UserState, formData: FormData): Promise<User
   if (existing) return { errors: { email: ["Cette adresse email est déjà utilisée"] } };
 
   const hashed = await bcrypt.hash(validated.data.password, 12);
-  await db.user.create({ data: { ...validated.data, password: hashed } });
+  const user = await db.user.create({ data: { ...validated.data, password: hashed } });
+  await writeAudit(session, "create", "User", `${validated.data.name} (${validated.data.email})`, user.id);
   revalidatePath("/admin/users");
   return { success: true };
 }
 
 export async function deleteUser(id: string) {
-  await requireSuperAdmin();
+  const session = await requireSuperAdmin();
+  const user = await db.user.findUnique({ where: { id }, select: { name: true, email: true } });
   await db.user.delete({ where: { id } });
+  await writeAudit(session, "delete", "User", user ? `${user.name} (${user.email})` : id, id);
   revalidatePath("/admin/users");
 }

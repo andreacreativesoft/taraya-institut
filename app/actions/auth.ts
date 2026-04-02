@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { createSession, destroySession } from "@/lib/auth";
 import { LoginSchema, type LoginState } from "@/lib/definitions";
 import { checkRateLimit, resetRateLimit } from "@/lib/ratelimit";
+import { writeAudit } from "@/lib/audit";
 
 export async function login(state: LoginState, formData: FormData): Promise<LoginState> {
   const validated = LoginSchema.safeParse({
@@ -37,12 +38,9 @@ export async function login(state: LoginState, formData: FormData): Promise<Logi
 
   resetRateLimit(email.toLowerCase());
 
-  await createSession({
-    userId: user.id,
-    role: user.role,
-    name: user.name,
-    email: user.email,
-  });
+  const sessionPayload = { userId: user.id, role: user.role, name: user.name, email: user.email };
+  await createSession(sessionPayload);
+  await writeAudit(sessionPayload, "login", "User", user.name, user.id);
 
   redirect("/admin");
 }

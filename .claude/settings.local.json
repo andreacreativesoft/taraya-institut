@@ -52,7 +52,8 @@
       "WebFetch(domain:taraya-institut.vercel.app)",
       "Bash(git commit:*)",
       "Bash(yet\" messages, served no purpose\\):*)",
-      "Bash(du -sh /c/laragon/www/taraya-institut/public/images/*.jpg)"
+      "Bash(du -sh /c/laragon/www/taraya-institut/public/images/*.jpg)",
+      "Bash(git add:*)"
     ]
   }
 }
