@@ -20,7 +20,7 @@ export default function HeroSection({ whatsapp }: { whatsapp: string }) {
         <div className="absolute inset-0 pointer-events-none">
           <Image src="/images/hero-bg.jpg"
             alt="Femme recevant un massage du visage dans un cadre chaleureux avec bougies — institut de beauté Taraya"
-            fill priority className="object-cover object-center" sizes="100vw" />
+            fill fetchPriority="high" loading="eager" className="object-cover object-center" sizes="100vw" />
         </div>
 
         {/* Navbar */}
