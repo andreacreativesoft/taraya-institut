@@ -63,7 +63,7 @@ export default function HeroSection({ whatsapp }: { whatsapp: string }) {
         <div className="relative z-10 flex-1 flex flex-col items-center justify-end lg:justify-center px-4 lg:px-6 pb-8 lg:pb-10 gap-1 lg:gap-0">
           <div className="flex flex-col gap-6 lg:gap-8 items-center text-center text-white w-full">
             <div className="flex flex-col gap-6 items-center">
-              <h1 className="font-heading font-bold text-white text-[42px] lg:text-[64px] leading-none max-w-[980px]">
+              <h1 className="font-heading font-bold text-white text-[41px] lg:text-[63px] leading-none max-w-[980px]">
                 {`Un institut de beauté dédié `}<br />à votre bien-être
               </h1>
               <p className="font-body text-white text-[16px] lg:text-[20px] leading-[1.4] max-w-[844px]">
