@@ -143,13 +143,13 @@ export default function ServiceRow({ service }: { service: Service }) {
       {editing && <EditModal service={service} onClose={() => setEditing(false)} />}
       <tr ref={setNodeRef} style={style} className="hover:bg-[#fbf8ef]/50 transition-colors">
         {/* Drag handle */}
-        <td className="pl-3 pr-0 lg:pr-1 py-4">
+        <td className="pl-2 pr-0 py-4">
           <span {...attributes} {...listeners}
             className="cursor-grab active:cursor-grabbing text-[#cab3a0] hover:text-[#746e6b] text-[18px] select-none block leading-none">
             ⠿
           </span>
         </td>
-        <td className="pl-2 pr-3 lg:px-5 py-4">
+        <td className="px-2 lg:px-5 py-4">
           <div className="flex items-center gap-2 lg:gap-3">
             <img src={service.image || getAutoImage(service.title)} alt={service.title}
               className="w-10 h-10 rounded-lg object-cover border border-[#dad5cd] shrink-0" />
