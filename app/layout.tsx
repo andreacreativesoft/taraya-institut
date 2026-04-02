@@ -4,6 +4,15 @@ import Script from "next/script";
 import { getSettings } from "@/lib/settings";
 import "./globals.css";
 
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  return {
+    title: settings.meta_title || "Taraya Institut — Beauté & Bien-être",
+    description: settings.meta_description || "Institut de beauté et bien-être pour femmes. Soins du visage, soins du corps, épilation et plus encore.",
+    icons: { icon: "/icon.svg", apple: "/icon.svg" },
+  };
+}
+
 const quattrocento = Quattrocento({
   variable: "--font-quattrocento",
   subsets: ["latin"],
@@ -15,16 +24,6 @@ const questrial = Questrial({
   subsets: ["latin"],
   weight: "400",
 });
-
-export const metadata: Metadata = {
-  title: "Taraya Institut — Beauté & Bien-être",
-  description:
-    "Institut de beauté et bien-être pour femmes. Soins du visage, soins du corps, épilation et plus encore.",
-  icons: {
-    icon: "/icon.svg",
-    apple: "/icon.svg",
-  },
-};
 
 export default async function RootLayout({
   children,
