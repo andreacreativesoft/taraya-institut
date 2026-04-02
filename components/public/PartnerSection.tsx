@@ -7,7 +7,7 @@ export default function PartnerSection() {
       <div className="mx-auto max-w-[1280px] px-4 lg:px-6 flex flex-col lg:flex-row gap-8 lg:gap-16 items-start lg:items-center">
         {/* Desktop image — left column */}
         <div className="hidden lg:block flex-1 h-[674px] min-w-0 relative rounded-lg overflow-hidden shrink-0">
-          <img src={imgPhyts} alt="Produits Phyt's" className="absolute inset-0 w-full h-full object-cover rounded-lg" />
+          <img src={imgPhyts} alt="Gamme de produits Phyt's bio — crème revitalisante, gommage et hydrolé eucalyptus utilisés chez Taraya Institut" className="absolute inset-0 w-full h-full object-cover rounded-lg" />
         </div>
         <div className="flex-1 min-w-0 flex flex-col gap-8">
           <div className="flex flex-col gap-4">

@@ -56,6 +56,7 @@ CREATE TABLE `Service` (
   `title`       VARCHAR(191) NOT NULL,
   `description` TEXT         NOT NULL,
   `image`       VARCHAR(191)     NULL,
+  `imageAlt`    VARCHAR(200)     NULL,
   `order`       INTEGER      NOT NULL DEFAULT 0,
   `active`      BOOLEAN      NOT NULL DEFAULT true,
   `createdAt`   DATETIME(3)  NOT NULL DEFAULT CURRENT_TIMESTAMP(3),

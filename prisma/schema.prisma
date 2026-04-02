@@ -43,6 +43,7 @@ model Service {
   title       String
   description String   @db.Text
   image       String?
+  imageAlt    String?
   order       Int      @default(0)
   active      Boolean  @default(true)
   createdAt   DateTime @default(now())

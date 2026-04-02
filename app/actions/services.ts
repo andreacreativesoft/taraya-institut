@@ -12,6 +12,7 @@ export async function createService(_: ServiceState, formData: FormData): Promis
     title: formData.get("title"),
     description: formData.get("description"),
     image: formData.get("image") || undefined,
+    imageAlt: formData.get("imageAlt") || undefined,
     order: 0,
     active: true,
   });
@@ -32,6 +33,7 @@ export async function updateService(id: string, _: ServiceState, formData: FormD
     title: formData.get("title"),
     description: formData.get("description"),
     image: formData.get("image") || undefined,
+    imageAlt: formData.get("imageAlt") || undefined,
     order: 0,
     active: true,
   });

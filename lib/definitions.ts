@@ -9,6 +9,7 @@ export const ServiceSchema = z.object({
   title: z.string().min(1, { message: "Titre requis" }),
   description: z.string().min(1, { message: "Description requise" }),
   image: z.string().optional(),
+  imageAlt: z.string().max(125).optional(),
   order: z.coerce.number().default(0),
   active: z.coerce.boolean().default(true),
 });

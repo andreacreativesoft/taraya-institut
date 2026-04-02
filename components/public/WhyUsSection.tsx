@@ -22,7 +22,7 @@ export default function WhyUsSection() {
       {/* Mobile-only image — Figma: w-[343px] h-[400px] */}
       <div className="lg:hidden flex justify-center px-4 pt-8">
         <div className="w-[343px] h-[400px] relative rounded-lg overflow-hidden">
-          <img src={imgPhoto4} alt="Espace manucure de l'institut Taraya" className="absolute inset-0 w-full h-full object-cover rounded-lg" />
+          <img src={imgPhoto4} alt="Espace de travail soigné chez Taraya Institut — bureau manucure, fauteuil en velours et décoration murale en bois" className="absolute inset-0 w-full h-full object-cover rounded-lg" />
         </div>
       </div>
       <div className="mx-auto max-w-[1280px] px-4 lg:px-6 py-8 lg:pt-[88px] flex flex-col lg:flex-row gap-8 lg:gap-16 items-start lg:items-center">
@@ -51,7 +51,7 @@ export default function WhyUsSection() {
           <img src={imgPhoto1} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover rounded-lg" />
           <img src={imgPhoto2} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover rounded-lg" />
           <img src={imgPhoto3} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover rounded-lg" />
-          <img src={imgPhoto4} alt="Espace manucure de l'institut Taraya" className="absolute inset-0 w-full h-full object-cover rounded-lg" />
+          <img src={imgPhoto4} alt="Espace de travail soigné chez Taraya Institut — bureau manucure, fauteuil en velours et décoration murale en bois" className="absolute inset-0 w-full h-full object-cover rounded-lg" />
         </div>
       </div>
     </section>

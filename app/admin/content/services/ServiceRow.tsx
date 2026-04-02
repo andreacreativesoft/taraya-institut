@@ -10,6 +10,7 @@ export type Service = {
   title: string;
   description: string;
   image: string | null;
+  imageAlt: string | null;
   active: boolean;
   order: number;
 };
@@ -123,6 +124,14 @@ function EditModal({ service, onClose }: { service: Service; onClose: () => void
             <label className="font-body text-[#251d1b] text-[13px] font-medium">Description *</label>
             <textarea name="description" required rows={3} defaultValue={service.description}
               className="border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b] focus:outline-none focus:border-[#cab3a0] focus:ring-2 focus:ring-[#cab3a0]/20 resize-none" />
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label className="font-body text-[#251d1b] text-[13px] font-medium">Texte alternatif image (SEO)</label>
+            <input name="imageAlt" defaultValue={service.imageAlt ?? ""} maxLength={125}
+              placeholder={`${service.title} — Taraya Institut`}
+              className="border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b] focus:outline-none focus:border-[#cab3a0] focus:ring-2 focus:ring-[#cab3a0]/20" />
+            <p className="font-body text-[#746e6b] text-[11px]">Décrit l'image pour les moteurs de recherche. Max 125 caractères.</p>
           </div>
 
           <div className="flex justify-end gap-3 pt-1">

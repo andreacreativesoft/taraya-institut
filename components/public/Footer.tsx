@@ -24,7 +24,7 @@ export default function Footer({ phone, email, address, instagram, facebook }: P
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-16">
           {/* Logo */}
           <Link href="/" aria-label="Taraya Institut — Accueil" className="shrink-0" style={{ width: "213px", height: "109.508px", display: "block" }}>
-            <img src={imgLogo} alt="Taraya Institut" className="w-full h-full object-contain object-left" />
+            <img src={imgLogo} alt="Taraya Institut — institut de beauté à Sterrebeek" className="w-full h-full object-contain object-left" />
           </Link>
           {/* Info columns */}
           <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center lg:text-left w-full">
@@ -50,18 +50,18 @@ export default function Footer({ phone, email, address, instagram, facebook }: P
             </p>
             <div className="flex items-center gap-4">
               {instagram && (
-                <a href={instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+                <a href={instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram Taraya Institut"
                   className="relative size-[24px] overflow-hidden shrink-0 hover:opacity-80 transition-opacity">
                   <div className="absolute inset-[12.5%]">
-                    <img src={imgInstagram} alt="" className="absolute inset-0 w-full h-full object-contain" />
+                    <img src={imgInstagram} alt="Instagram Taraya Institut" className="absolute inset-0 w-full h-full object-contain" />
                   </div>
                 </a>
               )}
               {facebook && (
-                <a href={facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+                <a href={facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook Taraya Institut"
                   className="relative size-[24px] overflow-hidden shrink-0 hover:opacity-80 transition-opacity">
                   <div className="absolute inset-[8.33%_33.33%_8.33%_29.17%]">
-                    <img src={imgFacebook} alt="" className="absolute inset-0 w-full h-full object-contain" />
+                    <img src={imgFacebook} alt="Facebook Taraya Institut" className="absolute inset-0 w-full h-full object-contain" />
                   </div>
                 </a>
               )}

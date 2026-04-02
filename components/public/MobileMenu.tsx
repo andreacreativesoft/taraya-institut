@@ -19,7 +19,7 @@ export default function MobileMenu({ onClose }: { onClose: () => void }) {
       {/* Navbar row */}
       <div className="flex items-center justify-between px-4 py-6 border-b border-[#746e6b]">
         <Link href="/" onClick={onClose} aria-label="Taraya Institut — Accueil">
-          <img src={imgLogo} alt="Taraya Institut" className="w-[190px] h-[25px] object-contain" />
+          <img src={imgLogo} alt="Taraya Institut — logo institut de beauté et bien-être" className="w-[190px] h-[25px] object-contain" />
         </Link>
         <button onClick={onClose} aria-label="Fermer le menu" className="text-white p-1">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">

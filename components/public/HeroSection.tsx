@@ -18,8 +18,9 @@ export default function HeroSection({ whatsapp }: { whatsapp: string }) {
 
       <section className="relative w-full min-h-[70svh] lg:min-h-[70vh] flex flex-col overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <Image src="/images/hero-bg.jpg" alt="" fill priority
-            className="object-cover object-center" sizes="100vw" />
+          <Image src="/images/hero-bg.jpg"
+            alt="Femme recevant un massage du visage dans un cadre chaleureux avec bougies — institut de beauté Taraya"
+            fill priority className="object-cover object-center" sizes="100vw" />
         </div>
 
         {/* Navbar */}
@@ -37,7 +38,7 @@ export default function HeroSection({ whatsapp }: { whatsapp: string }) {
             </div>
             {/* Logo */}
             <Link href="/" aria-label="Taraya Institut — Accueil">
-              <img src={imgLogo} alt="Taraya Institut" className="w-[190px] lg:w-[337px] h-[25px] lg:h-[44px] object-contain shrink-0" />
+              <img src={imgLogo} alt="Taraya Institut — logo institut de beauté et bien-être" className="w-[190px] lg:w-[337px] h-[25px] lg:h-[44px] object-contain shrink-0" />
             </Link>
             {/* Desktop: WhatsApp | Mobile: hamburger */}
             <div className="flex items-center gap-4 lg:flex-1 lg:justify-end">

@@ -18,14 +18,15 @@ function getServiceImage(title: string): string {
   return imgBase;
 }
 
-type ServiceData = { id: string; title: string; description: string; image?: string | null };
+type ServiceData = { id: string; title: string; description: string; image?: string | null; imageAlt?: string | null };
 
-function ServiceCard({ title, description, image }: Omit<ServiceData, "id">) {
+function ServiceCard({ title, description, image, imageAlt }: Omit<ServiceData, "id">) {
   const img = image || getServiceImage(title);
+  const alt = imageAlt || `${title} — Taraya Institut`;
   return (
     <div className="bg-[#fbf8ef] border border-[#dad5cd] rounded-lg p-6 flex flex-col gap-4 w-full">
       <div className="relative h-[207px] rounded overflow-hidden bg-[#e5e7eb]">
-        <img src={img} alt={title} className="absolute inset-0 w-full h-full object-cover rounded" />
+        <img src={img} alt={alt} className="absolute inset-0 w-full h-full object-cover rounded" />
       </div>
       <h3 className="font-heading text-[#251d1b] text-[24px] font-bold leading-[1.2]">{title}</h3>
       <p className="font-body text-[#736a66] text-[16px] leading-[1.4] tracking-[0.16px]">{description}</p>
@@ -60,19 +61,19 @@ export default async function ServicesSection() {
 
         {/* Mobile: 1 col | Tablet: 2 cols */}
         <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-4">
-          {services.map(s => <ServiceCard key={s.id} title={s.title} description={s.description} image={s.image} />)}
+          {services.map(s => <ServiceCard key={s.id} title={s.title} description={s.description} image={s.image} imageAlt={s.imageAlt} />)}
         </div>
 
         {/* Desktop: row of 3 + row of 2 centered */}
         <div className="hidden lg:flex flex-col gap-8">
           <div className="flex gap-8">
-            {services.slice(0, 3).map(s => <ServiceCard key={s.id} title={s.title} description={s.description} image={s.image} />)}
+            {services.slice(0, 3).map(s => <ServiceCard key={s.id} title={s.title} description={s.description} image={s.image} imageAlt={s.imageAlt} />)}
           </div>
           {services.length > 3 && (
             <div className="flex gap-8 justify-center">
               {services.slice(3).map(s => (
                 <div key={s.id} className="w-[405px]">
-                  <ServiceCard title={s.title} description={s.description} image={s.image} />
+                  <ServiceCard title={s.title} description={s.description} image={s.image} imageAlt={s.imageAlt} />
                 </div>
               ))}
             </div>

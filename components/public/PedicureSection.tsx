@@ -14,9 +14,9 @@ export default function PedicureSection() {
       <div className="mx-auto max-w-[1280px] px-4 lg:px-6 py-8 lg:py-0 flex flex-col lg:flex-row gap-8 lg:gap-16 items-start lg:items-center lg:pb-22">
         {/* Desktop image — left column */}
         <div className="hidden lg:block flex-1 h-[674px] rounded-lg overflow-hidden shrink-0 relative">
-          <div aria-hidden="true" className="absolute inset-0 pointer-events-none rounded-lg">
+          <div className="absolute inset-0 pointer-events-none rounded-lg">
             <img src={imgPedicure}  alt="" className="absolute max-w-none object-cover rounded-lg size-full" />
-            <img src={imgPedicure2} alt="Soin pédicure à l'institut Taraya" className="absolute max-w-none object-cover rounded-lg size-full" />
+            <img src={imgPedicure2} alt="Bain de pieds dans un bassin en céramique avec pierres décoratives — pédicure esthétique et médicale Taraya" className="absolute max-w-none object-cover rounded-lg size-full" />
           </div>
         </div>
         {/* Text + features */}
@@ -47,9 +47,9 @@ export default function PedicureSection() {
       {/* Mobile-only image — Figma: w-[343px] h-[400px] */}
       <div className="lg:hidden flex justify-center px-4 pb-8">
         <div className="w-[343px] h-[400px] rounded-lg overflow-hidden relative">
-          <div aria-hidden="true" className="absolute inset-0 pointer-events-none rounded-lg">
+          <div className="absolute inset-0 pointer-events-none rounded-lg">
             <img src={imgPedicure}  alt="" className="absolute max-w-none object-cover rounded-lg size-full" />
-            <img src={imgPedicure2} alt="Soin pédicure à l'institut Taraya" className="absolute max-w-none object-cover rounded-lg size-full" />
+            <img src={imgPedicure2} alt="Bain de pieds dans un bassin en céramique avec pierres décoratives — pédicure esthétique et médicale Taraya" className="absolute max-w-none object-cover rounded-lg size-full" />
           </div>
         </div>
       </div>
