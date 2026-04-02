@@ -1,13 +1,15 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { createCategory } from "@/app/actions/pricing";
 
 export default function NewCategoryForm() {
   const [state, action, pending] = useActionState(createCategory, undefined);
+  const formRef = useRef<HTMLFormElement>(null);
+  useEffect(() => { if (state?.success) formRef.current?.reset(); }, [state?.success]);
 
   return (
-    <form action={action} className="flex flex-col gap-4">
+    <form ref={formRef} action={action} className="flex flex-col gap-4">
       <div className="flex flex-col gap-1.5">
         <label className="font-body text-[#251d1b] text-[13px] font-medium">Titre *</label>
         <input name="title" required placeholder="Ex: Soins visage Phyt's"

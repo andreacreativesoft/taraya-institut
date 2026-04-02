@@ -46,6 +46,10 @@ export async function updateService(id: string, _: ServiceState, formData: FormD
   return { success: true };
 }
 
+export async function saveService(id: string, formData: FormData): Promise<ServiceState> {
+  return updateService(id, undefined, formData);
+}
+
 export async function deleteService(id: string) {
   await requireSession();
   await db.service.delete({ where: { id } });
@@ -62,7 +66,7 @@ export async function toggleService(id: string, active: boolean) {
 
 export async function reorderServices(ids: string[]) {
   await requireSession();
-  await Promise.all(ids.map((id, index) =>
+  await db.$transaction(ids.map((id, index) =>
     db.service.update({ where: { id }, data: { order: index } })
   ));
   revalidatePath("/admin/content/services");

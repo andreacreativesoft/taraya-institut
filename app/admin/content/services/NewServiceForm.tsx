@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useRef, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { createService } from "@/app/actions/services";
 
 export default function NewServiceForm() {
@@ -9,6 +9,10 @@ export default function NewServiceForm() {
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  useEffect(() => {
+    if (state?.success) { formRef.current?.reset(); setPreview(""); setImageUrl(""); }
+  }, [state?.success]);
 
   async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -27,7 +31,7 @@ export default function NewServiceForm() {
   }
 
   return (
-    <form action={action} className="flex flex-col gap-4">
+    <form ref={formRef} action={action} className="flex flex-col gap-4">
       <input type="hidden" name="image" value={imageUrl} />
 
       <div className="flex flex-col gap-1.5">

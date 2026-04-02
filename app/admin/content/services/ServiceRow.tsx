@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { deleteService, toggleService, updateService } from "@/app/actions/services";
+import { deleteService, saveService, toggleService } from "@/app/actions/services";
 
 export type Service = {
   id: string;
@@ -58,7 +58,7 @@ function EditModal({ service, onClose }: { service: Service; onClose: () => void
     setSaving(true);
     const fd = new FormData(e.currentTarget);
     fd.set("image", imageUrl);
-    await updateService(service.id, undefined, fd);
+    await saveService(service.id, fd);
     setSaving(false);
     onClose();
   }

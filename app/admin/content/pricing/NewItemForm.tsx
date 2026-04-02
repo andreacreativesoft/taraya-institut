@@ -1,13 +1,15 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { createItem } from "@/app/actions/pricing";
 
 export default function NewItemForm({ categoryId }: { categoryId: string }) {
   const [state, action, pending] = useActionState(createItem, undefined);
+  const formRef = useRef<HTMLFormElement>(null);
+  useEffect(() => { if (state?.success) formRef.current?.reset(); }, [state?.success]);
 
   return (
-    <form action={action} className="flex flex-col gap-3 pt-3 border-t border-[#dad5cd]">
+    <form ref={formRef} action={action} className="flex flex-col gap-3 pt-3 border-t border-[#dad5cd]">
       <input type="hidden" name="categoryId" value={categoryId} />
       <input type="hidden" name="order" value={0} />
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">

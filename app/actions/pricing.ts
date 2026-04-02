@@ -52,7 +52,7 @@ export async function toggleCategory(id: string, active: boolean) {
 
 export async function reorderCategories(ids: string[]) {
   await requireSession();
-  await Promise.all(ids.map((id, index) =>
+  await db.$transaction(ids.map((id, index) =>
     db.pricingCategory.update({ where: { id }, data: { order: index } })
   ));
   revalidatePath("/admin/content/pricing");
@@ -102,7 +102,7 @@ export async function deleteItem(id: string) {
 
 export async function reorderItems(ids: string[]) {
   await requireSession();
-  await Promise.all(ids.map((id, index) =>
+  await db.$transaction(ids.map((id, index) =>
     db.pricingItem.update({ where: { id }, data: { order: index } })
   ));
   revalidatePath("/admin/content/pricing");

@@ -12,6 +12,7 @@ export type SiteSettings = {
   meta_title: string;
   meta_description: string;
   gtm_id: string;
+  facebook_pixel_id: string;
 };
 
 const defaults: SiteSettings = {
@@ -26,6 +27,7 @@ const defaults: SiteSettings = {
   meta_title: "Taraya Institut – Soins beauté",
   meta_description: "Institut de beauté certifié Phyt's. Soins visage, massages, épilations et plus.",
   gtm_id: "",
+  facebook_pixel_id: "",
 };
 
 export async function getSettings(): Promise<SiteSettings> {
