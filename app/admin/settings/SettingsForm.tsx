@@ -133,6 +133,9 @@ export default function SettingsForm({ settings }: { settings: Settings }) {
       {state?.success && (
         <p className="text-green-600 font-body text-[13px]">✓ Paramètres enregistrés avec succès</p>
       )}
+      {state?.errors?.form && (
+        <p className="text-red-500 font-body text-[13px] bg-red-50 border border-red-200 rounded-lg px-4 py-3">{state.errors.form}</p>
+      )}
 
       <div className="flex justify-end">
         <button type="submit" disabled={pending}

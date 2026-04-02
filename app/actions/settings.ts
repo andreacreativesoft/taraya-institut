@@ -68,46 +68,49 @@ export async function saveSetting(key: string, value: string) {
 }
 
 export async function saveSettings(_: unknown, formData: FormData): Promise<{ success: boolean; errors?: Record<string, string> }> {
-  const session = await requireSession();
+  try {
+    const session = await requireSession();
 
-  const gtmRaw = sanitizeGtm(formData.get("gtm_id"));
-  const gtmInput = sanitizeText(formData.get("gtm_id"), 20);
+    const gtmRaw = sanitizeGtm(formData.get("gtm_id"));
+    const gtmInput = sanitizeText(formData.get("gtm_id"), 20);
 
-  const fbPixelRaw = sanitizeText(formData.get("facebook_pixel_id"), 20).replace(/\s/g, "");
-  const fbPixelInput = fbPixelRaw;
+    const fbPixelRaw = sanitizeText(formData.get("facebook_pixel_id"), 20).replace(/\s/g, "");
+    const fbPixelInput = fbPixelRaw;
 
-  const errors: Record<string, string> = {};
-  if (gtmInput && !gtmRaw) errors.gtm_id = "Format invalide. Exemple : GTM-XXXXXXX";
-  if (fbPixelInput && !FB_PIXEL_RE.test(fbPixelInput)) errors.facebook_pixel_id = "Format invalide. Le Pixel ID est un nombre de 10 à 20 chiffres.";
-  if (Object.keys(errors).length > 0) return { success: false, errors };
+    const errors: Record<string, string> = {};
+    if (gtmInput && !gtmRaw) errors.gtm_id = "Format invalide. Exemple : GTM-XXXXXXX";
+    if (fbPixelInput && !FB_PIXEL_RE.test(fbPixelInput)) errors.facebook_pixel_id = "Format invalide. Le Pixel ID est un nombre de 10 à 20 chiffres.";
+    if (Object.keys(errors).length > 0) return { success: false, errors };
 
-  const fieldMap: Record<string, string> = {
-    phone:              sanitizePhone(formData.get("phone")),
-    whatsapp:           sanitizePhone(formData.get("whatsapp")),
-    email:              sanitizeEmail(formData.get("email")),
-    address:            sanitizeText(formData.get("address"), 300),
-    instagram:          sanitizeUrl(formData.get("instagram")),
-    facebook:           sanitizeUrl(formData.get("facebook")),
-    hero_title:         sanitizeText(formData.get("hero_title")),
-    hero_subtitle:      sanitizeText(formData.get("hero_subtitle")),
-    meta_title:         sanitizeText(formData.get("meta_title"), 100),
-    meta_description:   sanitizeText(formData.get("meta_description"), 300),
-    gtm_id:             gtmRaw,
-    facebook_pixel_id:  FB_PIXEL_RE.test(fbPixelInput) ? fbPixelInput : "",
-  };
+    const fieldMap: Record<string, string> = {
+      phone:              sanitizePhone(formData.get("phone")),
+      whatsapp:           sanitizePhone(formData.get("whatsapp")),
+      email:              sanitizeEmail(formData.get("email")),
+      address:            sanitizeText(formData.get("address"), 300),
+      instagram:          sanitizeUrl(formData.get("instagram")),
+      facebook:           sanitizeUrl(formData.get("facebook")),
+      hero_title:         sanitizeText(formData.get("hero_title")),
+      hero_subtitle:      sanitizeText(formData.get("hero_subtitle")),
+      meta_title:         sanitizeText(formData.get("meta_title"), 100),
+      meta_description:   sanitizeText(formData.get("meta_description"), 300),
+      gtm_id:             gtmRaw,
+      facebook_pixel_id:  FB_PIXEL_RE.test(fbPixelInput) ? fbPixelInput : "",
+    };
 
-  await Promise.all(
-    Object.entries(fieldMap).map(([key, value]) =>
-      db.siteSetting.upsert({
+    for (const [key, value] of Object.entries(fieldMap)) {
+      await db.siteSetting.upsert({
         where: { key },
         update: { value },
         create: { key, value },
-      })
-    )
-  );
+      });
+    }
 
-  await writeAudit(session, "update", "SiteSettings", "Paramètres du site");
-  revalidatePath("/admin/settings");
-  revalidatePath("/");
-  return { success: true };
+    await writeAudit(session, "update", "SiteSettings", "Paramètres du site");
+    revalidatePath("/admin/settings");
+    revalidatePath("/");
+    return { success: true };
+  } catch (err) {
+    console.error("[saveSettings] error:", err);
+    return { success: false, errors: { form: "Une erreur s'est produite lors de l'enregistrement. Veuillez réessayer." } };
+  }
 }
