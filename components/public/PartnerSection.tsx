@@ -14,7 +14,7 @@ export default function PartnerSection() {
         </div>
         <div className="flex-1 min-w-0 flex flex-col gap-8">
           {/* Mobile image */}
-          <div className="lg:hidden w-full h-[280px] relative rounded-lg overflow-hidden">
+          <div className="lg:hidden w-full h-[380px] relative rounded-lg overflow-hidden">
             <Image src={imgPhyts} alt="Gamme de produits Phyt's bio — crème revitalisante, gommage et hydrolé eucalyptus utilisés chez Taraya Institut"
               fill className="object-cover rounded-lg" sizes="calc(100vw - 32px)" />
           </div>
