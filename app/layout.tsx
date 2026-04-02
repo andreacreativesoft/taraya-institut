@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   title: "Taraya Institut — Beauté & Bien-être",
   description:
     "Institut de beauté et bien-être pour femmes. Soins du visage, soins du corps, épilation et plus encore.",
+  icons: {
+    apple: "/images/logo.svg",
+  },
 };
 
 export default async function RootLayout({

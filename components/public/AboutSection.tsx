@@ -25,7 +25,7 @@ export default function AboutSection() {
           <Image src={imgPhoto} alt="Cabine de soins Taraya Institut avec lit de massage, produits de beauté et équipement professionnel"
             fill className="object-cover rounded-lg" sizes="(max-width: 1280px) 50vw, 608px" />
           <div className="absolute inset-0 overflow-hidden rounded-lg">
-            <img src={imgPhoto2} alt="" aria-hidden="true"
+            <img src={imgPhoto2} alt="" aria-hidden="true" loading="lazy"
               className="absolute h-full max-w-none object-cover rounded-lg"
               style={{ left: "-0.07%", top: "-0.01%", width: "116.01%" }} />
           </div>
@@ -37,7 +37,7 @@ export default function AboutSection() {
           <Image src={imgPhoto} alt="Cabine de soins Taraya Institut avec lit de massage, produits de beauté et équipement professionnel"
             fill className="object-cover rounded-lg" sizes="343px" />
           <div className="absolute inset-0 overflow-hidden rounded-lg">
-            <img src={imgPhoto2} alt="" aria-hidden="true"
+            <img src={imgPhoto2} alt="" aria-hidden="true" loading="lazy"
               className="absolute h-full max-w-none object-cover rounded-lg"
               style={{ left: "-0.07%", top: "-0.01%", width: "116.01%" }} />
           </div>

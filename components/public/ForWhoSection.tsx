@@ -21,7 +21,7 @@ export default function ForWhoSection() {
           <Image src={imgPhoto} alt="Esthéticienne versant une huile essentielle pour un massage corporel relaxant chez Taraya"
             fill className="object-cover rounded-lg" sizes="(max-width: 1280px) 50vw, 608px" />
           <div className="absolute inset-0 overflow-hidden rounded-lg">
-            <img src={imgPhoto2} alt="" aria-hidden="true"
+            <img src={imgPhoto2} alt="" aria-hidden="true" loading="lazy"
               className="absolute max-w-none object-cover rounded-lg"
               style={{ height: "122.66%", top: "-15.34%", left: "-0.17%", width: "100.11%" }} />
           </div>
@@ -59,7 +59,7 @@ export default function ForWhoSection() {
           <Image src={imgPhoto} alt="Esthéticienne versant une huile essentielle pour un massage corporel relaxant chez Taraya"
             fill className="object-cover rounded-lg" sizes="343px" />
           <div className="absolute inset-0 overflow-hidden rounded-lg">
-            <img src={imgPhoto2} alt="" aria-hidden="true"
+            <img src={imgPhoto2} alt="" aria-hidden="true" loading="lazy"
               className="absolute max-w-none object-cover rounded-lg"
               style={{ height: "122.66%", top: "-15.34%", left: "-0.17%", width: "100.11%" }} />
           </div>

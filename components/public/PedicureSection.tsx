@@ -17,7 +17,7 @@ export default function PedicureSection() {
         {/* Desktop image — left column */}
         <div className="hidden lg:block flex-1 h-[674px] rounded-lg overflow-hidden shrink-0 relative">
           <div className="absolute inset-0 pointer-events-none rounded-lg">
-            <img src={imgPedicure} alt="" aria-hidden="true" className="absolute max-w-none object-cover rounded-lg size-full" />
+            <img src={imgPedicure} alt="" aria-hidden="true" loading="lazy" className="absolute max-w-none object-cover rounded-lg size-full" />
             <Image src={imgPedicure2} alt="Bain de pieds dans un bassin en céramique avec pierres décoratives — pédicure esthétique et médicale Taraya"
               fill className="object-cover rounded-lg" sizes="(max-width: 1280px) 50vw, 608px" />
           </div>
@@ -51,7 +51,7 @@ export default function PedicureSection() {
       <div className="lg:hidden flex justify-center px-4 pb-8">
         <div className="w-[343px] h-[400px] rounded-lg overflow-hidden relative">
           <div className="absolute inset-0 pointer-events-none rounded-lg">
-            <img src={imgPedicure} alt="" aria-hidden="true" className="absolute max-w-none object-cover rounded-lg size-full" />
+            <img src={imgPedicure} alt="" aria-hidden="true" loading="lazy" className="absolute max-w-none object-cover rounded-lg size-full" />
             <Image src={imgPedicure2} alt="Bain de pieds dans un bassin en céramique avec pierres décoratives — pédicure esthétique et médicale Taraya"
               fill className="object-cover rounded-lg" sizes="343px" />
           </div>
