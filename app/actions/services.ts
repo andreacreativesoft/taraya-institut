@@ -12,15 +12,14 @@ export async function createService(_: ServiceState, formData: FormData): Promis
     title: formData.get("title"),
     description: formData.get("description"),
     image: formData.get("image") || undefined,
-    order: formData.get("order"),
-    active: formData.get("active") === "on",
+    order: 0,
+    active: true,
   });
 
-  if (!validated.success) {
-    return { errors: validated.error.flatten().fieldErrors };
-  }
+  if (!validated.success) return { errors: validated.error.flatten().fieldErrors };
 
-  await db.service.create({ data: validated.data });
+  const count = await db.service.count();
+  await db.service.create({ data: { ...validated.data, order: count } });
   revalidatePath("/admin/content/services");
   revalidatePath("/");
   return { success: true };
@@ -33,13 +32,11 @@ export async function updateService(id: string, _: ServiceState, formData: FormD
     title: formData.get("title"),
     description: formData.get("description"),
     image: formData.get("image") || undefined,
-    order: formData.get("order"),
-    active: formData.get("active") === "on",
+    order: 0,
+    active: true,
   });
 
-  if (!validated.success) {
-    return { errors: validated.error.flatten().fieldErrors };
-  }
+  if (!validated.success) return { errors: validated.error.flatten().fieldErrors };
 
   await db.service.update({ where: { id }, data: validated.data });
   revalidatePath("/admin/content/services");
@@ -57,6 +54,15 @@ export async function deleteService(id: string) {
 export async function toggleService(id: string, active: boolean) {
   await requireSession();
   await db.service.update({ where: { id }, data: { active } });
+  revalidatePath("/admin/content/services");
+  revalidatePath("/");
+}
+
+export async function reorderServices(ids: string[]) {
+  await requireSession();
+  await Promise.all(ids.map((id, index) =>
+    db.service.update({ where: { id }, data: { order: index } })
+  ));
   revalidatePath("/admin/content/services");
   revalidatePath("/");
 }

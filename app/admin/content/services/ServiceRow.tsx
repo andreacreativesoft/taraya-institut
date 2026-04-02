@@ -1,6 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { deleteService, toggleService, updateService } from "@/app/actions/services";
 
 export type Service = {
@@ -50,7 +52,7 @@ function EditModal({ service, onClose }: { service: Service; onClose: () => void
       <div className="bg-white rounded-xl shadow-xl w-full max-w-lg p-6 flex flex-col gap-5" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between">
           <h3 className="font-heading text-[#251d1b] text-[18px] font-bold">Modifier le service</h3>
-          <button onClick={onClose} className="font-body text-[#746e6b] hover:text-[#251d1b] text-[20px] leading-none">×</button>
+          <button onClick={onClose} className="font-body text-[#746e6b] hover:text-[#251d1b] text-[22px] leading-none">×</button>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -60,25 +62,31 @@ function EditModal({ service, onClose }: { service: Service; onClose: () => void
               className="border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b] focus:outline-none focus:border-[#cab3a0] focus:ring-2 focus:ring-[#cab3a0]/20" />
           </div>
 
-          <div className="flex flex-col gap-1.5">
+          {/* Image with large preview */}
+          <div className="flex flex-col gap-2">
             <label className="font-body text-[#251d1b] text-[13px] font-medium">Image</label>
-            <div className="flex items-center gap-3">
-              {preview ? (
-                <img src={preview} alt="preview"
-                  className="w-16 h-16 rounded-lg object-cover border border-[#dad5cd] shrink-0" />
-              ) : (
-                <div className="w-16 h-16 rounded-lg bg-[#f5f1e8] border border-[#dad5cd] flex items-center justify-center shrink-0">
-                  <span className="text-[#cab3a0] text-[22px]">📷</span>
-                </div>
-              )}
-              <div className="flex flex-col gap-1">
-                <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading}
-                  className="text-left font-body text-[#44312b] text-[13px] underline underline-offset-2 hover:text-[#5a3f37] disabled:opacity-50">
-                  {uploading ? "Upload en cours…" : preview ? "Changer l'image" : "Choisir une image"}
+            {preview ? (
+              <div className="relative rounded-lg overflow-hidden bg-[#f5f1e8] border border-[#dad5cd]" style={{ height: 160 }}>
+                <img src={preview} alt="preview" className="w-full h-full object-cover" />
+                <button type="button" onClick={() => { setPreview(""); setImageUrl(""); }}
+                  className="absolute top-2 right-2 bg-white/90 text-[#251d1b] rounded-full w-7 h-7 flex items-center justify-center text-[14px] hover:bg-white shadow-sm">
+                  ×
                 </button>
-                <p className="font-body text-[#746e6b] text-[11px]">JPG, PNG, WebP — max 5 MB</p>
               </div>
-            </div>
+            ) : (
+              <button type="button" onClick={() => fileRef.current?.click()}
+                className="h-[120px] rounded-lg border-2 border-dashed border-[#dad5cd] flex flex-col items-center justify-center gap-2 hover:border-[#cab3a0] hover:bg-[#fbf8ef] transition-colors">
+                <span className="text-[28px]">📷</span>
+                <span className="font-body text-[#746e6b] text-[12px]">Cliquez pour choisir une image</span>
+                <span className="font-body text-[#cab3a0] text-[11px]">JPG, PNG, WebP — max 5 MB</span>
+              </button>
+            )}
+            {preview && (
+              <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading}
+                className="font-body text-[#44312b] text-[13px] underline underline-offset-2 hover:text-[#5a3f37] disabled:opacity-50 self-start">
+                {uploading ? "Upload en cours…" : "Changer l'image"}
+              </button>
+            )}
             <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleFile} />
           </div>
 
@@ -88,19 +96,7 @@ function EditModal({ service, onClose }: { service: Service; onClose: () => void
               className="border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b] focus:outline-none focus:border-[#cab3a0] focus:ring-2 focus:ring-[#cab3a0]/20 resize-none" />
           </div>
 
-          <div className="flex items-center gap-6">
-            <div className="flex flex-col gap-1.5 w-[80px]">
-              <label className="font-body text-[#251d1b] text-[13px] font-medium">Ordre</label>
-              <input name="order" type="number" defaultValue={service.order}
-                className="border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b] focus:outline-none focus:border-[#cab3a0]" />
-            </div>
-            <label className="flex items-center gap-2 cursor-pointer mt-5">
-              <input name="active" type="checkbox" defaultChecked={service.active} className="w-4 h-4 accent-[#44312b]" />
-              <span className="font-body text-[#251d1b] text-[14px]">Actif</span>
-            </label>
-          </div>
-
-          <div className="flex justify-end gap-3">
+          <div className="flex justify-end gap-3 pt-1">
             <button type="button" onClick={onClose}
               className="font-body text-[#746e6b] text-[14px] px-4 py-2 rounded-full border border-[#dad5cd] hover:bg-[#fbf8ef] transition-colors">
               Annuler
@@ -118,11 +114,26 @@ function EditModal({ service, onClose }: { service: Service; onClose: () => void
 
 export default function ServiceRow({ service }: { service: Service }) {
   const [editing, setEditing] = useState(false);
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: service.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.4 : 1,
+    zIndex: isDragging ? 10 : undefined,
+  };
 
   return (
     <>
       {editing && <EditModal service={service} onClose={() => setEditing(false)} />}
-      <tr className="hover:bg-[#fbf8ef]/50 transition-colors">
+      <tr ref={setNodeRef} style={style} className="hover:bg-[#fbf8ef]/50 transition-colors">
+        {/* Drag handle */}
+        <td className="pl-3 pr-1 py-4">
+          <span {...attributes} {...listeners}
+            className="cursor-grab active:cursor-grabbing text-[#cab3a0] hover:text-[#746e6b] text-[18px] select-none block leading-none">
+            ⠿
+          </span>
+        </td>
         <td className="px-5 py-4">
           <div className="flex items-center gap-3">
             {service.image ? (
@@ -131,10 +142,7 @@ export default function ServiceRow({ service }: { service: Service }) {
             ) : (
               <div className="w-10 h-10 rounded-lg bg-[#f5f1e8] border border-[#dad5cd] flex items-center justify-center shrink-0 text-[14px]">📷</div>
             )}
-            <div>
-              <p className="font-heading text-[#251d1b] text-[14px] font-bold">{service.title}</p>
-              <p className="font-body text-[#746e6b] text-[12px] mt-0.5 sm:hidden line-clamp-1">{service.description}</p>
-            </div>
+            <p className="font-heading text-[#251d1b] text-[14px] font-bold">{service.title}</p>
           </div>
         </td>
         <td className="px-5 py-4 hidden sm:table-cell">
@@ -143,14 +151,10 @@ export default function ServiceRow({ service }: { service: Service }) {
         <td className="px-5 py-4 text-center">
           <button
             onClick={() => toggleService(service.id, !service.active)}
-            className={`inline-flex items-center justify-center w-11 h-6 rounded-full transition-colors ${
-              service.active ? "bg-[#44312b]" : "bg-[#dad5cd]"
-            }`}
+            className={`inline-flex items-center justify-center w-11 h-6 rounded-full transition-colors ${service.active ? "bg-[#44312b]" : "bg-[#dad5cd]"}`}
             aria-label={service.active ? "Désactiver" : "Activer"}
           >
-            <span className={`w-4 h-4 bg-white rounded-full shadow-sm transition-transform ${
-              service.active ? "translate-x-2.5" : "-translate-x-2.5"
-            }`} />
+            <span className={`w-4 h-4 bg-white rounded-full shadow-sm transition-transform ${service.active ? "translate-x-2.5" : "-translate-x-2.5"}`} />
           </button>
         </td>
         <td className="px-5 py-4 text-right">
@@ -161,8 +165,7 @@ export default function ServiceRow({ service }: { service: Service }) {
             </button>
             <form action={() => deleteService(service.id)}
               onSubmit={(e) => { if (!confirm("Supprimer ce service ?")) e.preventDefault(); }}>
-              <button type="submit"
-                className="font-body text-red-400 hover:text-red-600 text-[13px] transition-colors">
+              <button type="submit" className="font-body text-red-400 hover:text-red-600 text-[13px] transition-colors">
                 Supprimer
               </button>
             </form>

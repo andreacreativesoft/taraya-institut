@@ -1,14 +1,28 @@
 "use client";
 
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { deleteItem } from "@/app/actions/pricing";
 
 type Item = { id: string; label: string; price: string; order: number };
 
 export default function ItemRow({ item }: { item: Item }) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: item.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.4 : 1,
+  };
+
   return (
-    <div className="flex items-center justify-between py-2.5 px-3 rounded-lg hover:bg-[#fbf8ef] transition-colors group">
+    <div ref={setNodeRef} style={style}
+      className="flex items-center justify-between py-2.5 px-3 rounded-lg hover:bg-[#fbf8ef] transition-colors group">
       <div className="flex items-center gap-3 flex-1 min-w-0">
-        <span className="text-[#dad5cd] text-[12px] font-body select-none">☰</span>
+        <span {...attributes} {...listeners}
+          className="cursor-grab active:cursor-grabbing text-[#dad5cd] hover:text-[#cab3a0] text-[16px] select-none leading-none shrink-0">
+          ⠿
+        </span>
         <span className="font-body text-[#251d1b] text-[13px] truncate">{item.label}</span>
       </div>
       <div className="flex items-center gap-4 shrink-0 ml-3">

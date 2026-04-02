@@ -48,7 +48,8 @@
       "Bash(grep -r from.*prisma C:/laragon/www/taraya-institut/app C:/laragon/www/taraya-institut/lib --include=*.ts --include=*.tsx)",
       "Bash(DATABASE_URL=\"mysql://u885515688_taraya:Taraya2024!@localhost:3306/u885515688_taraya\" npx prisma migrate deploy)",
       "WebSearch",
-      "mcp__puppeteer__puppeteer_fill"
+      "mcp__puppeteer__puppeteer_fill",
+      "WebFetch(domain:taraya-institut.vercel.app)"
     ]
   }
 }
