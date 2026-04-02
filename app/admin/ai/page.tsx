@@ -2,7 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 
-type Message = { role: "user" | "assistant"; content: string };
+type Usage  = { input: number; output: number; cost: number };
+type Message = { role: "user" | "assistant"; content: string; usage?: Usage };
 
 const EXAMPLES = [
   "Change le prix de la Manucure à 38€",
@@ -86,6 +87,16 @@ export default function AIPage() {
                 return updated;
               });
             }
+            if (parsed.usage) {
+              setMessages(prev => {
+                const updated = [...prev];
+                updated[updated.length - 1] = {
+                  ...updated[updated.length - 1],
+                  usage: parsed.usage as Usage,
+                };
+                return updated;
+              });
+            }
           } catch { /* ignore parse errors */ }
         }
       }
@@ -150,29 +161,48 @@ export default function AIPage() {
           </div>
         ) : (
           messages.map((msg, i) => (
-            <div key={i} className={`flex gap-3 ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-              {msg.role === "assistant" && (
-                <div className="w-7 h-7 rounded-full bg-[#cab3a0]/20 flex items-center justify-center shrink-0 mt-0.5 text-[#44312b]">
-                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+            <div key={i} className={`flex flex-col gap-1 ${msg.role === "user" ? "items-end" : "items-start"}`}>
+              <div className={`flex gap-3 ${msg.role === "user" ? "justify-end" : "justify-start"} w-full`}>
+                {msg.role === "assistant" && (
+                  <div className="w-7 h-7 rounded-full bg-[#cab3a0]/20 flex items-center justify-center shrink-0 mt-0.5 text-[#44312b]">
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+                    </svg>
+                  </div>
+                )}
+                <div className={`max-w-[75%] rounded-2xl px-4 py-2.5 text-[14px] font-body leading-[1.6] whitespace-pre-wrap ${
+                  msg.role === "user"
+                    ? "bg-[#44312b] text-white rounded-tr-sm"
+                    : "bg-[#f5f3ee] text-[#251d1b] rounded-tl-sm"
+                }`}>
+                  {msg.content
+                    ? msg.content
+                    : loading && i === messages.length - 1
+                    ? <span className="flex gap-1 items-center py-0.5">
+                        <span className="w-1.5 h-1.5 bg-[#cab3a0] rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                        <span className="w-1.5 h-1.5 bg-[#cab3a0] rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                        <span className="w-1.5 h-1.5 bg-[#cab3a0] rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                      </span>
+                    : ""}
+                </div>
+              </div>
+              {/* Cost badge — shown on assistant messages that have usage data */}
+              {msg.role === "assistant" && msg.usage && (
+                <div className="ml-10 flex items-center gap-1.5 text-[11px] font-body text-[#9e9691]">
+                  <svg className="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
+                  <span>
+                    {msg.usage.input.toLocaleString()} in · {msg.usage.output.toLocaleString()} out
+                    {" · "}
+                    <span className="text-[#cab3a0] font-medium">
+                      ~${msg.usage.cost < 0.001
+                        ? msg.usage.cost.toFixed(4)
+                        : msg.usage.cost.toFixed(3)}
+                    </span>
+                  </span>
                 </div>
               )}
-              <div className={`max-w-[75%] rounded-2xl px-4 py-2.5 text-[14px] font-body leading-[1.6] whitespace-pre-wrap ${
-                msg.role === "user"
-                  ? "bg-[#44312b] text-white rounded-tr-sm"
-                  : "bg-[#f5f3ee] text-[#251d1b] rounded-tl-sm"
-              }`}>
-                {msg.content
-                  ? msg.content
-                  : loading && i === messages.length - 1
-                  ? <span className="flex gap-1 items-center py-0.5">
-                      <span className="w-1.5 h-1.5 bg-[#cab3a0] rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                      <span className="w-1.5 h-1.5 bg-[#cab3a0] rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                      <span className="w-1.5 h-1.5 bg-[#cab3a0] rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
-                    </span>
-                  : ""}
-              </div>
             </div>
           ))
         )}
