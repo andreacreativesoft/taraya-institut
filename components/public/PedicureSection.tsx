@@ -1,7 +1,7 @@
 import Image from "next/image";
 
-const imgPedicure  = "/images/pedicure-1.webp";
-const imgPedicure2 = "/images/pedicure-2.webp";
+const imgPedicure  = "/images/bain-pieds-pedicure-esthetique-sterrebeek.webp";
+const imgPedicure2 = "/images/pedicure-medicale-soins-pieds-zaventem.webp";
 const imgGlobe     = "/images/icon-globe.svg";
 const imgPlus      = "/images/icon-circle-plus.svg";
 

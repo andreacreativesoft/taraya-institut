@@ -1,7 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
-import { saveSettings } from "@/app/actions/settings";
+import { useState } from "react";
 
 type Settings = Record<string, string>;
 
@@ -19,11 +18,46 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 }
 
 export default function SettingsForm({ settings }: { settings: Settings }) {
-  const [state, action, pending] = useActionState(saveSettings, undefined);
   const get = (key: string) => settings[key] ?? "";
 
+  const [pending, setPending] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [errors, setErrors]   = useState<Record<string, string>>({});
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setPending(true);
+    setSuccess(false);
+    setErrors({});
+
+    const form = e.currentTarget;
+    const data: Record<string, string> = {};
+    new FormData(form).forEach((v, k) => { data[k] = v as string; });
+
+    try {
+      const res  = await fetch("/api/settings", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify(data),
+      });
+      const json = await res.json();
+
+      if (json.success) {
+        setSuccess(true);
+      } else if (json.errors) {
+        setErrors(json.errors);
+      } else {
+        setErrors({ form: json.error || "Une erreur s'est produite. Veuillez réessayer." });
+      }
+    } catch {
+      setErrors({ form: "Impossible de contacter le serveur. Vérifiez votre connexion." });
+    } finally {
+      setPending(false);
+    }
+  }
+
   return (
-    <form action={action} className="flex flex-col gap-10">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-10">
 
       {/* ── PARAMÈTRES DU SITE ───────────────────────────────── */}
       <div className="flex flex-col gap-4">
@@ -115,7 +149,7 @@ export default function SettingsForm({ settings }: { settings: Settings }) {
             <label className={labelCls}>GTM ID</label>
             <input name="gtm_id" defaultValue={get("gtm_id")} placeholder="GTM-XXXXXXX" className={inputCls} />
             <p className="font-body text-[#746e6b] text-[11px]">Laissez vide pour désactiver. Format : GTM-XXXXXXX</p>
-            {state?.errors?.gtm_id && <p className="text-red-500 text-[12px]">{state.errors.gtm_id}</p>}
+            {errors.gtm_id && <p className="text-red-500 text-[12px]">{errors.gtm_id}</p>}
           </div>
         </div>
 
@@ -125,16 +159,16 @@ export default function SettingsForm({ settings }: { settings: Settings }) {
             <label className={labelCls}>Pixel ID</label>
             <input name="facebook_pixel_id" defaultValue={get("facebook_pixel_id")} placeholder="1234567890123456" className={inputCls} />
             <p className="font-body text-[#746e6b] text-[11px]">Laissez vide pour désactiver. Trouvez votre Pixel ID dans le Gestionnaire d&apos;événements Facebook.</p>
-            {state?.errors?.facebook_pixel_id && <p className="text-red-500 text-[12px]">{state.errors.facebook_pixel_id}</p>}
+            {errors.facebook_pixel_id && <p className="text-red-500 text-[12px]">{errors.facebook_pixel_id}</p>}
           </div>
         </div>
       </div>
 
-      {state?.success && (
+      {success && (
         <p className="text-green-600 font-body text-[13px]">✓ Paramètres enregistrés avec succès</p>
       )}
-      {state?.errors?.form && (
-        <p className="text-red-500 font-body text-[13px] bg-red-50 border border-red-200 rounded-lg px-4 py-3">{state.errors.form}</p>
+      {errors.form && (
+        <p className="text-red-500 font-body text-[13px] bg-red-50 border border-red-200 rounded-lg px-4 py-3">{errors.form}</p>
       )}
 
       <div className="flex justify-end">

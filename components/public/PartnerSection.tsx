@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const imgPhyts   = "/images/partner-phyts.webp";
+const imgPhyts   = "/images/produits-phyts-bio-soins-naturels-zaventem.webp";
 const imgChevron = "/images/icon-chevron.svg";
 
 export default function PartnerSection() {

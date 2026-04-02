@@ -1,7 +1,7 @@
 import Image from "next/image";
 
-const imgPhoto  = "/images/about-1.webp";
-const imgPhoto2 = "/images/about-2.webp";
+const imgPhoto  = "/images/cabine-soins-esthetique-sterrebeek.webp";
+const imgPhoto2 = "/images/estheticienne-institut-beaute-zaventem.webp";
 
 export default function AboutSection() {
   return (
