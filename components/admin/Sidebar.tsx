@@ -54,7 +54,7 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
   }, []);
 
   return (
-    <div className="relative shrink-0">
+    <div className="relative shrink-0 sticky top-0 h-screen">
       {/* Arrow toggle — sits on the right edge of the sidebar */}
       <button
         type="button"
@@ -66,7 +66,7 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
       </button>
 
       <aside
-        className={`bg-[#44312b] flex flex-col min-h-screen transition-all duration-200 ease-in-out ${
+        className={`bg-[#44312b] flex flex-col h-full overflow-y-auto transition-all duration-200 ease-in-out ${
           expanded ? "w-[220px]" : "w-[60px]"
         }`}
       >
