@@ -22,10 +22,32 @@
   --text-body-s--letter-spacing: 1px;
 }
 
-/* Admin mobile — scale down ~1px on all text for small screens */
+/* Admin mobile — scale down text & tighten spacing for small screens */
 @media (max-width: 1023px) {
   .admin-content {
     zoom: 0.94;
+  }
+
+  /* Half the main container gaps */
+  .admin-content .flex.flex-col.gap-8 {
+    gap: 1rem; /* 16px instead of 32px */
+  }
+  .admin-content .flex.flex-col.gap-4 {
+    gap: 0.5rem; /* 8px instead of 16px */
+  }
+
+  /* Half table cell padding */
+  .admin-content th,
+  .admin-content td {
+    padding: 0.375rem 0.625rem; /* py-1.5 px-2.5 instead of py-3 px-5 */
+  }
+
+  /* Tighter card padding */
+  .admin-content .p-6 {
+    padding: 0.75rem;
+  }
+  .admin-content .p-5 {
+    padding: 0.625rem;
   }
 }
 
