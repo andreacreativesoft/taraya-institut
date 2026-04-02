@@ -36,6 +36,9 @@ export default function NewUserForm() {
           </select>
         </div>
       </div>
+      {state?.errors?._form && (
+        <p className="text-red-500 font-body text-[13px]">⚠ {state.errors._form[0]}</p>
+      )}
       {state?.success && (
         <p className="text-green-600 font-body text-[13px]">✓ Utilisateur créé avec succès</p>
       )}

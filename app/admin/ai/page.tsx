@@ -7,8 +7,8 @@ type Message = { role: "user" | "assistant"; content: string };
 const EXAMPLES = [
   "Change le prix de la Manucure à 38€",
   "Désactive le service Épilations",
-  "Mets à jour le titre hero du site",
-  "Liste tous les tarifs du moment",
+  "Mets à jour le texte de la section À propos",
+  "Liste tous les blocs de contenu du site",
 ];
 
 function SparkleIcon() {

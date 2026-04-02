@@ -7,7 +7,11 @@ const anthropic = new Anthropic();
 
 const SYSTEM = `Tu es l'assistant administrateur du site Taraya Institut, un institut de beauté à Sterrebeek, Belgique.
 Tu aides uniquement le Super Administrateur à gérer le contenu du site via une conversation naturelle en français.
-Tu peux consulter et modifier les services, les tarifs et les paramètres du site.
+Tu peux consulter et modifier les services, les tarifs, les paramètres et les blocs de contenu texte/HTML du site.
+
+Les blocs de contenu (ContentBlocks) permettent de modifier le texte de chaque section du site (hero, à propos, pour qui, etc.).
+Le champ "content" est un objet JSON libre : tu peux y mettre n'importe quelle clé/valeur (titre, sous-titre, texte, html, etc.).
+Pour voir ce qui existe déjà, utilise list_content_blocks avant de modifier.
 
 Règles importantes :
 - Réponds toujours en français
@@ -69,6 +73,24 @@ const TOOLS: Anthropic.Tool[] = [
         value: { type: "string", description: "Nouvelle valeur" },
       },
       required: ["key", "value"],
+    },
+  },
+  {
+    name: "list_content_blocks",
+    description: "Liste tous les blocs de contenu du site (sections texte/HTML éditables) avec leurs clés, labels, contenu JSON et statut",
+    input_schema: { type: "object" as const, properties: {} },
+  },
+  {
+    name: "update_content_block",
+    description: "Modifie le contenu d'un bloc de texte du site. Le champ 'content' est un objet JSON libre avec les textes de la section.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        key:     { type: "string", description: "Clé unique du bloc (ex: 'hero', 'about', 'forwho')" },
+        content: { type: "object", description: "Nouveau contenu JSON (objet avec les champs texte de la section)" },
+        active:  { type: "boolean", description: "true = section visible, false = section cachée" },
+      },
+      required: ["key"],
     },
   },
 ];
@@ -134,6 +156,24 @@ async function executeTool(name: string, input: Record<string, unknown>): Promis
       });
       revalidatePath("/"); revalidatePath("/admin/settings");
       return { success: true, key, value };
+    }
+    case "list_content_blocks": {
+      const blocks = await db.contentBlock.findMany({ orderBy: { order: "asc" } });
+      return blocks.map(b => ({
+        key: b.key, label: b.label, content: b.content, active: b.active,
+      }));
+    }
+    case "update_content_block": {
+      const { key, content, active } = input as {
+        key: string; content?: Record<string, unknown>; active?: boolean;
+      };
+      const data: Record<string, unknown> = {};
+      if (content !== undefined) data.content = content;
+      if (active !== undefined) data.active = active;
+      if (Object.keys(data).length === 0) return { error: "Aucune donnée à modifier" };
+      const updated = await db.contentBlock.update({ where: { key }, data, select: { key: true, label: true } });
+      revalidatePath("/"); revalidatePath("/admin/content");
+      return { success: true, updated: updated.label };
     }
     default:
       return { error: "Outil inconnu" };
