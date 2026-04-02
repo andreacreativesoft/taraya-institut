@@ -8,16 +8,20 @@ import { logout } from "@/app/actions/auth";
 
 const imgLogo = "/images/logo.svg";
 
-type NavItem = { href: string; label: string; icon: ({ className }: { className?: string }) => React.JSX.Element; indent?: boolean };
+type NavItem = {
+  href: string;
+  label: string;
+  icon: ({ className }: { className?: string }) => React.JSX.Element;
+  indent?: boolean;
+};
 
 const baseNavItems: NavItem[] = [
   { href: "/admin",                   label: "Tableau de bord",  icon: DashboardIcon },
-  { href: "/admin/content",           label: "Contenu",          icon: ContentIcon },
-  { href: "/admin/content/services",  label: "Services",         icon: ServicesIcon, indent: true },
-  { href: "/admin/content/pricing",   label: "Tarifs",           icon: PricingIcon,  indent: true },
+  { href: "/admin/content/services",  label: "Services",         icon: ServicesIcon },
+  { href: "/admin/content/pricing",   label: "Tarifs",           icon: PricingIcon },
   { href: "/admin/forms",             label: "Formulaires",      icon: FormsIcon },
-  { href: "/admin/settings",          label: "Paramètres",       icon: SettingsIcon },
   { href: "/admin/users",             label: "Utilisateurs",     icon: UsersIcon },
+  { href: "/admin/settings",          label: "Paramètres",       icon: SettingsIcon },
   { href: "/admin/audit",             label: "Journal d'audit",  icon: AuditIcon },
 ];
 
@@ -30,109 +34,122 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
     ? [...baseNavItems, ...superAdminItems]
     : baseNavItems;
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
-  // Close sidebar on route change (mobile)
+  // On desktop, start expanded
   useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+    const mql = window.matchMedia("(min-width: 1024px)");
+    setExpanded(mql.matches);
+    function handler(e: MediaQueryListEvent) { setExpanded(e.matches); }
+    mql.addEventListener("change", handler);
+    return () => mql.removeEventListener("change", handler);
+  }, []);
 
-  // Close on escape key
+  // Close on escape
   useEffect(() => {
     function handleKey(e: KeyboardEvent) {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") setExpanded(false);
     }
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
   }, []);
 
   return (
-    <>
-      {/* Mobile hamburger button */}
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="fixed top-4 left-4 z-40 lg:hidden bg-[#44312b] text-white p-2 rounded-lg shadow-lg"
-        aria-label="Ouvrir le menu"
-      >
-        <HamburgerIcon className="w-5 h-5" />
-      </button>
-
-      {/* Overlay (mobile only) */}
-      {open && (
-        <div
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
-          onClick={() => setOpen(false)}
-        />
-      )}
-
-      {/* Sidebar */}
-      <aside
-        className={`
-          fixed inset-y-0 left-0 z-50 w-[240px] bg-[#44312b] flex flex-col transition-transform duration-200 ease-in-out
-          lg:static lg:translate-x-0 lg:shrink-0
-          ${open ? "translate-x-0" : "-translate-x-full"}
-        `}
-      >
-        {/* Logo + close button */}
-        <div className="px-6 py-6 border-b border-white/10 flex items-center justify-between">
-          <img src={imgLogo} alt="Taraya Institut" className="h-[28px] object-contain object-left" />
-          <button
-            type="button"
-            onClick={() => setOpen(false)}
-            className="lg:hidden text-white/70 hover:text-white p-1 -mr-2"
-            aria-label="Fermer le menu"
-          >
-            <CloseIcon className="w-5 h-5" />
-          </button>
-        </div>
-
-        {/* Nav */}
-        <nav className="flex-1 px-3 py-4 flex flex-col gap-1 overflow-y-auto">
-          {navItems.map(({ href, label, icon: Icon, indent }) => {
-            const active = pathname === href || (href !== "/admin" && pathname.startsWith(href));
-            return (
-              <Link
-                key={href}
-                href={href}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-[14px] font-body transition-colors ${
-                  indent ? "ml-4" : ""
-                } ${
-                  active
-                    ? "bg-[#cab3a0]/20 text-white font-medium"
-                    : "text-white/70 hover:bg-white/10 hover:text-white"
-                }`}
-              >
-                <Icon className="w-4 h-4 shrink-0" />
-                {label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        {/* User + Logout */}
-        <div className="px-4 py-4 border-t border-white/10">
-          <div className="flex items-center gap-3 mb-3 px-1">
-            <div className="w-8 h-8 rounded-full bg-[#cab3a0] flex items-center justify-center text-[#44312b] font-bold text-[14px] shrink-0">
-              {userName.charAt(0).toUpperCase()}
-            </div>
-            <div className="min-w-0">
-              <p className="text-white text-[13px] font-medium truncate">{userName}</p>
-              <p className="text-white/50 text-[11px] truncate">{userRole === "SUPER_ADMIN" ? "Super Admin" : "Admin"}</p>
-            </div>
+    <aside
+      className={`shrink-0 bg-[#44312b] flex flex-col min-h-screen transition-all duration-200 ease-in-out ${
+        expanded ? "w-[220px]" : "w-[68px]"
+      }`}
+    >
+      {/* Logo */}
+      <div className={`flex items-center border-b border-white/10 h-[64px] ${expanded ? "px-5" : "justify-center"}`}>
+        {expanded ? (
+          <img src={imgLogo} alt="Taraya Institut" className="h-[24px] object-contain object-left" />
+        ) : (
+          <div className="w-8 h-8 rounded-lg bg-[#cab3a0] flex items-center justify-center text-[#44312b] font-bold text-[13px]">
+            T
           </div>
-          <form action={logout}>
-            <button
-              type="submit"
-              className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-white/70 hover:bg-white/10 hover:text-white text-[13px] font-body transition-colors"
-            >
-              <LogoutIcon className="w-4 h-4" />
-              Déconnexion
-            </button>
-          </form>
+        )}
+      </div>
+
+      {/* User avatar */}
+      <div className={`flex items-center border-b border-white/10 py-4 ${expanded ? "px-5 gap-3" : "justify-center"}`}>
+        <div className="w-9 h-9 rounded-full bg-[#cab3a0] flex items-center justify-center text-[#44312b] font-bold text-[14px] shrink-0">
+          {userName.charAt(0).toUpperCase()}
         </div>
-      </aside>
-    </>
+        {expanded && (
+          <div className="min-w-0">
+            <p className="text-white text-[13px] font-medium truncate">{userName}</p>
+            <p className="text-white/50 text-[11px] truncate">
+              {userRole === "SUPER_ADMIN" ? "Super Admin" : "Admin"}
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Nav */}
+      <nav className="flex-1 py-4 flex flex-col gap-1 overflow-y-auto px-2">
+        {navItems.map(({ href, label, icon: Icon }) => {
+          const active = pathname === href || (href !== "/admin" && pathname.startsWith(href));
+          return (
+            <Link
+              key={href}
+              href={href}
+              title={expanded ? undefined : label}
+              className={`group relative flex items-center rounded-lg transition-colors ${
+                expanded ? "gap-3 px-3 py-2.5 text-[14px] font-body" : "justify-center py-3"
+              } ${
+                active
+                  ? "bg-[#cab3a0]/20 text-white font-medium"
+                  : "text-white/60 hover:bg-white/10 hover:text-white"
+              }`}
+            >
+              <Icon className="w-[18px] h-[18px] shrink-0" />
+              {expanded && <span className="truncate">{label}</span>}
+              {/* Tooltip on collapsed hover */}
+              {!expanded && (
+                <span className="absolute left-full ml-2 px-2 py-1 rounded bg-[#251d1b] text-white text-[12px] whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">
+                  {label}
+                </span>
+              )}
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* Bottom: logout + toggle */}
+      <div className="border-t border-white/10 py-3 px-2 flex flex-col gap-1">
+        <form action={logout}>
+          <button
+            type="submit"
+            title={expanded ? undefined : "Déconnexion"}
+            className={`group relative w-full flex items-center rounded-lg text-white/60 hover:bg-white/10 hover:text-white transition-colors ${
+              expanded ? "gap-3 px-3 py-2.5 text-[13px] font-body" : "justify-center py-3"
+            }`}
+          >
+            <LogoutIcon className="w-[18px] h-[18px] shrink-0" />
+            {expanded && <span>Déconnexion</span>}
+            {!expanded && (
+              <span className="absolute left-full ml-2 px-2 py-1 rounded bg-[#251d1b] text-white text-[12px] whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">
+                Déconnexion
+              </span>
+            )}
+          </button>
+        </form>
+
+        {/* Expand / Collapse toggle */}
+        <button
+          type="button"
+          onClick={() => setExpanded((v: boolean) => !v)}
+          title={expanded ? "Réduire" : "Agrandir"}
+          className={`w-full flex items-center rounded-lg text-white/60 hover:bg-white/10 hover:text-white transition-colors ${
+            expanded ? "gap-3 px-3 py-2.5 text-[13px] font-body" : "justify-center py-3"
+          }`}
+        >
+          <CollapseIcon className={`w-[18px] h-[18px] shrink-0 transition-transform ${expanded ? "" : "rotate-180"}`} />
+          {expanded && <span>Réduire</span>}
+        </button>
+      </div>
+    </aside>
   );
 }
 
@@ -142,13 +159,6 @@ function DashboardIcon({ className }: { className?: string }) {
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
       <rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" />
       <rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" />
-    </svg>
-  );
-}
-function ContentIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-      <path strokeLinecap="round" d="M4 6h16M4 10h16M4 14h10" />
     </svg>
   );
 }
@@ -210,17 +220,10 @@ function LogoutIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-function HamburgerIcon({ className }: { className?: string }) {
+function CollapseIcon({ className }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16" />
-    </svg>
-  );
-}
-function CloseIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" d="M6 18L18 6M6 6l12 12" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
     </svg>
   );
 }
