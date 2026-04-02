@@ -16,7 +16,7 @@ export default function HeroSection({ whatsapp }: { whatsapp: string }) {
     <>
       {menuOpen && <MobileMenu onClose={() => setMenuOpen(false)} />}
 
-      <section className="relative w-full min-h-[70svh] lg:min-h-[70vh] flex flex-col overflow-hidden">
+      <section className="relative w-full min-h-[85svh] lg:min-h-[70vh] flex flex-col overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <Image src="/images/hero-bg.webp"
             alt="Femme recevant un massage du visage dans un cadre chaleureux avec bougies — institut de beauté Taraya"
