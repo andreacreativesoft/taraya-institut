@@ -151,12 +151,8 @@ export default function ServiceRow({ service }: { service: Service }) {
         </td>
         <td className="px-5 py-4">
           <div className="flex items-center gap-3">
-            {service.image ? (
-              <img src={service.image} alt={service.title}
-                className="w-10 h-10 rounded-lg object-cover border border-[#dad5cd] shrink-0" />
-            ) : (
-              <div className="w-10 h-10 rounded-lg bg-[#f5f1e8] border border-[#dad5cd] flex items-center justify-center shrink-0 text-[14px]">📷</div>
-            )}
+            <img src={service.image || getAutoImage(service.title)} alt={service.title}
+              className="w-10 h-10 rounded-lg object-cover border border-[#dad5cd] shrink-0" />
             <p className="font-heading text-[#251d1b] text-[14px] font-bold">{service.title}</p>
           </div>
         </td>
