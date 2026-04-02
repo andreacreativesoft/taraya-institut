@@ -18,12 +18,12 @@ export type Service = {
 // Same logic as public ServicesSection fallback
 function getAutoImage(title: string): string {
   const t = title.toLowerCase();
-  if (t.includes("visage")) return "/images/service-soins-visage.jpg";
-  if (t.includes("massage")) return "/images/service-massages.jpg";
-  if (t.includes("main") || t.includes("pied") || t.includes("manucure") || t.includes("pédicure")) return "/images/service-mains-pieds.jpg";
-  if (t.includes("épil") || t.includes("epil")) return "/images/service-epilations.jpg";
-  if (t.includes("teinture") || t.includes("sourcil") || t.includes("cil")) return "/images/service-teintures.jpg";
-  return "/images/service-base.jpg";
+  if (t.includes("visage")) return "/images/service-soins-visage.webp";
+  if (t.includes("massage")) return "/images/service-massages.webp";
+  if (t.includes("main") || t.includes("pied") || t.includes("manucure") || t.includes("pédicure")) return "/images/service-mains-pieds.webp";
+  if (t.includes("épil") || t.includes("epil")) return "/images/service-epilations.webp";
+  if (t.includes("teinture") || t.includes("sourcil") || t.includes("cil")) return "/images/service-teintures.webp";
+  return "/images/service-base.webp";
 }
 
 function EditModal({ service, onClose }: { service: Service; onClose: () => void }) {

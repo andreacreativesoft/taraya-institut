@@ -1,5 +1,5 @@
-const imgPhoto  = "/images/about-1.jpg";
-const imgPhoto2 = "/images/about-2.jpg";
+const imgPhoto  = "/images/about-1.webp";
+const imgPhoto2 = "/images/about-2.webp";
 
 export default function AboutSection() {
   return (

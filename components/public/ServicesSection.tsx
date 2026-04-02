@@ -1,11 +1,11 @@
 import { db } from "@/lib/db";
 
-const imgBase       = "/images/service-base.jpg";
-const imgSoinsVis   = "/images/service-soins-visage.jpg";
-const imgMassages   = "/images/service-massages.jpg";
-const imgMainsPieds = "/images/service-mains-pieds.jpg";
-const imgEpilations = "/images/service-epilations.jpg";
-const imgTeintures  = "/images/service-teintures.jpg";
+const imgBase       = "/images/service-base.webp";
+const imgSoinsVis   = "/images/service-soins-visage.webp";
+const imgMassages   = "/images/service-massages.webp";
+const imgMainsPieds = "/images/service-mains-pieds.webp";
+const imgEpilations = "/images/service-epilations.webp";
+const imgTeintures  = "/images/service-teintures.webp";
 
 // Fallback images per service title keyword
 function getServiceImage(title: string): string {

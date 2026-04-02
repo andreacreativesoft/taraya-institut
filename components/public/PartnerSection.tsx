@@ -1,4 +1,4 @@
-const imgPhyts   = "/images/partner-phyts.jpg";
+const imgPhyts   = "/images/partner-phyts.webp";
 const imgChevron = "/images/icon-chevron.svg";
 
 export default function PartnerSection() {

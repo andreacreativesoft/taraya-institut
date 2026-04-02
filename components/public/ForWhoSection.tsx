@@ -1,5 +1,5 @@
-const imgPhoto  = "/images/forwho-1.jpg";
-const imgPhoto2 = "/images/forwho-2.jpg";
+const imgPhoto  = "/images/forwho-1.webp";
+const imgPhoto2 = "/images/forwho-2.webp";
 const imgFace   = "/images/icon-face.svg";
 const imgFire   = "/images/icon-fire.svg";
 const imgHeart  = "/images/icon-heart.svg";

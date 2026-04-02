@@ -1,5 +1,5 @@
-const imgPedicure  = "/images/pedicure-1.jpg";
-const imgPedicure2 = "/images/pedicure-2.jpg";
+const imgPedicure  = "/images/pedicure-1.webp";
+const imgPedicure2 = "/images/pedicure-2.webp";
 const imgGlobe     = "/images/icon-globe.svg";
 const imgPlus      = "/images/icon-circle-plus.svg";
 
