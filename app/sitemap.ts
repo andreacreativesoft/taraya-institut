@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE_URL = process.env.SITE_URL || "https://taraya-institut.be";
+const BASE_URL = process.env.SITE_URL || "https://tarayainstitut.be";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

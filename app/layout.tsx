@@ -9,7 +9,14 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: settings.meta_title || "Taraya Institut — Beauté & Bien-être",
     description: settings.meta_description || "Institut de beauté et bien-être pour femmes. Soins du visage, soins du corps, épilation et plus encore.",
-    icons: { icon: "/icon.svg", apple: "/icon.svg" },
+    metadataBase: new URL("https://tarayainstitut.be"),
+    icons: {
+      icon: [
+        { url: "/icon.svg", type: "image/svg+xml" },
+      ],
+      apple: { url: "/icon.svg", type: "image/svg+xml" },
+      shortcut: "/icon.svg",
+    },
   };
 }
 
