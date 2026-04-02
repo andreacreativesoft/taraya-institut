@@ -30,7 +30,7 @@ export default function HeroSection({ whatsapp, title, subtitle }: { whatsapp: s
             className="object-cover object-center lg:hidden"
             sizes="100vw" />
           {/* Desktop image (>= lg) */}
-          <Image src="/images/institut-beaute-zaventem-soin-visage-desktop.webp"
+          <Image src="/images/institut-beaute-zaventem-soin-visage-desktop.jpg"
             alt="Femme recevant un massage du visage dans un cadre chaleureux avec bougies — institut de beauté Taraya à Zaventem"
             fill fetchPriority="high" loading="eager"
             className="object-cover object-center hidden lg:block"
