@@ -15,7 +15,7 @@ export default function HeroSection({ whatsapp }: { whatsapp: string }) {
     <>
       {menuOpen && <MobileMenu onClose={() => setMenuOpen(false)} />}
 
-      <section className="relative w-full min-h-[100svh] lg:min-h-screen flex flex-col overflow-hidden">
+      <section className="relative w-full min-h-[70svh] lg:min-h-[70vh] flex flex-col overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <img src={imgHeroBg} alt="" aria-hidden="true"
             className="absolute inset-0 w-full h-full object-cover object-center" />
