@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getSettings } from "@/lib/settings";
 import HeroSection from "@/components/public/HeroSection";
 import AboutSection from "@/components/public/AboutSection";
