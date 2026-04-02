@@ -8,7 +8,12 @@ import MobileMenu from "./MobileMenu";
 const imgLogo  = "/images/logo.svg";
 const imgPhone = "/images/icon-phone.svg";
 
-export default function HeroSection({ whatsapp }: { whatsapp: string }) {
+const DEFAULT_TITLE    = "Un institut de beauté dédié à votre bien-être";
+const DEFAULT_SUBTITLE = `"Là où l'on se pose, où l'on se dépose et où l'on ressort plus légère."\nTaraya Institut est un cocon réservé aux femmes, pensé pour celles qui ont besoin de souffler. Des soins réalisés avec soin et attention, qui prennent le temps que vous méritez.`;
+
+export default function HeroSection({ whatsapp, title, subtitle }: { whatsapp: string; title?: string; subtitle?: string }) {
+  const heroTitle    = title    || DEFAULT_TITLE;
+  const heroSubtitle = subtitle || DEFAULT_SUBTITLE;
   const WHATSAPP_URL = `https://wa.me/${whatsapp.replace(/\D/g, "")}`;
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -73,11 +78,10 @@ export default function HeroSection({ whatsapp }: { whatsapp: string }) {
           <div className="flex flex-col gap-6 lg:gap-8 items-center text-center text-white w-full">
             <div className="flex flex-col gap-6 items-center">
               <h1 className="font-heading font-bold text-white text-[41px] lg:text-[63px] leading-none max-w-[980px]">
-                {`Un institut de beauté dédié `}<br />à votre bien-être
+                {heroTitle}
               </h1>
-              <p className="font-body text-white text-[16px] lg:text-[20px] leading-[1.4] max-w-[844px]">
-                {`"Là où l'on se pose, où l'on se dépose et où l'on ressort plus légère."`}<br />
-                Taraya Institut est un cocon réservé aux femmes, pensé pour celles qui ont besoin de souffler. Des soins réalisés avec soin et attention, qui prennent le temps que vous méritez.
+              <p className="font-body text-white text-[16px] lg:text-[20px] leading-[1.4] max-w-[844px] whitespace-pre-line">
+                {heroSubtitle}
               </p>
             </div>
             <div className="flex flex-col gap-3 items-center">
