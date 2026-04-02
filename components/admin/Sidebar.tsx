@@ -60,12 +60,29 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
         expanded ? "w-[220px]" : "w-[60px]"
       }`}
     >
-      {/* Logo */}
-      <div className={`flex items-center border-b border-white/10 h-[64px] ${expanded ? "px-5" : "justify-center"}`}>
+      {/* Logo + expand toggle */}
+      <div className={`flex items-center border-b border-white/10 h-[64px] ${expanded ? "px-5 justify-between" : "justify-center"}`}>
         {expanded ? (
-          <img src={imgLogo} alt="Taraya Institut" className="h-[24px] object-contain object-left" />
+          <>
+            <img src={imgLogo} alt="Taraya Institut" className="h-[24px] object-contain object-left" />
+            <button
+              type="button"
+              onClick={() => setExpanded(false)}
+              title="Réduire"
+              className="text-white/60 hover:text-white transition-colors p-1 -mr-1"
+            >
+              <CollapseIcon className="w-5 h-5" />
+            </button>
+          </>
         ) : (
-          <img src="/icon.svg" alt="Taraya Institut" className="w-8 h-8 rounded-lg object-contain" />
+          <button
+            type="button"
+            onClick={() => setExpanded(true)}
+            title="Agrandir"
+            className="text-white/60 hover:text-white transition-colors"
+          >
+            <img src="/icon.svg" alt="Taraya Institut" className="w-8 h-8 rounded-lg object-contain" />
+          </button>
         )}
       </div>
 
@@ -132,20 +149,6 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
         </form>
       </nav>
 
-      {/* Bottom: collapse toggle */}
-      <div className="border-t border-white/10 py-3 px-2">
-        <button
-          type="button"
-          onClick={() => setExpanded((v: boolean) => !v)}
-          title={expanded ? "Réduire" : "Agrandir"}
-          className={`w-full flex items-center rounded-lg text-white/60 hover:bg-white/10 hover:text-white transition-colors ${
-            expanded ? "gap-3 px-3 py-2.5 text-[13px] font-body" : "justify-center py-3"
-          }`}
-        >
-          <CollapseIcon className={`w-[22px] h-[22px] shrink-0 transition-transform ${expanded ? "" : "rotate-180"}`} />
-          {expanded && <span>Réduire</span>}
-        </button>
-      </div>
     </aside>
   );
 }
