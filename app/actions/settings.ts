@@ -107,7 +107,6 @@ export async function saveSettings(_: unknown, formData: FormData): Promise<{ su
 
     await writeAudit(session, "update", "SiteSettings", "Paramètres du site");
     revalidatePath("/admin/settings");
-    revalidatePath("/");
     return { success: true };
   } catch (err) {
     console.error("[saveSettings] error:", err);
