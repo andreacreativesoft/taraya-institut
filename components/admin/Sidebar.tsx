@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 import { logout } from "@/app/actions/auth";
 
 const imgLogo = "/images/logo.svg";
@@ -19,59 +20,109 @@ const navItems = [
 
 export default function Sidebar({ userName, userRole }: { userName: string; userRole: string }) {
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+
+  // Close sidebar on route change (mobile)
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  // Close on escape key
+  useEffect(() => {
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, []);
 
   return (
-    <aside className="w-[240px] shrink-0 bg-[#44312b] flex flex-col min-h-screen">
-      {/* Logo */}
-      <div className="px-6 py-6 border-b border-white/10">
-        <img src={imgLogo} alt="Taraya Institut" className="h-[28px] object-contain object-left" />
-      </div>
+    <>
+      {/* Mobile hamburger button */}
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="fixed top-4 left-4 z-40 lg:hidden bg-[#44312b] text-white p-2 rounded-lg shadow-lg"
+        aria-label="Ouvrir le menu"
+      >
+        <HamburgerIcon className="w-5 h-5" />
+      </button>
 
-      {/* Nav */}
-      <nav className="flex-1 px-3 py-4 flex flex-col gap-1">
-        {navItems.map(({ href, label, icon: Icon, indent }) => {
-          const active = pathname === href || (href !== "/admin" && pathname.startsWith(href));
-          return (
-            <Link
-              key={href}
-              href={href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-[14px] font-body transition-colors ${
-                indent ? "ml-4" : ""
-              } ${
-                active
-                  ? "bg-[#cab3a0]/20 text-white font-medium"
-                  : "text-white/70 hover:bg-white/10 hover:text-white"
-              }`}
-            >
-              <Icon className="w-4 h-4 shrink-0" />
-              {label}
-            </Link>
-          );
-        })}
-      </nav>
+      {/* Overlay (mobile only) */}
+      {open && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          onClick={() => setOpen(false)}
+        />
+      )}
 
-      {/* User + Logout */}
-      <div className="px-4 py-4 border-t border-white/10">
-        <div className="flex items-center gap-3 mb-3 px-1">
-          <div className="w-8 h-8 rounded-full bg-[#cab3a0] flex items-center justify-center text-[#44312b] font-bold text-[14px] shrink-0">
-            {userName.charAt(0).toUpperCase()}
-          </div>
-          <div className="min-w-0">
-            <p className="text-white text-[13px] font-medium truncate">{userName}</p>
-            <p className="text-white/50 text-[11px] truncate">{userRole === "SUPER_ADMIN" ? "Super Admin" : "Admin"}</p>
-          </div>
-        </div>
-        <form action={logout}>
+      {/* Sidebar */}
+      <aside
+        className={`
+          fixed inset-y-0 left-0 z-50 w-[240px] bg-[#44312b] flex flex-col transition-transform duration-200 ease-in-out
+          lg:static lg:translate-x-0 lg:shrink-0
+          ${open ? "translate-x-0" : "-translate-x-full"}
+        `}
+      >
+        {/* Logo + close button */}
+        <div className="px-6 py-6 border-b border-white/10 flex items-center justify-between">
+          <img src={imgLogo} alt="Taraya Institut" className="h-[28px] object-contain object-left" />
           <button
-            type="submit"
-            className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-white/70 hover:bg-white/10 hover:text-white text-[13px] font-body transition-colors"
+            type="button"
+            onClick={() => setOpen(false)}
+            className="lg:hidden text-white/70 hover:text-white p-1 -mr-2"
+            aria-label="Fermer le menu"
           >
-            <LogoutIcon className="w-4 h-4" />
-            Déconnexion
+            <CloseIcon className="w-5 h-5" />
           </button>
-        </form>
-      </div>
-    </aside>
+        </div>
+
+        {/* Nav */}
+        <nav className="flex-1 px-3 py-4 flex flex-col gap-1 overflow-y-auto">
+          {navItems.map(({ href, label, icon: Icon, indent }) => {
+            const active = pathname === href || (href !== "/admin" && pathname.startsWith(href));
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-[14px] font-body transition-colors ${
+                  indent ? "ml-4" : ""
+                } ${
+                  active
+                    ? "bg-[#cab3a0]/20 text-white font-medium"
+                    : "text-white/70 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                <Icon className="w-4 h-4 shrink-0" />
+                {label}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* User + Logout */}
+        <div className="px-4 py-4 border-t border-white/10">
+          <div className="flex items-center gap-3 mb-3 px-1">
+            <div className="w-8 h-8 rounded-full bg-[#cab3a0] flex items-center justify-center text-[#44312b] font-bold text-[14px] shrink-0">
+              {userName.charAt(0).toUpperCase()}
+            </div>
+            <div className="min-w-0">
+              <p className="text-white text-[13px] font-medium truncate">{userName}</p>
+              <p className="text-white/50 text-[11px] truncate">{userRole === "SUPER_ADMIN" ? "Super Admin" : "Admin"}</p>
+            </div>
+          </div>
+          <form action={logout}>
+            <button
+              type="submit"
+              className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-white/70 hover:bg-white/10 hover:text-white text-[13px] font-body transition-colors"
+            >
+              <LogoutIcon className="w-4 h-4" />
+              Déconnexion
+            </button>
+          </form>
+        </div>
+      </aside>
+    </>
   );
 }
 
@@ -139,6 +190,20 @@ function LogoutIcon({ className }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+    </svg>
+  );
+}
+function HamburgerIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  );
+}
+function CloseIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" d="M6 18L18 6M6 6l12 12" />
     </svg>
   );
 }
