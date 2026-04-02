@@ -24,13 +24,13 @@ export default function HeroSection({ whatsapp, title, subtitle }: { whatsapp: s
       <section className="relative w-full min-h-[95svh] lg:min-h-[90vh] flex flex-col overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           {/* Mobile image (< lg) */}
-          <Image src="/images/hero-mobile.webp"
+          <Image src="/images/institut-beaute-sterrebeek-estheticienne-mobile.webp"
             alt="Femme recevant un soin du visage — institut de beauté Taraya à Sterrebeek"
             fill fetchPriority="high" loading="eager"
             className="object-cover object-center lg:hidden"
             sizes="100vw" />
           {/* Desktop image (>= lg) */}
-          <Image src="/images/hero-desktop.webp"
+          <Image src="/images/institut-beaute-zaventem-soin-visage-desktop.webp"
             alt="Femme recevant un massage du visage dans un cadre chaleureux avec bougies — institut de beauté Taraya à Zaventem"
             fill fetchPriority="high" loading="eager"
             className="object-cover object-center hidden lg:block"

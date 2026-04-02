@@ -1,7 +1,7 @@
 import Image from "next/image";
 
-const imgPhoto  = "/images/forwho-1.webp";
-const imgPhoto2 = "/images/forwho-2.webp";
+const imgPhoto  = "/images/massage-huile-essentielle-estheticienne-zaventem.webp";
+const imgPhoto2 = "/images/soins-bien-etre-femme-sterrebeek.webp";
 const imgFace   = "/images/icon-face.svg";
 const imgFire   = "/images/icon-fire.svg";
 const imgHeart  = "/images/icon-heart.svg";

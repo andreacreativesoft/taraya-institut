@@ -1,9 +1,9 @@
 import Image from "next/image";
 
-const imgPhoto1  = "/images/whyus-1.webp";
-const imgPhoto2  = "/images/whyus-2.webp";
-const imgPhoto3  = "/images/whyus-3.webp";
-const imgPhoto4  = "/images/whyus-4.webp";
+const imgPhoto1  = "/images/interieur-salon-beaute-taraya-sterrebeek.webp";
+const imgPhoto2  = "/images/cabine-esthetique-soins-zaventem.webp";
+const imgPhoto3  = "/images/equipement-professionnel-estheticienne-zaventem.webp";
+const imgPhoto4  = "/images/espace-manucure-institut-beaute-sterrebeek.webp";
 const imgStar    = "/images/icon-star.svg";
 const imgZoom    = "/images/icon-zoom.svg";
 const imgReceipt = "/images/icon-receipt.svg";
