@@ -11,6 +11,7 @@ import WhyUsSection from "@/components/public/WhyUsSection";
 import PartnerSection from "@/components/public/PartnerSection";
 import CTASection from "@/components/public/CTASection";
 import Footer from "@/components/public/Footer";
+import BackToTop from "@/components/public/BackToTop";
 
 export default async function HomePage() {
   const settings = await getSettings();
@@ -33,6 +34,7 @@ export default async function HomePage() {
         instagram={settings.instagram}
         facebook={settings.facebook}
       />
+      <BackToTop />
     </>
   );
 }

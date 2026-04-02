@@ -96,7 +96,7 @@ export default function CategoryCard({ category }: { category: Category }) {
           ) : (
             <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleItemDragEnd}>
               <SortableContext items={items.map(i => i.id)} strategy={verticalListSortingStrategy}>
-                {items.map(item => <ItemRow key={item.id} item={item} />)}
+                {items.map(item => <ItemRow key={item.id} item={item} categoryId={category.id} />)}
               </SortableContext>
             </DndContext>
           )}

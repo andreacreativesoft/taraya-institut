@@ -14,10 +14,24 @@ export type Service = {
   order: number;
 };
 
+// Same logic as public ServicesSection fallback
+function getAutoImage(title: string): string {
+  const t = title.toLowerCase();
+  if (t.includes("visage")) return "/images/service-soins-visage.jpg";
+  if (t.includes("massage")) return "/images/service-massages.jpg";
+  if (t.includes("main") || t.includes("pied") || t.includes("manucure") || t.includes("pédicure")) return "/images/service-mains-pieds.jpg";
+  if (t.includes("épil") || t.includes("epil")) return "/images/service-epilations.jpg";
+  if (t.includes("teinture") || t.includes("sourcil") || t.includes("cil")) return "/images/service-teintures.jpg";
+  return "/images/service-base.jpg";
+}
+
 function EditModal({ service, onClose }: { service: Service; onClose: () => void }) {
-  const [preview, setPreview] = useState<string>(service.image ?? "");
+  const effectiveImage = service.image || getAutoImage(service.title);
+  const isAutoImage = !service.image;
+  const [preview, setPreview] = useState<string>(effectiveImage);
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState(service.image ?? "");
+  const [isCustom, setIsCustom] = useState(!isAutoImage);
   const [saving, setSaving] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -25,6 +39,7 @@ function EditModal({ service, onClose }: { service: Service; onClose: () => void
     const file = e.target.files?.[0];
     if (!file) return;
     setPreview(URL.createObjectURL(file));
+    setIsCustom(true);
     setUploading(true);
     const fd = new FormData();
     fd.append("file", file);
@@ -68,7 +83,21 @@ function EditModal({ service, onClose }: { service: Service; onClose: () => void
             {preview ? (
               <div className="relative rounded-lg overflow-hidden bg-[#f5f1e8] border border-[#dad5cd]" style={{ height: 160 }}>
                 <img src={preview} alt="preview" className="w-full h-full object-cover" />
-                <button type="button" onClick={() => { setPreview(""); setImageUrl(""); }}
+                {!isCustom && (
+                  <div className="absolute bottom-2 left-2 bg-black/50 text-white font-body text-[11px] px-2 py-0.5 rounded-full">
+                    Image automatique
+                  </div>
+                )}
+                <button type="button" onClick={() => {
+                  if (isCustom) {
+                    setPreview(getAutoImage(service.title));
+                    setImageUrl("");
+                    setIsCustom(false);
+                  } else {
+                    setPreview("");
+                    setImageUrl("");
+                  }
+                }}
                   className="absolute top-2 right-2 bg-white/90 text-[#251d1b] rounded-full w-7 h-7 flex items-center justify-center text-[14px] hover:bg-white shadow-sm">
                   ×
                 </button>

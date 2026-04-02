@@ -15,9 +15,9 @@ function PricingCard({ title, items }: { title: string; items: PriceItem[] }) {
       <div className="flex flex-col gap-4">
         {items.map((item) => (
           <div key={item.id}
-            className="flex items-center justify-between border-b border-[rgba(68,49,43,0.05)] py-0.5 font-body text-[#736a66] text-[16px] leading-[1.4] tracking-[0.16px]">
-            <span className="w-[260px] shrink-0">{item.label}</span>
-            <span className="w-10 text-right shrink-0">{item.price}</span>
+            className="flex items-baseline justify-between gap-3 border-b border-[rgba(68,49,43,0.05)] py-0.5 font-body text-[#736a66] text-[16px] leading-[1.4] tracking-[0.16px]">
+            <span>{item.label}</span>
+            <span className="shrink-0 text-right">{item.price}</span>
           </div>
         ))}
       </div>

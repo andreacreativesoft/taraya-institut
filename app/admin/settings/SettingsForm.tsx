@@ -100,6 +100,7 @@ export default function SettingsForm({ settings }: { settings: Settings }) {
           <input name="gtm_id" defaultValue={get("gtm_id")} placeholder="GTM-XXXXXXX"
             className="border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b] focus:outline-none focus:border-[#cab3a0] focus:ring-2 focus:ring-[#cab3a0]/20" />
           <p className="font-body text-[#746e6b] text-[12px]">Laissez vide pour désactiver le tracking.</p>
+          {state?.errors?.gtm_id && <p className="text-red-500 text-[12px]">{state.errors.gtm_id}</p>}
         </div>
       </div>
 
