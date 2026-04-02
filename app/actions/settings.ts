@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+// revalidatePath removed — all pages query DB dynamically, no cache to bust
 import { db } from "@/lib/db";
 import { requireSession } from "@/lib/auth";
 import { writeAudit } from "@/lib/audit";
@@ -63,8 +63,6 @@ export async function saveSetting(key: string, value: string) {
     create: { key, value: sanitized },
   });
   await writeAudit(session, "update", "SiteSetting", key);
-  revalidatePath("/admin/settings");
-  revalidatePath("/");
 }
 
 export async function saveSettings(_: unknown, formData: FormData): Promise<{ success: boolean; errors?: Record<string, string> }> {
@@ -106,7 +104,6 @@ export async function saveSettings(_: unknown, formData: FormData): Promise<{ su
     }
 
     await writeAudit(session, "update", "SiteSettings", "Paramètres du site");
-    revalidatePath("/admin/settings");
     return { success: true };
   } catch (err) {
     console.error("[saveSettings] error:", err);
