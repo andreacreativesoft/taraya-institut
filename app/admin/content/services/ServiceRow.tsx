@@ -1,19 +1,12 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { deleteService, saveService, toggleService } from "@/app/actions/services";
-
-export type Service = {
-  id: string;
-  title: string;
-  description: string;
-  image: string | null;
-  imageAlt: string | null;
-  active: boolean;
-  order: number;
-};
+import { useImageUpload } from "@/hooks/useImageUpload";
+import type { Service } from "@prisma/client";
+export type { Service };
 
 // Same logic as public ServicesSection fallback
 function getAutoImage(title: string): string {
@@ -28,36 +21,20 @@ function getAutoImage(title: string): string {
 
 function EditModal({ service, onClose }: { service: Service; onClose: () => void }) {
   const effectiveImage = service.image || getAutoImage(service.title);
-  const isAutoImage = !service.image;
-  const [preview, setPreview] = useState<string>(effectiveImage);
-  const [uploading, setUploading] = useState(false);
-  const [imageUrl, setImageUrl] = useState(service.image ?? "");
-  const [isCustom, setIsCustom] = useState(!isAutoImage);
+  const [isCustom, setIsCustom] = useState(!!service.image);
+  const { preview, setPreview, uploading, url: imageUrl, setUrl, fileRef, handleFile } = useImageUpload(effectiveImage);
   const [saving, setSaving] = useState(false);
-  const fileRef = useRef<HTMLInputElement>(null);
 
-  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setPreview(URL.createObjectURL(file));
+  async function handleFileWithFlag(e: React.ChangeEvent<HTMLInputElement>) {
     setIsCustom(true);
-    setUploading(true);
-    const fd = new FormData();
-    fd.append("file", file);
-    try {
-      const res = await fetch("/api/upload", { method: "POST", body: fd });
-      const data = await res.json() as { url?: string; error?: string };
-      if (data.url) setImageUrl(data.url);
-      else { alert(data.error ?? "Erreur upload"); setPreview(service.image ?? ""); }
-    } catch { alert("Erreur réseau"); setPreview(service.image ?? ""); }
-    finally { setUploading(false); }
+    await handleFile(e);
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSaving(true);
     const fd = new FormData(e.currentTarget);
-    fd.set("image", imageUrl);
+    fd.set("image", imageUrl ?? "");
     await saveService(service.id, fd);
     setSaving(false);
     onClose();
@@ -75,7 +52,7 @@ function EditModal({ service, onClose }: { service: Service; onClose: () => void
           <div className="flex flex-col gap-1.5">
             <label className="font-body text-[#251d1b] text-[13px] font-medium">Titre *</label>
             <input name="title" required defaultValue={service.title}
-              className="border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b] focus:outline-none focus:border-[#cab3a0] focus:ring-2 focus:ring-[#cab3a0]/20" />
+              className="input-admin" />
           </div>
 
           {/* Image with large preview */}
@@ -92,11 +69,11 @@ function EditModal({ service, onClose }: { service: Service; onClose: () => void
                 <button type="button" onClick={() => {
                   if (isCustom) {
                     setPreview(getAutoImage(service.title));
-                    setImageUrl("");
+                    setUrl("");
                     setIsCustom(false);
                   } else {
                     setPreview("");
-                    setImageUrl("");
+                    setUrl("");
                   }
                 }}
                   className="absolute top-2 right-2 bg-white/90 text-[#251d1b] rounded-full w-7 h-7 flex items-center justify-center text-[14px] hover:bg-white shadow-sm">
@@ -117,20 +94,20 @@ function EditModal({ service, onClose }: { service: Service; onClose: () => void
                 {uploading ? "Upload en cours…" : "Changer l'image"}
               </button>
             )}
-            <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleFile} />
+            <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleFileWithFlag} />
           </div>
 
           <div className="flex flex-col gap-1.5">
             <label className="font-body text-[#251d1b] text-[13px] font-medium">Description *</label>
             <textarea name="description" required rows={3} defaultValue={service.description}
-              className="border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b] focus:outline-none focus:border-[#cab3a0] focus:ring-2 focus:ring-[#cab3a0]/20 resize-none" />
+              className="input-admin resize-none" />
           </div>
 
           <div className="flex flex-col gap-1.5">
             <label className="font-body text-[#251d1b] text-[13px] font-medium">Texte alternatif image (SEO)</label>
             <input name="imageAlt" defaultValue={service.imageAlt ?? ""} maxLength={125}
               placeholder={`${service.title} — Taraya Institut`}
-              className="border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b] focus:outline-none focus:border-[#cab3a0] focus:ring-2 focus:ring-[#cab3a0]/20" />
+              className="input-admin" />
             <p className="font-body text-[#746e6b] text-[11px]">Décrit l'image pour les moteurs de recherche. Max 125 caractères.</p>
           </div>
 

@@ -1,34 +1,16 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { createService } from "@/app/actions/services";
+import { useImageUpload } from "@/hooks/useImageUpload";
 
 export default function NewServiceForm() {
   const [state, action, pending] = useActionState(createService, undefined);
-  const [preview, setPreview] = useState<string>("");
-  const [uploading, setUploading] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
-  const fileRef = useRef<HTMLInputElement>(null);
+  const { preview, uploading, url: imageUrl, fileRef, handleFile, clear } = useImageUpload();
   const formRef = useRef<HTMLFormElement>(null);
   useEffect(() => {
-    if (state?.success) { formRef.current?.reset(); setPreview(""); setImageUrl(""); }
+    if (state?.success) { formRef.current?.reset(); clear(); }
   }, [state?.success]);
-
-  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setPreview(URL.createObjectURL(file));
-    setUploading(true);
-    const fd = new FormData();
-    fd.append("file", file);
-    try {
-      const res = await fetch("/api/upload", { method: "POST", body: fd });
-      const data = await res.json() as { url?: string; error?: string };
-      if (data.url) setImageUrl(data.url);
-      else { alert(data.error ?? "Erreur lors de l'upload"); setPreview(""); }
-    } catch { alert("Erreur réseau lors de l'upload"); setPreview(""); }
-    finally { setUploading(false); }
-  }
 
   return (
     <form ref={formRef} action={action} className="flex flex-col gap-4">
@@ -36,8 +18,7 @@ export default function NewServiceForm() {
 
       <div className="flex flex-col gap-1.5">
         <label className="font-body text-[#251d1b] text-[13px] font-medium">Titre *</label>
-        <input name="title" required placeholder="Ex: Soins visage Phyt's"
-          className="border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b] focus:outline-none focus:border-[#cab3a0] focus:ring-2 focus:ring-[#cab3a0]/20" />
+        <input name="title" required placeholder="Ex: Soins visage Phyt's" className="input-admin" />
         {state?.errors?.title && <p className="text-red-500 text-[12px]">{state.errors.title[0]}</p>}
       </div>
 
@@ -47,7 +28,7 @@ export default function NewServiceForm() {
         {preview ? (
           <div className="relative rounded-lg overflow-hidden bg-[#f5f1e8] border border-[#dad5cd]" style={{ height: 160 }}>
             <img src={preview} alt="preview" className="w-full h-full object-cover" />
-            <button type="button" onClick={() => { setPreview(""); setImageUrl(""); }}
+            <button type="button" onClick={clear}
               className="absolute top-2 right-2 bg-white/90 text-[#251d1b] rounded-full w-7 h-7 flex items-center justify-center text-[14px] hover:bg-white shadow-sm">
               ×
             </button>
@@ -72,7 +53,7 @@ export default function NewServiceForm() {
       <div className="flex flex-col gap-1.5">
         <label className="font-body text-[#251d1b] text-[13px] font-medium">Description *</label>
         <textarea name="description" required rows={3} placeholder="Description du service…"
-          className="border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b] focus:outline-none focus:border-[#cab3a0] focus:ring-2 focus:ring-[#cab3a0]/20 resize-none" />
+          className="input-admin resize-none" />
         {state?.errors?.description && <p className="text-red-500 text-[12px]">{state.errors.description[0]}</p>}
       </div>
 

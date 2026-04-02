@@ -23,6 +23,14 @@
   --text-body-s--letter-spacing: 1px;
 }
 
+/* Admin input — shared across all admin forms */
+@layer components {
+  .input-admin {
+    @apply border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b]
+           focus:outline-none focus:border-[#cab3a0] focus:ring-2 focus:ring-[#cab3a0]/20 w-full;
+  }
+}
+
 /* Base styles — inside @layer base so Tailwind utilities can override */
 @layer base {
   body {

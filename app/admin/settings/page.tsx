@@ -1,17 +1,8 @@
 import { db } from "@/lib/db";
 import SettingsForm from "./SettingsForm";
 
-type SettingRow = { key: string; value: string };
-
 export default async function SettingsPage() {
-  let rows: SettingRow[] = [];
-  try {
-    const fetched = await db.siteSetting.findMany();
-    rows = fetched as unknown as SettingRow[];
-  } catch {
-    // db unavailable
-  }
-
+  const rows = await db.siteSetting.findMany().catch(() => []);
   const settings = Object.fromEntries(rows.map((r) => [r.key, r.value]));
 
   return (

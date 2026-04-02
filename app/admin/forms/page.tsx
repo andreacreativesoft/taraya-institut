@@ -1,17 +1,8 @@
 import { db } from "@/lib/db";
 import SubmissionActions from "./MarkReadButton";
 
-type Submission = { id: string; name: string; email: string; phone: string | null; service: string | null; message: string; read: boolean; createdAt: Date };
-
 export default async function FormsPage() {
-  let submissions: Submission[] = [];
-  try {
-    const rows = await db.formSubmission.findMany({ orderBy: { createdAt: "desc" } });
-    submissions = rows as unknown as Submission[];
-  } catch {
-    // db unavailable — show empty state
-  }
-
+  const submissions = await db.formSubmission.findMany({ orderBy: { createdAt: "desc" } }).catch(() => []);
   const unread = submissions.filter((s) => !s.read).length;
 
   return (

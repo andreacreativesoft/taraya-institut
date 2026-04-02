@@ -3,17 +3,9 @@ import { getSession } from "@/lib/auth";
 import { deleteUser } from "@/app/actions/users";
 import NewUserForm from "./NewUserForm";
 
-type UserRow = { id: string; name: string; email: string; role: string; createdAt: Date };
-
 export default async function UsersPage() {
   const session = await getSession();
-  let users: UserRow[] = [];
-  try {
-    const rows = await db.user.findMany({ orderBy: { createdAt: "asc" } });
-    users = rows as unknown as UserRow[];
-  } catch {
-    // db unavailable — show empty state
-  }
+  const users = await db.user.findMany({ orderBy: { createdAt: "asc" } }).catch(() => []);
 
   const isSuperAdmin = session?.role === "SUPER_ADMIN";
 

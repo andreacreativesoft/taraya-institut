@@ -1,19 +1,12 @@
 import { db } from "@/lib/db";
 import SortablePricingList from "./SortablePricingList";
 import NewCategoryForm from "./NewCategoryForm";
-import type { Category } from "./CategoryCard";
 
 export default async function PricingPage() {
-  let categories: Category[] = [];
-  try {
-    const rows = await db.pricingCategory.findMany({
-      orderBy: { order: "asc" },
-      include: { items: { orderBy: { order: "asc" } } },
-    });
-    categories = rows as unknown as Category[];
-  } catch {
-    // db unavailable — show empty state
-  }
+  const categories = await db.pricingCategory.findMany({
+    orderBy: { order: "asc" },
+    include: { items: { orderBy: { order: "asc" } } },
+  }).catch(() => []);
 
   let totalItems = 0;
   for (const c of categories) totalItems += c.items.length;

@@ -13,7 +13,7 @@ export default function NewCategoryForm() {
       <div className="flex flex-col gap-1.5">
         <label className="font-body text-[#251d1b] text-[13px] font-medium">Titre *</label>
         <input name="title" required placeholder="Ex: Soins visage Phyt's"
-          className="border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b] focus:outline-none focus:border-[#cab3a0] focus:ring-2 focus:ring-[#cab3a0]/20" />
+          className="input-admin" />
         {state?.errors?.title && <p className="text-red-500 text-[12px]">{state.errors.title[0]}</p>}
       </div>
       <div className="flex justify-end">

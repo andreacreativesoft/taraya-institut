@@ -1,16 +1,9 @@
 import { db } from "@/lib/db";
 import SortableServiceList from "./SortableServiceList";
 import NewServiceForm from "./NewServiceForm";
-import type { Service } from "./ServiceRow";
 
 export default async function ServicesPage() {
-  let services: Service[] = [];
-  try {
-    const rows = await db.service.findMany({ orderBy: { order: "asc" } });
-    services = rows as unknown as Service[];
-  } catch {
-    // db unavailable — show empty state
-  }
+  const services = await db.service.findMany({ orderBy: { order: "asc" } }).catch(() => []);
 
   return (
     <div className="flex flex-col gap-8 max-w-[900px]">

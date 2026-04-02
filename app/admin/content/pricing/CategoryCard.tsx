@@ -15,8 +15,9 @@ import { deleteCategory, toggleCategory, reorderItems } from "@/app/actions/pric
 import ItemRow from "./ItemRow";
 import NewItemForm from "./NewItemForm";
 
-export type Item = { id: string; label: string; price: string; order: number };
-export type Category = { id: string; title: string; order: number; active: boolean; items: Item[] };
+import type { Prisma } from "@prisma/client";
+export type Item = Prisma.PricingItemGetPayload<object>;
+export type Category = Prisma.PricingCategoryGetPayload<{ include: { items: true } }>;
 
 export default function CategoryCard({ category }: { category: Category }) {
   const [expanded, setExpanded] = useState(true);

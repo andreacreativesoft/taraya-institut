@@ -51,7 +51,8 @@
       "mcp__puppeteer__puppeteer_fill",
       "WebFetch(domain:taraya-institut.vercel.app)",
       "Bash(git commit:*)",
-      "Bash(yet\" messages, served no purpose\\):*)"
+      "Bash(yet\" messages, served no purpose\\):*)",
+      "Bash(du -sh /c/laragon/www/taraya-institut/public/images/*.jpg)"
     ]
   }
 }

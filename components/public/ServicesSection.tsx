@@ -36,16 +36,10 @@ function ServiceCard({ title, description, image, imageAlt }: Omit<ServiceData, 
 }
 
 export default async function ServicesSection() {
-  let services: ServiceData[] = [];
-  try {
-    const rows = await db.service.findMany({
-      where: { active: true },
-      orderBy: { order: "asc" },
-    });
-    services = rows as unknown as ServiceData[];
-  } catch {
-    // DB unavailable — show empty section
-  }
+  const services = await db.service.findMany({
+    where: { active: true },
+    orderBy: { order: "asc" },
+  }).catch(() => []);
 
   if (services.length === 0) return null;
 

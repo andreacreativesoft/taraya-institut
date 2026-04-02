@@ -12,25 +12,25 @@ export default function NewUserForm() {
         <div className="flex flex-col gap-1.5">
           <label className="font-body text-[#251d1b] text-[13px] font-medium">Nom *</label>
           <input name="name" required placeholder="Marie Dupont"
-            className="border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b] focus:outline-none focus:border-[#cab3a0] focus:ring-2 focus:ring-[#cab3a0]/20" />
+            className="input-admin" />
           {state?.errors?.name && <p className="text-red-500 text-[12px]">{state.errors.name[0]}</p>}
         </div>
         <div className="flex flex-col gap-1.5">
           <label className="font-body text-[#251d1b] text-[13px] font-medium">Email *</label>
           <input name="email" type="email" required placeholder="marie@taraya-institut.fr"
-            className="border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b] focus:outline-none focus:border-[#cab3a0] focus:ring-2 focus:ring-[#cab3a0]/20" />
+            className="input-admin" />
           {state?.errors?.email && <p className="text-red-500 text-[12px]">{state.errors.email[0]}</p>}
         </div>
         <div className="flex flex-col gap-1.5">
           <label className="font-body text-[#251d1b] text-[13px] font-medium">Mot de passe *</label>
           <input name="password" type="password" required placeholder="Min. 8 caractères"
-            className="border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b] focus:outline-none focus:border-[#cab3a0] focus:ring-2 focus:ring-[#cab3a0]/20" />
+            className="input-admin" />
           {state?.errors?.password && <p className="text-red-500 text-[12px]">{state.errors.password[0]}</p>}
         </div>
         <div className="flex flex-col gap-1.5">
           <label className="font-body text-[#251d1b] text-[13px] font-medium">Rôle *</label>
           <select name="role" defaultValue="ADMIN"
-            className="border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b] focus:outline-none focus:border-[#cab3a0] focus:ring-2 focus:ring-[#cab3a0]/20 bg-white">
+            className="input-admin bg-white">
             <option value="ADMIN">Admin</option>
             <option value="SUPER_ADMIN">Super Admin</option>
           </select>

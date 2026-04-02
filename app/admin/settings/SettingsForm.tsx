@@ -5,7 +5,7 @@ import { saveSettings } from "@/app/actions/settings";
 
 type Settings = Record<string, string>;
 
-const inputCls = "border border-[#dad5cd] rounded-lg px-3 py-2 font-body text-[14px] text-[#251d1b] focus:outline-none focus:border-[#cab3a0] focus:ring-2 focus:ring-[#cab3a0]/20 w-full";
+const inputCls = "input-admin";
 const labelCls = "font-body text-[#251d1b] text-[13px] font-medium";
 const fieldCls = "flex flex-col gap-1.5";
 const cardCls  = "bg-white rounded-xl border border-[#dad5cd] p-6 flex flex-col gap-5";
