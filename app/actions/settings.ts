@@ -5,6 +5,14 @@ import { db } from "@/lib/db";
 import { requireSession } from "@/lib/auth";
 
 const GTM_RE = /^GTM-[A-Z0-9]{4,10}$/;
+
+const ALLOWED_KEYS = new Set([
+  "phone", "whatsapp", "email", "address",
+  "instagram", "facebook",
+  "hero_title", "hero_subtitle",
+  "meta_title", "meta_description",
+  "gtm_id",
+]);
 const URL_MAX = 300;
 const TEXT_MAX = 500;
 
@@ -45,6 +53,7 @@ function sanitizeGtm(value: unknown): string {
 
 export async function saveSetting(key: string, value: string) {
   await requireSession();
+  if (!ALLOWED_KEYS.has(key)) throw new Error("Clé de paramètre invalide");
   const sanitized = sanitizeText(value);
   await db.siteSetting.upsert({
     where: { key },

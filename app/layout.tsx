@@ -28,7 +28,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const settings = await getSettings();
+  const GTM_REGEX = /^GTM-[A-Z0-9]{1,10}$/;
   const gtmId = settings.gtm_id?.trim();
+  const safeGtmId = gtmId && GTM_REGEX.test(gtmId) ? gtmId : null;
 
   return (
     <html
@@ -36,7 +38,7 @@ export default async function RootLayout({
       className={`${quattrocento.variable} ${questrial.variable} antialiased`}
     >
       <body>
-        {gtmId && (
+        {safeGtmId && (
           <>
             <Script
               id="gtm-script"
@@ -46,12 +48,12 @@ export default async function RootLayout({
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${gtmId}');`,
+})(window,document,'script','dataLayer','${safeGtmId}');`,
               }}
             />
             <noscript>
               <iframe
-                src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+                src={`https://www.googletagmanager.com/ns.html?id=${safeGtmId}`}
                 height="0"
                 width="0"
                 style={{ display: "none", visibility: "hidden" }}
