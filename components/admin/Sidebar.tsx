@@ -103,7 +103,6 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
             >
               <Icon className="w-5 h-5 shrink-0" />
               {expanded && <span className="truncate">{label}</span>}
-              {/* Tooltip on collapsed hover */}
               {!expanded && (
                 <span className="absolute left-full ml-2 px-2 py-1 rounded bg-[#251d1b] text-white text-[12px] whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">
                   {label}
@@ -112,16 +111,14 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
             </Link>
           );
         })}
-      </nav>
 
-      {/* Bottom: logout + toggle */}
-      <div className="border-t border-white/10 py-3 px-2 flex flex-col gap-1">
+        {/* Logout — inline with nav icons */}
         <form action={logout}>
           <button
             type="submit"
             title={expanded ? undefined : "Déconnexion"}
             className={`group relative w-full flex items-center rounded-lg text-white/60 hover:bg-white/10 hover:text-white transition-colors ${
-              expanded ? "gap-3 px-3 py-2.5 text-[13px] font-body" : "justify-center py-3"
+              expanded ? "gap-3 px-3 py-2.5 text-[14px] font-body" : "justify-center py-3"
             }`}
           >
             <LogoutIcon className="w-5 h-5 shrink-0" />
@@ -133,8 +130,10 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
             )}
           </button>
         </form>
+      </nav>
 
-        {/* Expand / Collapse toggle */}
+      {/* Bottom: collapse toggle */}
+      <div className="border-t border-white/10 py-3 px-2">
         <button
           type="button"
           onClick={() => setExpanded((v: boolean) => !v)}
