@@ -4,14 +4,15 @@ import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
 import { requireSession } from "@/lib/auth";
 
-const GTM_RE = /^GTM-[A-Z0-9]{4,10}$/;
+const GTM_RE      = /^GTM-[A-Z0-9]{4,10}$/;
+const FB_PIXEL_RE = /^\d{10,20}$/;
 
 const ALLOWED_KEYS = new Set([
   "phone", "whatsapp", "email", "address",
   "instagram", "facebook",
   "hero_title", "hero_subtitle",
   "meta_title", "meta_description",
-  "gtm_id",
+  "gtm_id", "facebook_pixel_id",
 ]);
 const URL_MAX = 300;
 const TEXT_MAX = 500;
@@ -70,23 +71,27 @@ export async function saveSettings(_: unknown, formData: FormData): Promise<{ su
   const gtmRaw = sanitizeGtm(formData.get("gtm_id"));
   const gtmInput = sanitizeText(formData.get("gtm_id"), 20);
 
-  // If user typed something but it doesn't match GTM format, surface an error
-  if (gtmInput && !gtmRaw) {
-    return { success: false, errors: { gtm_id: "Format invalide. Exemple : GTM-XXXXXXX" } };
-  }
+  const fbPixelRaw = sanitizeText(formData.get("facebook_pixel_id"), 20).replace(/\s/g, "");
+  const fbPixelInput = fbPixelRaw;
+
+  const errors: Record<string, string> = {};
+  if (gtmInput && !gtmRaw) errors.gtm_id = "Format invalide. Exemple : GTM-XXXXXXX";
+  if (fbPixelInput && !FB_PIXEL_RE.test(fbPixelInput)) errors.facebook_pixel_id = "Format invalide. Le Pixel ID est un nombre de 10 à 20 chiffres.";
+  if (Object.keys(errors).length > 0) return { success: false, errors };
 
   const fieldMap: Record<string, string> = {
-    phone:            sanitizePhone(formData.get("phone")),
-    whatsapp:         sanitizePhone(formData.get("whatsapp")),
-    email:            sanitizeEmail(formData.get("email")),
-    address:          sanitizeText(formData.get("address"), 300),
-    instagram:        sanitizeUrl(formData.get("instagram")),
-    facebook:         sanitizeUrl(formData.get("facebook")),
-    hero_title:       sanitizeText(formData.get("hero_title")),
-    hero_subtitle:    sanitizeText(formData.get("hero_subtitle")),
-    meta_title:       sanitizeText(formData.get("meta_title"), 100),
-    meta_description: sanitizeText(formData.get("meta_description"), 300),
-    gtm_id:           gtmRaw,
+    phone:              sanitizePhone(formData.get("phone")),
+    whatsapp:           sanitizePhone(formData.get("whatsapp")),
+    email:              sanitizeEmail(formData.get("email")),
+    address:            sanitizeText(formData.get("address"), 300),
+    instagram:          sanitizeUrl(formData.get("instagram")),
+    facebook:           sanitizeUrl(formData.get("facebook")),
+    hero_title:         sanitizeText(formData.get("hero_title")),
+    hero_subtitle:      sanitizeText(formData.get("hero_subtitle")),
+    meta_title:         sanitizeText(formData.get("meta_title"), 100),
+    meta_description:   sanitizeText(formData.get("meta_description"), 300),
+    gtm_id:             gtmRaw,
+    facebook_pixel_id:  FB_PIXEL_RE.test(fbPixelInput) ? fbPixelInput : "",
   };
 
   await Promise.all(

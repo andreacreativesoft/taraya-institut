@@ -28,9 +28,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const settings = await getSettings();
-  const GTM_REGEX = /^GTM-[A-Z0-9]{1,10}$/;
-  const gtmId = settings.gtm_id?.trim();
-  const safeGtmId = gtmId && GTM_REGEX.test(gtmId) ? gtmId : null;
+  const GTM_REGEX      = /^GTM-[A-Z0-9]{1,10}$/;
+  const FB_PIXEL_REGEX = /^\d{10,20}$/;
+  const gtmId      = settings.gtm_id?.trim();
+  const fbPixelId  = settings.facebook_pixel_id?.trim();
+  const safeGtmId     = gtmId     && GTM_REGEX.test(gtmId)           ? gtmId     : null;
+  const safeFbPixelId = fbPixelId && FB_PIXEL_REGEX.test(fbPixelId)  ? fbPixelId : null;
 
   return (
     <html
@@ -58,6 +61,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 width="0"
                 style={{ display: "none", visibility: "hidden" }}
               />
+            </noscript>
+          </>
+        )}
+        {safeFbPixelId && (
+          <>
+            <Script id="fb-pixel" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html:
+              `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${safeFbPixelId}');fbq('track','PageView');`
+            }} />
+            <noscript>
+              <img height="1" width="1" style={{ display: "none" }}
+                src={`https://www.facebook.com/tr?id=${safeFbPixelId}&ev=PageView&noscript=1`} alt="" />
             </noscript>
           </>
         )}
