@@ -18,9 +18,18 @@ export default function HeroSection({ whatsapp }: { whatsapp: string }) {
 
       <section className="relative w-full min-h-[95svh] lg:min-h-[70vh] flex flex-col overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <Image src="/images/hero-bg.webp"
-            alt="Femme recevant un massage du visage dans un cadre chaleureux avec bougies — institut de beauté Taraya"
-            fill fetchPriority="high" loading="eager" className="object-cover object-center" sizes="100vw" />
+          {/* Mobile image (< lg) */}
+          <Image src="/images/hero-mobile.webp"
+            alt="Femme recevant un soin du visage — institut de beauté Taraya à Sterrebeek"
+            fill fetchPriority="high" loading="eager"
+            className="object-cover object-center lg:hidden"
+            sizes="100vw" />
+          {/* Desktop image (>= lg) */}
+          <Image src="/images/hero-desktop.webp"
+            alt="Femme recevant un massage du visage dans un cadre chaleureux avec bougies — institut de beauté Taraya à Zaventem"
+            fill fetchPriority="high" loading="eager"
+            className="object-cover object-center hidden lg:block"
+            sizes="100vw" />
         </div>
 
         {/* Navbar */}
