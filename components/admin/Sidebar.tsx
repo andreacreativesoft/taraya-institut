@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { logout } from "@/app/actions/auth";
 
-const imgLogo = "/images/logo.svg";
 
 type NavItem = {
   href: string;
@@ -60,30 +59,17 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
         expanded ? "w-[220px]" : "w-[60px]"
       }`}
     >
-      {/* Logo + expand toggle */}
-      <div className={`flex items-center border-b border-white/10 h-[64px] ${expanded ? "px-5 justify-between" : "justify-center"}`}>
-        {expanded ? (
-          <>
-            <img src={imgLogo} alt="Taraya Institut" className="h-[24px] object-contain object-left" />
-            <button
-              type="button"
-              onClick={() => setExpanded(false)}
-              title="Réduire"
-              className="text-white/60 hover:text-white transition-colors p-1 -mr-1"
-            >
-              <CollapseIcon className="w-5 h-5" />
-            </button>
-          </>
-        ) : (
-          <button
-            type="button"
-            onClick={() => setExpanded(true)}
-            title="Agrandir"
-            className="text-white/60 hover:text-white transition-colors"
-          >
-            <img src="/icon.svg" alt="Taraya Institut" className="w-8 h-8 rounded-lg object-contain" />
-          </button>
-        )}
+      {/* Logo + arrow toggle */}
+      <div className={`flex items-center border-b border-white/10 h-[64px] gap-3 ${expanded ? "px-4" : "px-2 justify-center"}`}>
+        <img src="/icon.svg" alt="Taraya Institut" className="w-8 h-8 rounded-lg object-contain shrink-0" />
+        <button
+          type="button"
+          onClick={() => setExpanded((v: boolean) => !v)}
+          title={expanded ? "Réduire" : "Agrandir"}
+          className="text-white/60 hover:text-white transition-colors p-1"
+        >
+          <ArrowIcon className={`w-4 h-4 transition-transform duration-200 ${expanded ? "" : "rotate-180"}`} />
+        </button>
       </div>
 
       {/* User avatar */}
@@ -220,10 +206,10 @@ function LogoutIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-function CollapseIcon({ className }: { className?: string }) {
+function ArrowIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
     </svg>
   );
 }
