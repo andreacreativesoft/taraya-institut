@@ -67,7 +67,7 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
 
       <aside
         className={`bg-[#44312b] flex flex-col h-full overflow-y-auto transition-all duration-200 ease-in-out ${
-          expanded ? "w-[220px]" : "w-[60px]"
+          expanded ? "w-[216px]" : "w-[56px]"
         }`}
       >
         {/* Logo */}
