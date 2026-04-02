@@ -54,23 +54,26 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
   }, []);
 
   return (
-    <aside
-      className={`shrink-0 bg-[#44312b] flex flex-col min-h-screen transition-all duration-200 ease-in-out ${
-        expanded ? "w-[220px]" : "w-[60px]"
-      }`}
-    >
-      {/* Logo + arrow toggle */}
-      <div className={`flex items-center border-b border-white/10 h-[64px] gap-3 ${expanded ? "px-4" : "px-2 justify-center"}`}>
-        <img src="/icon.svg" alt="Taraya Institut" className="w-8 h-8 rounded-lg object-contain shrink-0" />
-        <button
-          type="button"
-          onClick={() => setExpanded((v: boolean) => !v)}
-          title={expanded ? "Réduire" : "Agrandir"}
-          className="text-white/60 hover:text-white transition-colors p-1"
-        >
-          <ArrowIcon className={`w-4 h-4 transition-transform duration-200 ${expanded ? "" : "rotate-180"}`} />
-        </button>
-      </div>
+    <div className="relative shrink-0">
+      {/* Arrow toggle — sits on the right edge of the sidebar */}
+      <button
+        type="button"
+        onClick={() => setExpanded((v: boolean) => !v)}
+        title={expanded ? "Réduire" : "Agrandir"}
+        className="absolute top-5 -right-3 z-10 w-6 h-6 rounded-full bg-[#44312b] border border-white/20 flex items-center justify-center text-white/70 hover:text-white hover:bg-[#5a4039] transition-colors shadow-md"
+      >
+        <ArrowIcon className={`w-3 h-3 transition-transform duration-200 ${expanded ? "" : "rotate-180"}`} />
+      </button>
+
+      <aside
+        className={`bg-[#44312b] flex flex-col min-h-screen transition-all duration-200 ease-in-out ${
+          expanded ? "w-[220px]" : "w-[60px]"
+        }`}
+      >
+        {/* Logo */}
+        <div className={`flex items-center border-b border-white/10 h-[64px] ${expanded ? "px-5" : "justify-center"}`}>
+          <img src="/icon.svg" alt="Taraya Institut" className="w-8 h-8 rounded-lg object-contain shrink-0" />
+        </div>
 
       {/* User avatar */}
       <div className={`flex items-center border-b border-white/10 py-4 ${expanded ? "px-5 gap-3" : "justify-center"}`}>
@@ -135,7 +138,8 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
         </form>
       </nav>
 
-    </aside>
+      </aside>
+    </div>
   );
 }
 
