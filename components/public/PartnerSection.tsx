@@ -13,6 +13,11 @@ export default function PartnerSection() {
             fill className="object-cover rounded-lg" sizes="(max-width: 1280px) 50vw, 608px" />
         </div>
         <div className="flex-1 min-w-0 flex flex-col gap-8">
+          {/* Mobile image */}
+          <div className="lg:hidden w-full h-[280px] relative rounded-lg overflow-hidden">
+            <Image src={imgPhyts} alt="Gamme de produits Phyt's bio — crème revitalisante, gommage et hydrolé eucalyptus utilisés chez Taraya Institut"
+              fill className="object-cover rounded-lg" sizes="calc(100vw - 32px)" />
+          </div>
           <div className="flex flex-col gap-4">
             <h2 className="font-heading text-[#251d1b] text-[34px] lg:text-[48px] font-bold leading-[1.2]">Notre marque partenaire</h2>
             <p className="font-body text-[#746e6b] text-[16px] lg:text-[20px] leading-[1.4] whitespace-pre-wrap">
