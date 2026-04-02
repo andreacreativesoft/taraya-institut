@@ -49,10 +49,10 @@ export default function HeroSection({ whatsapp }: { whatsapp: string }) {
               </a>
               <button className="lg:hidden text-white p-1 cursor-pointer" aria-label="Ouvrir le menu"
                 onClick={() => setMenuOpen(true)}>
-                <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
-                  <rect width="16" height="2" rx="1" fill="white"/>
-                  <rect y="5" width="16" height="2" rx="1" fill="white"/>
-                  <rect y="10" width="16" height="2" rx="1" fill="white"/>
+                <svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true">
+                  <rect width="18" height="2" rx="1" fill="white"/>
+                  <rect y="6" width="18" height="2" rx="1" fill="white"/>
+                  <rect y="12" width="18" height="2" rx="1" fill="white"/>
                 </svg>
               </button>
             </div>
