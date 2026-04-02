@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 const imgLogo  = "/images/logo.svg";
 const imgPhone = "/images/icon-phone.svg";
 
@@ -16,7 +18,9 @@ export default function MobileMenu({ onClose }: { onClose: () => void }) {
     <div className="fixed inset-0 z-50 bg-[#44312b] flex flex-col lg:hidden">
       {/* Navbar row */}
       <div className="flex items-center justify-between px-4 py-6 border-b border-[#746e6b]">
-        <img src={imgLogo} alt="Taraya Institut" className="w-[190px] h-[25px] object-contain" />
+        <Link href="/" onClick={onClose} aria-label="Taraya Institut — Accueil">
+          <img src={imgLogo} alt="Taraya Institut" className="w-[190px] h-[25px] object-contain" />
+        </Link>
         <button onClick={onClose} aria-label="Fermer le menu" className="text-white p-1">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path d="M1 1L19 19M19 1L1 19" stroke="white" strokeWidth="2" strokeLinecap="round"/>

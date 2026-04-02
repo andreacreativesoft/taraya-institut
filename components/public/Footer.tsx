@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const imgLogo      = "/images/footer-logo.svg";
 const imgInstagram = "/images/icon-instagram.svg";
 const imgFacebook  = "/images/icon-facebook.svg";
@@ -21,9 +23,9 @@ export default function Footer({ phone, email, address, instagram, facebook }: P
         {/* Mobile: stacked centered | Desktop: logo + 4-col grid */}
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-16">
           {/* Logo */}
-          <div className="shrink-0" style={{ width: "213px", height: "109.508px" }}>
+          <Link href="/" aria-label="Taraya Institut — Accueil" className="shrink-0" style={{ width: "213px", height: "109.508px", display: "block" }}>
             <img src={imgLogo} alt="Taraya Institut" className="w-full h-full object-contain object-left" />
-          </div>
+          </Link>
           {/* Info columns */}
           <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center lg:text-left w-full">
             {[

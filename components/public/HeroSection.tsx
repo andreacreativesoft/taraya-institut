@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import MobileMenu from "./MobileMenu";
 
-const imgLogo   = "/images/logo.svg";
-const imgHeroBg = "/images/hero-bg.jpg";
-const imgPhone  = "/images/icon-phone.svg";
+const imgLogo  = "/images/logo.svg";
+const imgPhone = "/images/icon-phone.svg";
 
 export default function HeroSection({ whatsapp }: { whatsapp: string }) {
   const WHATSAPP_URL = `https://wa.me/${whatsapp.replace(/\D/g, "")}`;
@@ -17,8 +18,8 @@ export default function HeroSection({ whatsapp }: { whatsapp: string }) {
 
       <section className="relative w-full min-h-[70svh] lg:min-h-[70vh] flex flex-col overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <img src={imgHeroBg} alt="" aria-hidden="true"
-            className="absolute inset-0 w-full h-full object-cover object-center" />
+          <Image src="/images/hero-bg.jpg" alt="" fill priority
+            className="object-cover object-center" sizes="100vw" />
         </div>
 
         {/* Navbar */}
@@ -35,7 +36,9 @@ export default function HeroSection({ whatsapp }: { whatsapp: string }) {
               ))}
             </div>
             {/* Logo */}
-            <img src={imgLogo} alt="Taraya Institut" className="w-[190px] lg:w-[337px] h-[25px] lg:h-[44px] object-contain shrink-0" />
+            <Link href="/" aria-label="Taraya Institut — Accueil">
+              <img src={imgLogo} alt="Taraya Institut" className="w-[190px] lg:w-[337px] h-[25px] lg:h-[44px] object-contain shrink-0" />
+            </Link>
             {/* Desktop: WhatsApp | Mobile: hamburger */}
             <div className="flex items-center gap-4 lg:flex-1 lg:justify-end">
               <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"
@@ -43,12 +46,14 @@ export default function HeroSection({ whatsapp }: { whatsapp: string }) {
                 <img src={imgPhone} alt="" className="w-[14px] h-[14px] object-contain shrink-0" />
                 <span className="font-heading font-bold text-[#fbf8ef] text-[16px] leading-[1.3] whitespace-nowrap">WhatsApp</span>
               </a>
-              <button className="lg:hidden text-white p-1" aria-label="Ouvrir le menu"
+              <button className="lg:hidden text-white p-1 cursor-pointer" aria-label="Ouvrir le menu"
                 onClick={() => setMenuOpen(true)}>
-                <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
-                  <rect width="16" height="2" rx="1" fill="white"/>
-                  <rect y="5" width="16" height="2" rx="1" fill="white"/>
-                  <rect y="10" width="16" height="2" rx="1" fill="white"/>
+                {/* Pointing hand */}
+                <svg width="18" height="22" viewBox="0 0 24 28" fill="none" aria-hidden="true">
+                  <path d="M11 13V5a2.5 2.5 0 0 1 5 0v8" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M16 11V9a2.5 2.5 0 0 1 5 0v6a9 9 0 0 1-9 9H9a9 9 0 0 1-9-9v-2a2.5 2.5 0 0 1 5 0" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M11 13a2.5 2.5 0 0 1 5 0" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M6 12V8a2.5 2.5 0 0 1 5 0v5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
             </div>

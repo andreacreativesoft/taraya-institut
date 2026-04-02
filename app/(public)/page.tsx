@@ -19,14 +19,16 @@ export default async function HomePage() {
   return (
     <>
       <HeroSection whatsapp={settings.whatsapp} />
-      <AboutSection />
-      <ForWhoSection />
-      <ServicesSection />
-      <PedicureSection />
-      <PricingSection />
-      <WhyUsSection />
-      <PartnerSection />
-      <CTASection whatsapp={settings.whatsapp} />
+      <main>
+        <AboutSection />
+        <ForWhoSection />
+        <ServicesSection />
+        <PedicureSection />
+        <PricingSection />
+        <WhyUsSection />
+        <PartnerSection />
+        <CTASection whatsapp={settings.whatsapp} />
+      </main>
       <Footer
         phone={settings.phone}
         email={settings.email}

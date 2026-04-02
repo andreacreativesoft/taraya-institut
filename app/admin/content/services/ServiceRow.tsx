@@ -187,15 +187,24 @@ export default function ServiceRow({ service }: { service: Service }) {
           </button>
         </td>
         <td className="px-5 py-4 text-right">
-          <div className="flex items-center justify-end gap-3">
-            <button onClick={() => setEditing(true)}
-              className="font-body text-[#44312b] hover:text-[#5a3f37] text-[13px] transition-colors">
-              Modifier
+          <div className="flex items-center justify-end gap-2">
+            <button onClick={() => setEditing(true)} title="Modifier"
+              className="text-[#44312b] hover:text-[#5a3f37] transition-colors p-1.5 rounded-lg hover:bg-[#f5f1e8]">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </button>
             <form action={() => deleteService(service.id)}
               onSubmit={(e) => { if (!confirm("Supprimer ce service ?")) e.preventDefault(); }}>
-              <button type="submit" className="font-body text-red-400 hover:text-red-600 text-[13px] transition-colors">
-                Supprimer
+              <button type="submit" title="Supprimer"
+                className="text-red-400 hover:text-red-600 transition-colors p-1.5 rounded-lg hover:bg-red-50">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <polyline points="3 6 5 6 21 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M10 11v6M14 11v6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </button>
             </form>
           </div>
