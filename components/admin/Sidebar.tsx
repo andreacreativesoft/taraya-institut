@@ -57,7 +57,7 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
   return (
     <aside
       className={`shrink-0 bg-[#44312b] flex flex-col min-h-screen transition-all duration-200 ease-in-out ${
-        expanded ? "w-[220px]" : "w-[68px]"
+        expanded ? "w-[220px]" : "w-[60px]"
       }`}
     >
       {/* Logo */}
@@ -65,9 +65,7 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
         {expanded ? (
           <img src={imgLogo} alt="Taraya Institut" className="h-[24px] object-contain object-left" />
         ) : (
-          <div className="w-8 h-8 rounded-lg bg-[#cab3a0] flex items-center justify-center text-[#44312b] font-bold text-[13px]">
-            T
-          </div>
+          <img src="/icon.svg" alt="Taraya Institut" className="w-8 h-8 rounded-lg object-contain" />
         )}
       </div>
 
@@ -103,7 +101,7 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
                   : "text-white/60 hover:bg-white/10 hover:text-white"
               }`}
             >
-              <Icon className="w-[18px] h-[18px] shrink-0" />
+              <Icon className="w-5 h-5 shrink-0" />
               {expanded && <span className="truncate">{label}</span>}
               {/* Tooltip on collapsed hover */}
               {!expanded && (
@@ -126,7 +124,7 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
               expanded ? "gap-3 px-3 py-2.5 text-[13px] font-body" : "justify-center py-3"
             }`}
           >
-            <LogoutIcon className="w-[18px] h-[18px] shrink-0" />
+            <LogoutIcon className="w-5 h-5 shrink-0" />
             {expanded && <span>Déconnexion</span>}
             {!expanded && (
               <span className="absolute left-full ml-2 px-2 py-1 rounded bg-[#251d1b] text-white text-[12px] whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">
@@ -145,7 +143,7 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
             expanded ? "gap-3 px-3 py-2.5 text-[13px] font-body" : "justify-center py-3"
           }`}
         >
-          <CollapseIcon className={`w-[18px] h-[18px] shrink-0 transition-transform ${expanded ? "" : "rotate-180"}`} />
+          <CollapseIcon className={`w-5 h-5 shrink-0 transition-transform ${expanded ? "" : "rotate-180"}`} />
           {expanded && <span>Réduire</span>}
         </button>
       </div>
