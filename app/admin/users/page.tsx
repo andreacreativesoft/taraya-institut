@@ -1,11 +1,25 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
-import { deleteUser } from "@/app/actions/users";
 import NewUserForm from "./NewUserForm";
+import DeleteUserButton from "./DeleteUserButton";
+
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  createdAt: Date;
+};
 
 export default async function UsersPage() {
   const session = await getSession();
-  const users = await db.user.findMany({ orderBy: { createdAt: "asc" } }).catch(() => []);
+
+  let users: User[] = [];
+  try {
+    users = await db.user.findMany({ orderBy: { createdAt: "asc" } });
+  } catch {
+    users = [];
+  }
 
   const isSuperAdmin = session?.role === "SUPER_ADMIN";
 
@@ -31,7 +45,7 @@ export default async function UsersPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-[#dad5cd]">
-              {users.map((u) => (
+              {users.map((u: User) => (
                 <tr key={u.id} className="hover:bg-[#fbf8ef]/50 transition-colors">
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
@@ -57,13 +71,7 @@ export default async function UsersPage() {
                   </td>
                   <td className="px-5 py-4 text-right">
                     {isSuperAdmin && u.id !== session?.userId && (
-                      <form action={() => deleteUser(u.id)}
-                        onSubmit={(e) => { if (!confirm(`Supprimer ${u.name} ?`)) e.preventDefault(); }}>
-                        <button type="submit"
-                          className="font-body text-red-400 hover:text-red-600 text-[13px] transition-colors">
-                          Supprimer
-                        </button>
-                      </form>
+                      <DeleteUserButton userId={u.id} userName={u.name} />
                     )}
                   </td>
                 </tr>
