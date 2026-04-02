@@ -60,7 +60,7 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
         type="button"
         onClick={() => setExpanded((v: boolean) => !v)}
         title={expanded ? "Réduire" : "Agrandir"}
-        className="absolute top-5 -right-3 z-10 w-6 h-6 rounded-full bg-[#44312b] border border-white/20 flex items-center justify-center text-white/70 hover:text-white hover:bg-[#5a4039] transition-colors shadow-md"
+        className="absolute top-5 -right-3 z-10 w-6 h-6 rounded-full bg-[#44312b] flex items-center justify-center text-white/70 hover:text-white hover:bg-[#5a4039] transition-colors shadow-md"
       >
         <ArrowIcon className={`w-3 h-3 transition-transform duration-200 ${expanded ? "" : "rotate-180"}`} />
       </button>
