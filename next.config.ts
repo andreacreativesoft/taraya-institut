@@ -1,5 +1,8 @@
 import type { NextConfig } from "next";
 
+// Limit build workers to avoid CPU spikes on shared hosting
+process.env.NEXT_BUILD_WORKER_COUNT ??= "2";
+
 const securityHeaders = [
   {
     key: "X-Frame-Options",
