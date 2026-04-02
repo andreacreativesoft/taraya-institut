@@ -61,13 +61,16 @@ export default async function UsersPage() {
                     <span className="font-body text-[#746e6b] text-[13px]">{u.email}</span>
                   </td>
                   <td className="px-5 py-4">
-                    <span className={`inline-block font-body text-[11px] px-2 py-0.5 rounded-full ${
-                      u.role === "SUPER_ADMIN"
-                        ? "bg-[#44312b] text-white"
-                        : "bg-[#fbf8ef] text-[#746e6b] border border-[#dad5cd]"
-                    }`}>
-                      {u.role === "SUPER_ADMIN" ? "Super Admin" : "Admin"}
-                    </span>
+                    {u.role === "SUPER_ADMIN" ? (
+                      <svg className="w-5 h-5 text-[#44312b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} title="Super Admin">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100 8 4 4 0 000-8z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M20 8v6m3-3h-6" />
+                      </svg>
+                    ) : (
+                      <svg className="w-5 h-5 text-[#746e6b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} title="Admin">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100 8 4 4 0 000-8z" />
+                      </svg>
+                    )}
                   </td>
                   <td className="px-5 py-4 text-right">
                     {isSuperAdmin && u.id !== session?.userId && (
