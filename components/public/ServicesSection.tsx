@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { db } from "@/lib/db";
 
 const imgBase       = "/images/service-base.webp";
@@ -26,7 +27,7 @@ function ServiceCard({ title, description, image, imageAlt }: Omit<ServiceData, 
   return (
     <div className="bg-[#fbf8ef] border border-[#dad5cd] rounded-lg p-6 flex flex-col gap-4 w-full">
       <div className="relative h-[207px] rounded overflow-hidden bg-[#e5e7eb]">
-        <img src={img} alt={alt} className="absolute inset-0 w-full h-full object-cover rounded" />
+        <Image src={img} alt={alt} fill className="object-cover rounded" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 405px" />
       </div>
       <h3 className="font-heading text-[#251d1b] text-[24px] font-bold leading-[1.2]">{title}</h3>
       <p className="font-body text-[#736a66] text-[16px] leading-[1.4] tracking-[0.16px]">{description}</p>

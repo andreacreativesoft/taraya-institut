@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const imgPhoto  = "/images/about-1.webp";
 const imgPhoto2 = "/images/about-2.webp";
 
@@ -20,8 +22,8 @@ export default function AboutSection() {
         </div>
         {/* Desktop: image inline | Mobile: image below (shown as separate block) */}
         <div className="hidden lg:block flex-1 h-[529px] min-w-0 relative rounded-lg overflow-hidden">
-          <img src={imgPhoto} alt="Cabine de soins Taraya Institut avec lit de massage, produits de beauté et équipement professionnel"
-            className="absolute inset-0 w-full h-full object-cover rounded-lg" />
+          <Image src={imgPhoto} alt="Cabine de soins Taraya Institut avec lit de massage, produits de beauté et équipement professionnel"
+            fill className="object-cover rounded-lg" sizes="(max-width: 1280px) 50vw, 608px" />
           <div className="absolute inset-0 overflow-hidden rounded-lg">
             <img src={imgPhoto2} alt="" aria-hidden="true"
               className="absolute h-full max-w-none object-cover rounded-lg"
@@ -32,8 +34,8 @@ export default function AboutSection() {
       {/* Mobile-only image block — Figma: w-[343px] h-[400px] */}
       <div className="lg:hidden flex justify-center px-4 pb-8">
         <div className="w-[343px] h-[400px] relative rounded-lg overflow-hidden">
-          <img src={imgPhoto} alt="Cabine de soins Taraya Institut avec lit de massage, produits de beauté et équipement professionnel"
-            className="absolute inset-0 w-full h-full object-cover rounded-lg" />
+          <Image src={imgPhoto} alt="Cabine de soins Taraya Institut avec lit de massage, produits de beauté et équipement professionnel"
+            fill className="object-cover rounded-lg" sizes="343px" />
           <div className="absolute inset-0 overflow-hidden rounded-lg">
             <img src={imgPhoto2} alt="" aria-hidden="true"
               className="absolute h-full max-w-none object-cover rounded-lg"

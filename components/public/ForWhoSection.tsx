@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const imgPhoto  = "/images/forwho-1.webp";
 const imgPhoto2 = "/images/forwho-2.webp";
 const imgFace   = "/images/icon-face.svg";
@@ -16,8 +18,8 @@ export default function ForWhoSection() {
       <div className="mx-auto max-w-[1280px] px-4 lg:px-6 py-8 lg:py-0 flex flex-col lg:flex-row gap-8 lg:gap-16 items-start lg:items-center">
         {/* Desktop image — left column */}
         <div className="hidden lg:block flex-1 h-[674px] min-w-0 relative rounded-lg overflow-hidden shrink-0">
-          <img src={imgPhoto} alt="Esthéticienne versant une huile essentielle pour un massage corporel relaxant chez Taraya"
-            className="absolute inset-0 w-full h-full object-cover rounded-lg" />
+          <Image src={imgPhoto} alt="Esthéticienne versant une huile essentielle pour un massage corporel relaxant chez Taraya"
+            fill className="object-cover rounded-lg" sizes="(max-width: 1280px) 50vw, 608px" />
           <div className="absolute inset-0 overflow-hidden rounded-lg">
             <img src={imgPhoto2} alt="" aria-hidden="true"
               className="absolute max-w-none object-cover rounded-lg"
@@ -54,8 +56,8 @@ export default function ForWhoSection() {
       {/* Mobile-only image — Figma: w-[343px] h-[400px] */}
       <div className="lg:hidden flex justify-center px-4 pb-8">
         <div className="w-[343px] h-[400px] relative rounded-lg overflow-hidden">
-          <img src={imgPhoto} alt="Esthéticienne versant une huile essentielle pour un massage corporel relaxant chez Taraya"
-            className="absolute inset-0 w-full h-full object-cover rounded-lg" />
+          <Image src={imgPhoto} alt="Esthéticienne versant une huile essentielle pour un massage corporel relaxant chez Taraya"
+            fill className="object-cover rounded-lg" sizes="343px" />
           <div className="absolute inset-0 overflow-hidden rounded-lg">
             <img src={imgPhoto2} alt="" aria-hidden="true"
               className="absolute max-w-none object-cover rounded-lg"
