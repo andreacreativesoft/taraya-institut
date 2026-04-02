@@ -21,7 +21,8 @@ export const metadata: Metadata = {
   description:
     "Institut de beauté et bien-être pour femmes. Soins du visage, soins du corps, épilation et plus encore.",
   icons: {
-    apple: "/images/logo.svg",
+    icon: "/icon.svg",
+    apple: "/icon.svg",
   },
 };
 
