@@ -1,24 +1,33 @@
 import { db } from "@/lib/db";
 
-const MAP_QUERY = encodeURIComponent("Taraya Institut, Sterrebeek");
+const DEFAULT_PIN  = "Taraya Institut";
+const DEFAULT_ADDR = "Sterrebeek";
 
-async function getApiKey(): Promise<string> {
+async function getMapSettings(): Promise<{ apiKey: string; pinTitle: string }> {
   try {
-    const row = await db.siteSetting.findUnique({ where: { key: "google_maps_embed_url" } });
-    return row?.value ?? "";
+    const rows = await db.siteSetting.findMany({
+      where: { key: { in: ["google_maps_embed_url", "google_maps_pin_title"] } },
+    });
+    const map = Object.fromEntries(rows.map((r) => [r.key, r.value]));
+    return {
+      apiKey:   map.google_maps_embed_url  ?? "",
+      pinTitle: map.google_maps_pin_title  ?? DEFAULT_PIN,
+    };
   } catch {
-    return "";
+    return { apiKey: "", pinTitle: DEFAULT_PIN };
   }
 }
 
 export default async function MapSection() {
-  const apiKey = await getApiKey();
+  const { apiKey, pinTitle } = await getMapSettings();
   if (!apiKey) return null;
+
+  const q = encodeURIComponent(`${pinTitle || DEFAULT_PIN}, ${DEFAULT_ADDR}`);
 
   const src =
     `https://www.google.com/maps/embed/v1/place` +
     `?key=${apiKey}` +
-    `&q=${MAP_QUERY}` +
+    `&q=${q}` +
     `&language=fr` +
     `&zoom=15`;
 
@@ -36,7 +45,7 @@ export default async function MapSection() {
         allowFullScreen
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
-        title="Taraya Institut – Waalsestraat 34, 1933 Sterrebeek"
+        title={`${pinTitle || DEFAULT_PIN} – Waalsestraat 34, 1933 Sterrebeek`}
       />
     </section>
   );

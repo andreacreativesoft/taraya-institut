@@ -74,6 +74,7 @@ export async function POST(req: NextRequest) {
       recaptcha_site_key:    sanitizeText(body.recaptcha_site_key, 100),
       recaptcha_secret_key:  sanitizeText(body.recaptcha_secret_key, 100),
       google_maps_embed_url: sanitizeText(body.google_maps_embed_url, 200),
+      google_maps_pin_title: sanitizeText(body.google_maps_pin_title, 100),
       section_services_enabled: sectionVal(body.section_services_enabled),
       section_pricing_enabled:  sectionVal(body.section_pricing_enabled),
       section_faq_enabled:      sectionVal(body.section_faq_enabled),
