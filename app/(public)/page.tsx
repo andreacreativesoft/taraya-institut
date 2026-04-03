@@ -109,10 +109,10 @@ export default async function HomePage() {
         <ForWhoSection />
         <ServicesSection />
         <PedicureSection />
-        <MapSection />
         <PricingSection />
         <WhyUsSection />
         <PartnerSection />
+        <MapSection />
         <CTASection whatsapp={settings.whatsapp} />
       </main>
       <Footer
