@@ -37,14 +37,14 @@ export default function CategoryCard({ category }: { category: Category }) {
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   );
 
-  function handleItemDragEnd(event: DragEndEvent) {
+  async function handleItemDragEnd(event: DragEndEvent) {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
     const oldIdx = items.findIndex(i => i.id === active.id);
     const newIdx = items.findIndex(i => i.id === over.id);
     const next = arrayMove(items, oldIdx, newIdx);
     setItems(next);
-    reorderItems(next.map(i => i.id));
+    await reorderItems(next.map(i => i.id));
   }
 
   return (

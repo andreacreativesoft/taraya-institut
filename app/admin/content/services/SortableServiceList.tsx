@@ -20,14 +20,14 @@ export default function SortableServiceList({ initialServices }: { initialServic
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   );
 
-  function handleDragEnd(event: DragEndEvent) {
+  async function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
     const oldIdx = services.findIndex(s => s.id === active.id);
     const newIdx = services.findIndex(s => s.id === over.id);
     const next = arrayMove(services, oldIdx, newIdx);
     setServices(next);
-    reorderServices(next.map(s => s.id));
+    await reorderServices(next.map(s => s.id));
   }
 
   return (

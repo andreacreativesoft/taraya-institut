@@ -20,14 +20,14 @@ export default function SortablePricingList({ initialCategories }: { initialCate
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   );
 
-  function handleDragEnd(event: DragEndEvent) {
+  async function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
     const oldIdx = categories.findIndex(c => c.id === active.id);
     const newIdx = categories.findIndex(c => c.id === over.id);
     const next = arrayMove(categories, oldIdx, newIdx);
     setCategories(next);
-    reorderCategories(next.map(c => c.id));
+    await reorderCategories(next.map(c => c.id));
   }
 
   if (categories.length === 0) {
