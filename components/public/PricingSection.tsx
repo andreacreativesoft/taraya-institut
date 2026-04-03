@@ -10,9 +10,9 @@ type Category = { id: string; title: string; items: PriceItem[] };
 
 function PricingCard({ title, items }: { title: string; items: PriceItem[] }) {
   return (
-    <div className="bg-[#fbf8ef] rounded-lg px-4 py-6 lg:p-8 flex flex-col gap-8 w-full">
+    <div className="bg-[#fbf8ef] rounded-lg px-4 py-6 lg:p-8 flex flex-col gap-8 w-full h-full">
       <p className="font-heading text-[#251d1b] text-[28px] font-bold leading-[1.4]">{title}</p>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 flex-1">
         {items.map((item) => (
           <div key={item.id}
             className="flex items-baseline justify-between gap-3 border-b border-[rgba(68,49,43,0.05)] py-0.5 font-body text-[#736a66] text-[16px] leading-[1.4] tracking-[0.16px]">
@@ -58,7 +58,7 @@ export default async function PricingSection() {
             {`Retrouvez ci-dessous l'ensemble des prestations et leurs tarifs.`}
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
           {categories.map((cat) => (
             <PricingCard key={cat.id} title={cat.title} items={cat.items} />
           ))}
