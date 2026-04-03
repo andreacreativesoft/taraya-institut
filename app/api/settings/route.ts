@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
 
     const sectionVal = (v: unknown) => v === "true" ? "true" : "false";
 
-    const fieldMap: Record<string, string> = {
+    const allFields: Record<string, string> = {
       phone:             sanitizePhone(body.phone),
       whatsapp:          sanitizePhone(body.whatsapp),
       email:             sanitizeEmail(body.email),
@@ -79,6 +79,11 @@ export async function POST(req: NextRequest) {
       section_faq_enabled:      sectionVal(body.section_faq_enabled),
       section_forms_enabled:    sectionVal(body.section_forms_enabled),
     };
+
+    // Only upsert keys that were actually submitted in this request
+    const fieldMap = Object.fromEntries(
+      Object.entries(allFields).filter(([key]) => key in body)
+    );
 
     for (const [key, value] of Object.entries(fieldMap)) {
       await db.siteSetting.upsert({
