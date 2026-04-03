@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 
-const MAP_QUERY = encodeURIComponent("Taraya Institut, Waalsestraat 34, 1933 Sterrebeek");
+const MAP_QUERY = encodeURIComponent("Taraya Institut, Sterrebeek");
 
 async function getApiKey(): Promise<string> {
   try {
@@ -28,7 +28,11 @@ export default async function MapSection() {
         src={src}
         width="100%"
         height="600"
-        style={{ border: 0, display: "block" }}
+        style={{
+          border: 0,
+          display: "block",
+          filter: "sepia(0.35) saturate(0.85) brightness(0.97) hue-rotate(-5deg)",
+        }}
         allowFullScreen
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
