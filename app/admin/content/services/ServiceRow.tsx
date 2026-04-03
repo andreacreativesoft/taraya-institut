@@ -149,10 +149,10 @@ export default function ServiceRow({ service }: { service: Service }) {
             ⠿
           </span>
         </td>
-        <td className="pl-1 pr-2 lg:px-5 py-2">
-          <div className="flex items-center gap-1.5 lg:gap-3">
+        <td className="px-1 lg:px-2 py-2">
+          <div className="flex items-center gap-3 lg:gap-4">
             <img src={service.image || getAutoImage(service.title)} alt={service.title}
-              className="w-10 h-10 rounded-lg object-cover border border-[#dad5cd] shrink-0" />
+              className="w-12 h-12 rounded-lg object-cover border border-[#dad5cd] shrink-0" />
             <p className="font-heading text-[#251d1b] text-[14px] font-bold">{service.title}</p>
           </div>
         </td>
