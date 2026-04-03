@@ -58,11 +58,9 @@ export default async function PricingSection() {
             {`Retrouvez ci-dessous l'ensemble des prestations et leurs tarifs.`}
           </p>
         </div>
-        <div className="columns-1 md:columns-2 lg:columns-3 gap-4 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8 items-start">
           {categories.map((cat) => (
-            <div key={cat.id} className="break-inside-avoid mb-4 lg:mb-8">
-              <PricingCard title={cat.title} items={cat.items} />
-            </div>
+            <PricingCard key={cat.id} title={cat.title} items={cat.items} />
           ))}
         </div>
         <div className="flex flex-col items-center gap-2">
