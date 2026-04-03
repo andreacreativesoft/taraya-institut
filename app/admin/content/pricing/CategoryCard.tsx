@@ -50,7 +50,7 @@ export default function CategoryCard({ category }: { category: Category }) {
   return (
     <div ref={setNodeRef} style={style} className="bg-white rounded-xl border border-[#dad5cd] overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-2 lg:px-5 py-3 lg:py-4 bg-[#fbf8ef] border-b border-[#dad5cd]">
+      <div className="flex items-center justify-between pl-2 pr-3 lg:px-5 py-3 lg:py-4 bg-[#fbf8ef] border-b border-[#dad5cd]">
         <div className="flex items-center gap-2 lg:gap-3">
           {/* Drag handle for category */}
           <span {...attributes} {...listeners}
