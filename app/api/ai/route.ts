@@ -95,6 +95,11 @@ const TOOLS: Anthropic.Tool[] = [
   },
 ];
 
+// claude-opus-4-6 pricing: $15 / 1M input tokens, $75 / 1M output tokens
+function calcCost(inputTokens: number, outputTokens: number) {
+  return (inputTokens * 15 + outputTokens * 75) / 1_000_000;
+}
+
 const ALLOWED_SETTING_KEYS = new Set([
   "phone", "whatsapp", "email", "address",
   "instagram", "facebook",
@@ -191,6 +196,8 @@ export async function POST(request: Request) {
     async start(controller) {
       try {
         let currentMessages: Anthropic.MessageParam[] = [...messages];
+        let totalInput = 0;
+        let totalOutput = 0;
 
         while (true) {
           const anthropicStream = anthropic.messages.stream({
@@ -213,6 +220,19 @@ export async function POST(request: Request) {
           }
 
           const finalMsg = await anthropicStream.finalMessage();
+          totalInput  += finalMsg.usage.input_tokens;
+          totalOutput += finalMsg.usage.output_tokens;
+
+          // ── Send usage BEFORE any DB changes happen ──────────────────────
+          controller.enqueue(encoder.encode(
+            `data: ${JSON.stringify({
+              usage: {
+                input:  totalInput,
+                output: totalOutput,
+                cost:   calcCost(totalInput, totalOutput),
+              },
+            })}\n\n`
+          ));
 
           if (finalMsg.stop_reason !== "tool_use") break;
 

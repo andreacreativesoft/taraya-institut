@@ -24,8 +24,8 @@ export default function HeroSection({ whatsapp, title, subtitle }: { whatsapp: s
       <section className="relative w-full min-h-[95svh] lg:min-h-[90vh] flex flex-col overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           {/* Mobile image (< lg) */}
-          <Image src="/images/institut-beaute-sterrebeek-estheticienne-mobile.webp"
-            alt="Femme recevant un soin du visage — institut de beauté Taraya à Sterrebeek"
+          <Image src="/images/estheticienne-sterrebeek-soin-visage-mobile.jpg"
+            alt="Esthéticienne réalisant un soin visage — institut de beauté Taraya à Sterrebeek"
             fill fetchPriority="high" loading="eager"
             className="object-cover object-center lg:hidden"
             sizes="100vw" />

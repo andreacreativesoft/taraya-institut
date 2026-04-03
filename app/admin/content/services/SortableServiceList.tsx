@@ -42,11 +42,11 @@ export default function SortableServiceList({ initialServices }: { initialServic
             <table className="w-full">
               <thead className="bg-[#fbf8ef] border-b border-[#dad5cd]">
                 <tr>
-                  <th className="w-10 px-3 py-3" />
-                  <th className="text-left font-heading text-[#251d1b] text-[13px] px-5 py-3">Service</th>
-                  <th className="text-left font-heading text-[#251d1b] text-[13px] px-5 py-3 hidden sm:table-cell">Description</th>
-                  <th className="text-center font-heading text-[#251d1b] text-[13px] px-5 py-3">Actif</th>
-                  <th className="px-5 py-3" />
+                  <th className="w-10 px-3 py-2" />
+                  <th className="text-left font-heading text-[#251d1b] text-[13px] px-5 py-2">Service</th>
+                  <th className="text-left font-heading text-[#251d1b] text-[13px] px-5 py-2 hidden sm:table-cell">Description</th>
+                  <th className="text-center font-heading text-[#251d1b] text-[13px] px-5 py-2">Actif</th>
+                  <th className="px-5 py-2" />
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#dad5cd]">
