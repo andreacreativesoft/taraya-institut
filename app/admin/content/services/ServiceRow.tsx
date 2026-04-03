@@ -149,8 +149,8 @@ export default function ServiceRow({ service }: { service: Service }) {
             ⠿
           </span>
         </td>
-        <td className="px-2 lg:px-5 py-4">
-          <div className="flex items-center gap-2 lg:gap-3">
+        <td className="pl-1 pr-2 lg:px-5 py-4">
+          <div className="flex items-center gap-1.5 lg:gap-3">
             <img src={service.image || getAutoImage(service.title)} alt={service.title}
               className="w-10 h-10 rounded-lg object-cover border border-[#dad5cd] shrink-0" />
             <p className="font-heading text-[#251d1b] text-[14px] font-bold">{service.title}</p>
@@ -159,7 +159,7 @@ export default function ServiceRow({ service }: { service: Service }) {
         <td className="px-5 py-4 hidden sm:table-cell">
           <p className="font-body text-[#746e6b] text-[13px] line-clamp-2">{service.description}</p>
         </td>
-        <td className="px-5 py-4 text-center">
+        <td className="pl-4 pr-2 lg:px-5 py-4 text-center">
           <button
             onClick={() => toggleService(service.id, !service.active)}
             className={`inline-flex items-center justify-center w-11 h-6 rounded-full transition-colors ${service.active ? "bg-[#44312b]" : "bg-[#dad5cd]"}`}
