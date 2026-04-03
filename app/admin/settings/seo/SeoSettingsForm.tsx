@@ -138,11 +138,6 @@ export default function SeoSettingsForm({ settings, userRole }: { settings: Sett
           <input name="google_maps_embed_url" defaultValue={get("google_maps_embed_url")} placeholder="AIzaSy..." className={inputCls} />
           <p className="font-body text-[#746e6b] text-[11px]">Clé API Google Maps Embed. Laissez vide pour masquer la carte sur le site.</p>
         </div>
-        <div className={fieldCls}>
-          <label className={labelCls}>Titre du repère (pin)</label>
-          <input name="google_maps_pin_title" defaultValue={get("google_maps_pin_title")} placeholder="Taraya Institut" className={inputCls} />
-          <p className="font-body text-[#746e6b] text-[11px]">Nom affiché sur le repère de la carte.</p>
-        </div>
       </div>
 
       {/* ── VISIBILITÉ DES SECTIONS — SUPER ADMIN ONLY ───────── */}
