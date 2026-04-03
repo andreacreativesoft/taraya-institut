@@ -37,24 +37,23 @@ export default function SortableServiceList({ initialServices }: { initialServic
           Aucun service pour l&apos;instant. Ajoutez-en un ci-dessous.
         </p>
       ) : (
-        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-          <SortableContext items={services.map(s => s.id)} strategy={verticalListSortingStrategy}>
-            <table className="w-full">
-              <thead className="bg-[#fbf8ef] border-b border-[#dad5cd]">
-                <tr>
-                  <th className="w-10 px-3 py-2" />
-                  <th className="text-left font-heading text-[#251d1b] text-[13px] px-5 py-2">Service</th>
-                  <th className="text-left font-heading text-[#251d1b] text-[13px] px-5 py-2 hidden sm:table-cell">Description</th>
-                  <th className="text-center font-heading text-[#251d1b] text-[13px] px-5 py-2">Actif</th>
-                  <th className="px-5 py-2" />
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#dad5cd]">
+        <>
+          {/* Header */}
+          <div className="flex items-center gap-3 pl-2 pr-3 lg:px-5 py-2 bg-[#fbf8ef] border-b border-[#dad5cd]">
+            <span className="w-5 shrink-0" />
+            <span className="w-12 shrink-0 hidden sm:block" />
+            <span className="flex-1 font-heading text-[#251d1b] text-[13px]">Service</span>
+            <span className="font-heading text-[#251d1b] text-[13px] shrink-0 w-11 text-center">Actif</span>
+            <span className="w-16 shrink-0" />
+          </div>
+          <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+            <SortableContext items={services.map(s => s.id)} strategy={verticalListSortingStrategy}>
+              <div className="divide-y divide-[#dad5cd]">
                 {services.map(s => <ServiceRow key={s.id} service={s} />)}
-              </tbody>
-            </table>
-          </SortableContext>
-        </DndContext>
+              </div>
+            </SortableContext>
+          </DndContext>
+        </>
       )}
     </div>
   );
