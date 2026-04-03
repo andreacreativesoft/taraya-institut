@@ -50,8 +50,8 @@ export default function CategoryCard({ category }: { category: Category }) {
   return (
     <div ref={setNodeRef} style={style} className="bg-white rounded-xl border border-[#dad5cd] overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-4 bg-[#fbf8ef] border-b border-[#dad5cd]">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between px-2 lg:px-5 py-3 lg:py-4 bg-[#fbf8ef] border-b border-[#dad5cd]">
+        <div className="flex items-center gap-2 lg:gap-3">
           {/* Drag handle for category */}
           <span {...attributes} {...listeners}
             className="cursor-grab active:cursor-grabbing text-[#cab3a0] hover:text-[#746e6b] text-[18px] select-none leading-none">
@@ -89,7 +89,7 @@ export default function CategoryCard({ category }: { category: Category }) {
 
       {/* Items with DnD */}
       {expanded && (
-        <div className="px-5 py-4 flex flex-col gap-1">
+        <div className="px-2 lg:px-5 py-3 lg:py-4 flex flex-col gap-1">
           {items.length === 0 ? (
             <p className="font-body text-[#746e6b] text-[13px] text-center py-3">
               Aucune prestation. Ajoutez-en une ci-dessous.
