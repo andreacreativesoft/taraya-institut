@@ -13,9 +13,22 @@ export type SiteSettings = {
   meta_description: string;
   gtm_id: string;
   facebook_pixel_id: string;
+  // General
+  site_name: string;
+  logo_url: string;
+  favicon_url: string;
+  // reCAPTCHA & Maps
+  recaptcha_site_key: string;
+  recaptcha_secret_key: string;
+  google_maps_embed_url: string;
+  // Section visibility (stored as "true"/"false" strings)
+  section_services_enabled: string;
+  section_pricing_enabled: string;
+  section_faq_enabled: string;
+  section_forms_enabled: string;
 };
 
-const defaults: SiteSettings = {
+export const defaults: SiteSettings = {
   phone: "+32471824764",
   whatsapp: "0471824764",
   email: "tarayainstitut@hotmail.com",
@@ -28,6 +41,16 @@ const defaults: SiteSettings = {
   meta_description: "Institut de beauté certifié Phyt's. Soins visage, massages, épilations et plus.",
   gtm_id: "",
   facebook_pixel_id: "",
+  site_name: "Taraya Institut",
+  logo_url: "",
+  favicon_url: "",
+  recaptcha_site_key: "",
+  recaptcha_secret_key: "",
+  google_maps_embed_url: "",
+  section_services_enabled: "true",
+  section_pricing_enabled: "true",
+  section_faq_enabled: "false",
+  section_forms_enabled: "true",
 };
 
 export async function getSettings(): Promise<SiteSettings> {

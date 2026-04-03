@@ -15,23 +15,55 @@ type NavItem = {
 };
 
 const baseNavItems: NavItem[] = [
-  { href: "/admin",                   label: "Tableau de bord",  icon: DashboardIcon },
-  { href: "/admin/content/services",  label: "Services",         icon: ServicesIcon },
-  { href: "/admin/content/pricing",   label: "Tarifs",           icon: PricingIcon },
-  { href: "/admin/forms",             label: "Formulaires",      icon: FormsIcon },
-  { href: "/admin/users",             label: "Utilisateurs",     icon: UsersIcon },
-  { href: "/admin/settings",          label: "Paramètres",       icon: SettingsIcon },
-  { href: "/admin/audit",             label: "Journal d'audit",  icon: AuditIcon },
+  { href: "/admin",                         label: "Tableau de bord",  icon: DashboardIcon },
+  { href: "/admin/content/services",        label: "Services",         icon: ServicesIcon },
+  { href: "/admin/content/pricing",         label: "Tarifs",           icon: PricingIcon },
+  { href: "/admin/forms",                   label: "Formulaires",      icon: FormsIcon },
+  { href: "/admin/users",                   label: "Utilisateurs",     icon: UsersIcon },
+  { href: "/admin/settings",                label: "Paramètres",       icon: SettingsIcon },
+  { href: "/admin/settings/general",        label: "Général",          icon: SettingsIcon, indent: true },
+  { href: "/admin/settings/seo",            label: "SEO & Analytics",  icon: SEOIcon,      indent: true },
+  { href: "/admin/audit",                   label: "Journal d'audit",  icon: AuditIcon },
 ];
 
 const superAdminItems: NavItem[] = [
   { href: "/admin/ai", label: "Assistant Claude", icon: AIIcon },
 ];
 
-export default function Sidebar({ userName, userRole }: { userName: string; userRole: string }) {
+type SidebarProps = {
+  userName: string;
+  userRole: string;
+  siteName?: string;
+  sectionFaqEnabled?: boolean;
+  sectionFormsEnabled?: boolean;
+};
+
+export default function Sidebar({
+  userName,
+  userRole,
+  siteName = "Taraya Institut",
+  sectionFaqEnabled = false,
+  sectionFormsEnabled = true,
+}: SidebarProps) {
+  // Build nav items dynamically based on section visibility
+  const filteredBase = baseNavItems.filter((item) => {
+    if (item.href === "/admin/forms" && !sectionFormsEnabled) return false;
+    return true;
+  });
+
+  // Insert FAQ item before Audit when enabled
+  const navItemsWithFaq: NavItem[] = [];
+  for (const item of filteredBase) {
+    if (item.href === "/admin/audit" && sectionFaqEnabled) {
+      navItemsWithFaq.push({ href: "/admin/faq", label: "FAQ", icon: FAQIcon });
+    }
+    navItemsWithFaq.push(item);
+  }
+
   const navItems = userRole === "SUPER_ADMIN"
-    ? [...baseNavItems, ...superAdminItems]
-    : baseNavItems;
+    ? [...navItemsWithFaq, ...superAdminItems]
+    : navItemsWithFaq;
+
   const pathname = usePathname();
   const [expanded, setExpanded] = useState(false);
 
@@ -66,13 +98,16 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
       </button>
 
       <aside
-        className={`bg-[#44312b] flex flex-col h-full overflow-y-auto transition-all duration-200 ease-in-out ${
+        className={`bg-[#44312b] flex flex-col h-full overflow-y-auto overflow-x-hidden transition-all duration-200 ease-in-out ${
           expanded ? "w-[216px]" : "w-[56px]"
         }`}
       >
         {/* Logo */}
-        <div className={`flex items-center border-b border-white/10 h-[64px] ${expanded ? "px-5" : "justify-center"}`}>
+        <div className={`flex items-center border-b border-white/10 h-[64px] ${expanded ? "px-5 gap-3" : "justify-center"}`}>
           <img src="/icon.svg" alt="Taraya Institut" className="w-8 h-8 rounded-lg object-contain shrink-0" />
+          {expanded && (
+            <span className="font-heading text-white text-[14px] font-bold truncate">{siteName}</span>
+          )}
         </div>
 
       {/* User avatar */}
@@ -92,7 +127,7 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
 
       {/* Nav */}
       <nav className="flex-1 py-4 flex flex-col gap-1 overflow-y-auto px-2">
-        {navItems.map(({ href, label, icon: Icon }) => {
+        {navItems.map(({ href, label, icon: Icon, indent }) => {
           const active = pathname === href || (href !== "/admin" && pathname.startsWith(href));
           return (
             <Link
@@ -100,6 +135,8 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
               href={href}
               title={expanded ? undefined : label}
               className={`group relative flex items-center rounded-lg transition-colors ${
+                indent && expanded ? "ml-4" : ""
+              } ${
                 expanded ? "gap-3 px-3 py-2.5 text-[14px] font-body" : "justify-center py-3"
               } ${
                 active
@@ -107,7 +144,7 @@ export default function Sidebar({ userName, userRole }: { userName: string; user
                   : "text-white/60 hover:bg-white/10 hover:text-white"
               }`}
             >
-              <Icon className="w-[22px] h-[22px] shrink-0" />
+              <Icon className={`shrink-0 ${indent ? "w-[18px] h-[18px]" : "w-[22px] h-[22px]"}`} />
               {expanded && <span className="truncate">{label}</span>}
               {!expanded && (
                 <span className="absolute left-full ml-2 px-2 py-1 rounded bg-[#251d1b] text-white text-[12px] whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">
@@ -179,6 +216,23 @@ function SettingsIcon({ className }: { className?: string }) {
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
       <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+function SEOIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+      <circle cx="11" cy="11" r="7" strokeLinecap="round" strokeLinejoin="round" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35" />
+    </svg>
+  );
+}
+function FAQIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+      <circle cx="12" cy="12" r="9" strokeLinecap="round" strokeLinejoin="round" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
+      <circle cx="12" cy="17" r="0.5" fill="currentColor" />
     </svg>
   );
 }

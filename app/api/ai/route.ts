@@ -7,11 +7,16 @@ const anthropic = new Anthropic();
 
 const SYSTEM = `Tu es l'assistant administrateur du site Taraya Institut, un institut de beauté à Sterrebeek, Belgique.
 Tu aides uniquement le Super Administrateur à gérer le contenu du site via une conversation naturelle en français.
-Tu peux consulter et modifier les services, les tarifs, les paramètres et les blocs de contenu texte/HTML du site.
+Tu peux consulter et modifier les services, les tarifs, les paramètres, les blocs de contenu texte/HTML, la FAQ, les formulaires de contact et la visibilité des sections du site.
 
 Les blocs de contenu (ContentBlocks) permettent de modifier le texte de chaque section du site (hero, à propos, pour qui, etc.).
 Le champ "content" est un objet JSON libre : tu peux y mettre n'importe quelle clé/valeur (titre, sous-titre, texte, html, etc.).
 Pour voir ce qui existe déjà, utilise list_content_blocks avant de modifier.
+
+La FAQ est gérée via les outils list_faq, create_faq_item, update_faq_item, delete_faq_item.
+La visibilité des sections (services, tarifs, FAQ, formulaires) se gère via set_section_visibility.
+Les formulaires de contact personnalisés se créent via create_contact_form.
+Les soumissions de formulaires récentes sont accessibles via list_form_submissions.
 
 Règles importantes :
 - Réponds toujours en français
@@ -60,7 +65,7 @@ const TOOLS: Anthropic.Tool[] = [
   },
   {
     name: "get_settings",
-    description: "Récupère tous les paramètres du site : téléphone, email, adresse, textes hero, réseaux sociaux",
+    description: "Récupère tous les paramètres du site : téléphone, email, adresse, textes hero, réseaux sociaux, visibilité des sections",
     input_schema: { type: "object" as const, properties: {} },
   },
   {
@@ -69,7 +74,7 @@ const TOOLS: Anthropic.Tool[] = [
     input_schema: {
       type: "object" as const,
       properties: {
-        key:   { type: "string", description: "Clé : phone, whatsapp, email, address, instagram, facebook, hero_title, hero_subtitle, meta_title, meta_description" },
+        key:   { type: "string", description: "Clé du paramètre (ex: phone, email, hero_title, site_name, section_faq_enabled, etc.)" },
         value: { type: "string", description: "Nouvelle valeur" },
       },
       required: ["key", "value"],
@@ -93,6 +98,115 @@ const TOOLS: Anthropic.Tool[] = [
       required: ["key"],
     },
   },
+  {
+    name: "list_faq",
+    description: "Liste toutes les questions FAQ avec leurs IDs, questions, réponses et statut actif",
+    input_schema: { type: "object" as const, properties: {} },
+  },
+  {
+    name: "create_faq_item",
+    description: "Crée une nouvelle question FAQ",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        question: { type: "string", description: "La question" },
+        answer:   { type: "string", description: "La réponse" },
+      },
+      required: ["question", "answer"],
+    },
+  },
+  {
+    name: "update_faq_item",
+    description: "Modifie une question FAQ existante (question, réponse ou statut actif)",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        id:       { type: "string", description: "ID de la question FAQ" },
+        question: { type: "string", description: "Nouvelle question" },
+        answer:   { type: "string", description: "Nouvelle réponse" },
+        active:   { type: "boolean", description: "true = active, false = inactive" },
+      },
+      required: ["id"],
+    },
+  },
+  {
+    name: "delete_faq_item",
+    description: "Supprime une question FAQ",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        id: { type: "string", description: "ID de la question FAQ à supprimer" },
+      },
+      required: ["id"],
+    },
+  },
+  {
+    name: "set_section_visibility",
+    description: "Active ou désactive la visibilité d'une section du site (services, pricing, faq, forms)",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        section: {
+          type: "string",
+          description: "Section à modifier",
+          enum: ["services", "pricing", "faq", "forms"],
+        },
+        enabled: { type: "boolean", description: "true = visible, false = cachée" },
+      },
+      required: ["section", "enabled"],
+    },
+  },
+  {
+    name: "list_form_submissions",
+    description: "Liste les 20 dernières soumissions de formulaires de contact",
+    input_schema: { type: "object" as const, properties: {} },
+  },
+  {
+    name: "list_contact_forms",
+    description: "Liste tous les formulaires de contact personnalisés",
+    input_schema: { type: "object" as const, properties: {} },
+  },
+  {
+    name: "create_contact_form",
+    description: "Crée un nouveau formulaire de contact personnalisé",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        name:        { type: "string", description: "Nom du formulaire" },
+        description: { type: "string", description: "Description optionnelle" },
+        fields: {
+          type: "array",
+          description: "Champs du formulaire",
+          items: {
+            type: "object",
+            properties: {
+              label:       { type: "string" },
+              type:        { type: "string", enum: ["text", "email", "tel", "textarea", "select"] },
+              required:    { type: "boolean" },
+              placeholder: { type: "string" },
+              options:     { type: "array", items: { type: "string" } },
+            },
+            required: ["label", "type", "required"],
+          },
+        },
+      },
+      required: ["name", "fields"],
+    },
+  },
+  {
+    name: "update_contact_form",
+    description: "Modifie un formulaire de contact (nom, description ou statut actif)",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        id:          { type: "string", description: "ID du formulaire" },
+        name:        { type: "string", description: "Nouveau nom" },
+        description: { type: "string", description: "Nouvelle description" },
+        active:      { type: "boolean", description: "true = actif, false = inactif" },
+      },
+      required: ["id"],
+    },
+  },
 ];
 
 // claude-opus-4-6 pricing: $15 / 1M input tokens, $75 / 1M output tokens
@@ -105,6 +219,11 @@ const ALLOWED_SETTING_KEYS = new Set([
   "instagram", "facebook",
   "hero_title", "hero_subtitle",
   "meta_title", "meta_description",
+  "site_name", "logo_url", "favicon_url",
+  "recaptcha_site_key", "recaptcha_secret_key",
+  "google_maps_embed_url",
+  "section_services_enabled", "section_pricing_enabled",
+  "section_faq_enabled", "section_forms_enabled",
 ]);
 
 async function executeTool(name: string, input: Record<string, unknown>): Promise<unknown> {
@@ -179,6 +298,91 @@ async function executeTool(name: string, input: Record<string, unknown>): Promis
       const updated = await db.contentBlock.update({ where: { key }, data, select: { key: true, label: true } });
       revalidatePath("/"); revalidatePath("/admin/content");
       return { success: true, updated: updated.label };
+    }
+    case "list_faq": {
+      const faqs = await db.faqItem.findMany({ orderBy: { order: "asc" } });
+      return faqs.map(f => ({ id: f.id, question: f.question, answer: f.answer, active: f.active, order: f.order }));
+    }
+    case "create_faq_item": {
+      const { question, answer } = input as { question: string; answer: string };
+      if (!question || !answer) return { error: "Question et réponse requises" };
+      const maxOrder = await db.faqItem.aggregate({ _max: { order: true } });
+      const faq = await db.faqItem.create({ data: { question, answer, order: (maxOrder._max.order ?? 0) + 1 } });
+      revalidatePath("/admin/faq"); revalidatePath("/");
+      return { success: true, id: faq.id, question: faq.question };
+    }
+    case "update_faq_item": {
+      const { id, question, answer, active } = input as {
+        id: string; question?: string; answer?: string; active?: boolean;
+      };
+      const data: Record<string, unknown> = {};
+      if (question !== undefined) data.question = question;
+      if (answer !== undefined) data.answer = answer;
+      if (active !== undefined) data.active = active;
+      if (Object.keys(data).length === 0) return { error: "Aucune donnée à modifier" };
+      const updated = await db.faqItem.update({ where: { id }, data, select: { question: true } });
+      revalidatePath("/admin/faq"); revalidatePath("/");
+      return { success: true, updated: updated.question };
+    }
+    case "delete_faq_item": {
+      const { id } = input as { id: string };
+      const faq = await db.faqItem.findUnique({ where: { id }, select: { question: true } });
+      await db.faqItem.delete({ where: { id } });
+      revalidatePath("/admin/faq"); revalidatePath("/");
+      return { success: true, deleted: faq?.question ?? id };
+    }
+    case "set_section_visibility": {
+      const { section, enabled } = input as { section: string; enabled: boolean };
+      const key = `section_${section}_enabled`;
+      if (!ALLOWED_SETTING_KEYS.has(key)) return { error: `Section "${section}" inconnue` };
+      const value = enabled ? "true" : "false";
+      await db.siteSetting.upsert({ where: { key }, update: { value }, create: { key, value } });
+      revalidatePath("/"); revalidatePath("/admin/settings");
+      return { success: true, section, enabled };
+    }
+    case "list_form_submissions": {
+      const submissions = await db.formSubmission.findMany({
+        orderBy: { createdAt: "desc" },
+        take: 20,
+      });
+      return submissions.map(s => ({
+        id: s.id, name: s.name, email: s.email, phone: s.phone,
+        service: s.service, message: s.message, read: s.read,
+        createdAt: s.createdAt,
+      }));
+    }
+    case "list_contact_forms": {
+      const forms = await db.contactForm.findMany({ orderBy: { order: "asc" } });
+      return forms.map(f => ({
+        id: f.id, name: f.name, description: f.description,
+        fields: f.fields, active: f.active, order: f.order,
+      }));
+    }
+    case "create_contact_form": {
+      const { name, description, fields } = input as {
+        name: string; description?: string; fields: unknown[];
+      };
+      if (!name || !fields) return { error: "Nom et champs requis" };
+      const maxOrder = await db.contactForm.aggregate({ _max: { order: true } });
+      const form = await db.contactForm.create({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data: { name, description, fields: fields as any, order: (maxOrder._max.order ?? 0) + 1 },
+      });
+      revalidatePath("/admin/forms");
+      return { success: true, id: form.id, name: form.name };
+    }
+    case "update_contact_form": {
+      const { id, name, description, active } = input as {
+        id: string; name?: string; description?: string; active?: boolean;
+      };
+      const data: Record<string, unknown> = {};
+      if (name !== undefined) data.name = name;
+      if (description !== undefined) data.description = description;
+      if (active !== undefined) data.active = active;
+      if (Object.keys(data).length === 0) return { error: "Aucune donnée à modifier" };
+      const updated = await db.contactForm.update({ where: { id }, data, select: { name: true } });
+      revalidatePath("/admin/forms");
+      return { success: true, updated: updated.name };
     }
     default:
       return { error: "Outil inconnu" };

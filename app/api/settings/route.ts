@@ -53,6 +53,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, errors }, { status: 422 });
     }
 
+    const sectionVal = (v: unknown) => v === "true" ? "true" : "false";
+
     const fieldMap: Record<string, string> = {
       phone:             sanitizePhone(body.phone),
       whatsapp:          sanitizePhone(body.whatsapp),
@@ -66,6 +68,16 @@ export async function POST(req: NextRequest) {
       meta_description:  sanitizeText(body.meta_description, 300),
       gtm_id:            gtmSafe,
       facebook_pixel_id: fbSafe,
+      site_name:         sanitizeText(body.site_name, 100),
+      logo_url:          sanitizeUrl(body.logo_url),
+      favicon_url:       sanitizeUrl(body.favicon_url),
+      recaptcha_site_key:    sanitizeText(body.recaptcha_site_key, 100),
+      recaptcha_secret_key:  sanitizeText(body.recaptcha_secret_key, 100),
+      google_maps_embed_url: sanitizeUrl(body.google_maps_embed_url),
+      section_services_enabled: sectionVal(body.section_services_enabled),
+      section_pricing_enabled:  sectionVal(body.section_pricing_enabled),
+      section_faq_enabled:      sectionVal(body.section_faq_enabled),
+      section_forms_enabled:    sectionVal(body.section_forms_enabled),
     };
 
     for (const [key, value] of Object.entries(fieldMap)) {

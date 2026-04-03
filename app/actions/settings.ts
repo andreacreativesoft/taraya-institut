@@ -14,6 +14,11 @@ const ALLOWED_KEYS = new Set([
   "hero_title", "hero_subtitle",
   "meta_title", "meta_description",
   "gtm_id", "facebook_pixel_id",
+  "site_name", "logo_url", "favicon_url",
+  "recaptcha_site_key", "recaptcha_secret_key",
+  "google_maps_embed_url",
+  "section_services_enabled", "section_pricing_enabled",
+  "section_faq_enabled", "section_forms_enabled",
 ]);
 const URL_MAX = 300;
 const TEXT_MAX = 500;
@@ -80,6 +85,8 @@ export async function saveSettings(_: unknown, formData: FormData): Promise<{ su
     if (fbPixelInput && !FB_PIXEL_RE.test(fbPixelInput)) errors.facebook_pixel_id = "Format invalide. Le Pixel ID est un nombre de 10 à 20 chiffres.";
     if (Object.keys(errors).length > 0) return { success: false, errors };
 
+    const sectionVal = (key: string) => formData.get(key) === "true" ? "true" : "false";
+
     const fieldMap: Record<string, string> = {
       phone:              sanitizePhone(formData.get("phone")),
       whatsapp:           sanitizePhone(formData.get("whatsapp")),
@@ -93,6 +100,16 @@ export async function saveSettings(_: unknown, formData: FormData): Promise<{ su
       meta_description:   sanitizeText(formData.get("meta_description"), 300),
       gtm_id:             gtmRaw,
       facebook_pixel_id:  FB_PIXEL_RE.test(fbPixelInput) ? fbPixelInput : "",
+      site_name:          sanitizeText(formData.get("site_name"), 100),
+      logo_url:           sanitizeUrl(formData.get("logo_url")),
+      favicon_url:        sanitizeUrl(formData.get("favicon_url")),
+      recaptcha_site_key:    sanitizeText(formData.get("recaptcha_site_key"), 100),
+      recaptcha_secret_key:  sanitizeText(formData.get("recaptcha_secret_key"), 100),
+      google_maps_embed_url: sanitizeUrl(formData.get("google_maps_embed_url")),
+      section_services_enabled: sectionVal("section_services_enabled"),
+      section_pricing_enabled:  sectionVal("section_pricing_enabled"),
+      section_faq_enabled:      sectionVal("section_faq_enabled"),
+      section_forms_enabled:    sectionVal("section_forms_enabled"),
     };
 
     for (const [key, value] of Object.entries(fieldMap)) {
