@@ -134,9 +134,9 @@ export default function SeoSettingsForm({ settings, userRole }: { settings: Sett
       <div className={cardCls}>
         <SectionLabel>Google Maps</SectionLabel>
         <div className={fieldCls}>
-          <label className={labelCls}>URL d'intégration Google Maps</label>
-          <input name="google_maps_embed_url" defaultValue={get("google_maps_embed_url")} placeholder="https://www.google.com/maps/embed?pb=..." className={inputCls} />
-          <p className="font-body text-[#746e6b] text-[11px]">URL complète depuis le bouton &quot;Partager &gt; Intégrer une carte&quot; de Google Maps</p>
+          <label className={labelCls}>Clé API Google Maps</label>
+          <input name="google_maps_embed_url" defaultValue={get("google_maps_embed_url")} placeholder="AIzaSy..." className={inputCls} />
+          <p className="font-body text-[#746e6b] text-[11px]">Clé API Google Maps Embed. Laissez vide pour masquer la carte sur le site.</p>
         </div>
       </div>
 

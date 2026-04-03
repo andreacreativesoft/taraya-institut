@@ -6,6 +6,7 @@ import AboutSection from "@/components/public/AboutSection";
 import ForWhoSection from "@/components/public/ForWhoSection";
 import ServicesSection from "@/components/public/ServicesSection";
 import PedicureSection from "@/components/public/PedicureSection";
+import MapSection from "@/components/public/MapSection";
 import PricingSection from "@/components/public/PricingSection";
 import WhyUsSection from "@/components/public/WhyUsSection";
 import PartnerSection from "@/components/public/PartnerSection";
@@ -108,6 +109,7 @@ export default async function HomePage() {
         <ForWhoSection />
         <ServicesSection />
         <PedicureSection />
+        <MapSection />
         <PricingSection />
         <WhyUsSection />
         <PartnerSection />
