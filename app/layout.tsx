@@ -13,9 +13,12 @@ export async function generateMetadata(): Promise<Metadata> {
     icons: {
       icon: [
         { url: "/icon.svg", type: "image/svg+xml" },
+        ...(settings.favicon_url ? [{ url: settings.favicon_url, type: "image/png" }] : []),
       ],
-      apple: { url: "/icon.svg", type: "image/svg+xml" },
-      shortcut: "/icon.svg",
+      apple: settings.favicon_url
+        ? { url: settings.favicon_url, type: "image/png" }
+        : { url: "/icon.svg", type: "image/svg+xml" },
+      shortcut: settings.favicon_url || "/icon.svg",
     },
   };
 }
