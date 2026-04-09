@@ -12,7 +12,7 @@ const features = [
 
 export default function PedicureSection() {
   return (
-    <section className="bg-[#fbf8ef]">
+    <section id="pedicure" className="bg-[#fbf8ef]">
       <div className="mx-auto max-w-[1280px] px-4 lg:px-6 py-8 lg:py-0 flex flex-col lg:flex-row gap-8 lg:gap-16 items-start lg:items-center lg:pb-22">
         {/* Desktop image — left column */}
         <div className="hidden lg:block flex-1 h-[674px] rounded-lg overflow-hidden shrink-0 relative">
