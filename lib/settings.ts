@@ -25,6 +25,8 @@ export type SiteSettings = {
   // Announcement banner
   announcement_enabled: string;
   announcement_text: string;
+  announcement_button_text: string;
+  announcement_button_url: string;
   // Section visibility (stored as "true"/"false" strings)
   section_services_enabled: string;
   section_pricing_enabled: string;
@@ -54,6 +56,8 @@ export const defaults: SiteSettings = {
   google_maps_pin_title: "Taraya Institut",
   announcement_enabled: "false",
   announcement_text: "",
+  announcement_button_text: "",
+  announcement_button_url: "",
   section_services_enabled: "true",
   section_pricing_enabled: "true",
   section_faq_enabled: "false",

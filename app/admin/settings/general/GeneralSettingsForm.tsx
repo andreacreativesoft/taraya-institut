@@ -90,6 +90,16 @@ export default function GeneralSettingsForm({ settings }: { settings: Settings }
             className={`${inputCls} resize-none`} />
           <p className="font-body text-[#746e6b] text-[11px]">Affiché en haut de chaque page du site. Laissez vide pour désactiver.</p>
         </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className={fieldCls}>
+            <label className={labelCls}>Texte du bouton (optionnel)</label>
+            <input name="announcement_button_text" defaultValue={get("announcement_button_text")} placeholder="En savoir plus" className={inputCls} />
+          </div>
+          <div className={fieldCls}>
+            <label className={labelCls}>Lien du bouton (optionnel)</label>
+            <input name="announcement_button_url" defaultValue={get("announcement_button_url")} placeholder="https://..." className={inputCls} />
+          </div>
+        </div>
       </div>
 
       {/* ── IDENTITÉ ─────────────────────────────────────────── */}
