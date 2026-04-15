@@ -135,7 +135,7 @@ export default function GeneralSettingsForm({ settings }: { settings: Settings }
       </div>
 
       {/* ── RÉSEAUX SOCIAUX ──────────────────────────────────── */}
-      <div className={cardCls}>
+      <div className={`${cardCls} lg:col-span-2`}>
         <SectionLabel>Réseaux sociaux</SectionLabel>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className={fieldCls}>
