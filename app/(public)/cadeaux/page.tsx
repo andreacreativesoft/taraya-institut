@@ -59,22 +59,13 @@ export default async function CadeauxPage() {
             </p>
           </div>
 
-          {/* Promo images */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 w-full max-w-[900px]">
-            <div className="rounded-xl overflow-hidden shadow-md">
-              <img
-                src="/images/promo-mothers-day.jpg"
-                alt="Bon cadeau Fête des Mères – Taraya Institut"
-                className="w-full h-auto object-cover"
-              />
-            </div>
-            <div className="rounded-xl overflow-hidden shadow-md">
-              <img
-                src="/images/promo-printemps.jpg"
-                alt="Promotion printemps – 15% sur les soins visage en mai"
-                className="w-full h-auto object-cover"
-              />
-            </div>
+          {/* Promo image */}
+          <div className="rounded-xl overflow-hidden shadow-md w-full max-w-[420px]">
+            <img
+              src="/images/promo-mothers-day.jpg"
+              alt="Bon cadeau Fête des Mères – Taraya Institut"
+              className="w-full h-auto"
+            />
           </div>
 
           {/* CTA */}
