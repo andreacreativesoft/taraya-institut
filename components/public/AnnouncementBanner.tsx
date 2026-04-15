@@ -1,6 +1,8 @@
+import { unstable_noStore as noStore } from "next/cache";
 import { getSettings } from "@/lib/settings";
 
 export default async function AnnouncementBanner() {
+  noStore();
   const settings = await getSettings();
 
   if (settings.announcement_enabled !== "true" || !settings.announcement_text.trim()) {
