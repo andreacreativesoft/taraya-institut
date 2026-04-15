@@ -77,10 +77,10 @@ export default function GeneralSettingsForm({ settings }: { settings: Settings }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+    <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
 
       {/* ── BANDEAU D'ANNONCE ────────────────────────────────── */}
-      <div className={cardCls}>
+      <div className={`${cardCls} lg:col-span-2`}>
         <SectionLabel>Bandeau d&apos;annonce</SectionLabel>
         <Toggle name="announcement_enabled" label="Afficher le bandeau" checked={get("announcement_enabled") === "true"} />
         <div className={fieldCls}>
@@ -150,7 +150,7 @@ export default function GeneralSettingsForm({ settings }: { settings: Settings }
       </div>
 
       {/* ── SECTION HERO ─────────────────────────────────────── */}
-      <div className={cardCls}>
+      <div className={`${cardCls} lg:col-span-2`}>
         <SectionLabel>Section Hero</SectionLabel>
         <div className="flex flex-col gap-4">
           <div className={fieldCls}>
@@ -166,14 +166,9 @@ export default function GeneralSettingsForm({ settings }: { settings: Settings }
         </div>
       </div>
 
-      {success && (
-        <p className="text-green-600 font-body text-[13px]">✓ Paramètres enregistrés avec succès</p>
-      )}
-      {errors.form && (
-        <p className="text-red-500 font-body text-[13px] bg-red-50 border border-red-200 rounded-lg px-4 py-3">{errors.form}</p>
-      )}
-
-      <div className="flex justify-end">
+      {success && <p className="lg:col-span-2 text-green-600 font-body text-[13px]">✓ Paramètres enregistrés avec succès</p>}
+      {errors.form && <p className="lg:col-span-2 text-red-500 font-body text-[13px] bg-red-50 border border-red-200 rounded-lg px-4 py-3">{errors.form}</p>}
+      <div className="lg:col-span-2 flex justify-end">
         <button type="submit" disabled={pending}
           className="bg-[#44312b] text-[#fbf8ef] font-heading font-bold text-[14px] px-6 py-2.5 rounded-full hover:bg-[#5a3f37] transition-colors disabled:opacity-60">
           {pending ? "Enregistrement…" : "Enregistrer"}

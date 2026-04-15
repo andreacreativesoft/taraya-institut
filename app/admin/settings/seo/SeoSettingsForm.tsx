@@ -77,10 +77,10 @@ export default function SeoSettingsForm({ settings, userRole }: { settings: Sett
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+    <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
 
       {/* ── BALISES META ─────────────────────────────────────── */}
-      <div className={cardCls}>
+      <div className={`${cardCls} lg:col-span-2`}>
         <SectionLabel>Balises meta</SectionLabel>
         <div className={fieldCls}>
           <label className={labelCls}>Titre meta</label>
@@ -142,7 +142,7 @@ export default function SeoSettingsForm({ settings, userRole }: { settings: Sett
 
       {/* ── VISIBILITÉ DES SECTIONS — SUPER ADMIN ONLY ───────── */}
       {userRole === "SUPER_ADMIN" && (
-        <div className={cardCls}>
+        <div className={`${cardCls} lg:col-span-2`}>
           <SectionLabel>Visibilité des sections</SectionLabel>
           <Toggle name="section_services_enabled" label="Services" checked={get("section_services_enabled") !== "false"} />
           <Toggle name="section_pricing_enabled" label="Tarifs" checked={get("section_pricing_enabled") !== "false"} />
@@ -152,13 +152,13 @@ export default function SeoSettingsForm({ settings, userRole }: { settings: Sett
       )}
 
       {success && (
-        <p className="text-green-600 font-body text-[13px]">✓ Paramètres enregistrés avec succès</p>
+        <p className="lg:col-span-2 text-green-600 font-body text-[13px]">✓ Paramètres enregistrés avec succès</p>
       )}
       {errors.form && (
-        <p className="text-red-500 font-body text-[13px] bg-red-50 border border-red-200 rounded-lg px-4 py-3">{errors.form}</p>
+        <p className="lg:col-span-2 text-red-500 font-body text-[13px] bg-red-50 border border-red-200 rounded-lg px-4 py-3">{errors.form}</p>
       )}
 
-      <div className="flex justify-end">
+      <div className="lg:col-span-2 flex justify-end">
         <button type="submit" disabled={pending}
           className="bg-[#44312b] text-[#fbf8ef] font-heading font-bold text-[14px] px-6 py-2.5 rounded-full hover:bg-[#5a3f37] transition-colors disabled:opacity-60">
           {pending ? "Enregistrement…" : "Enregistrer"}

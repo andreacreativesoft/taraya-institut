@@ -49,6 +49,10 @@ export default function HeroSection({ whatsapp, title, subtitle }: { whatsapp: s
                   {link}
                 </a>
               ))}
+              <a href="/cadeaux"
+                className="font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">
+                Cadeaux
+              </a>
             </div>
             {/* Logo */}
             <Link href="/" aria-label="Taraya Institut — Accueil">

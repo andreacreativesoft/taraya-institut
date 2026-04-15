@@ -10,7 +10,8 @@ const WHATSAPP_URL = "https://wa.me/0471824764";
 const links = [
   { label: "À propos", href: "#a-propos" },
   { label: "Services", href: "#services" },
-  { label: "Tarifs",   href: "#tarifs" },
+  { label: "Tarifs",   href: "#tarifs"   },
+  { label: "Cadeaux",  href: "/cadeaux"  },
 ];
 
 export default function MobileMenu({ onClose }: { onClose: () => void }) {
