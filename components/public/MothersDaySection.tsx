@@ -28,12 +28,18 @@ export default function MothersDaySection() {
           <p className="font-body text-[#d4bfa8] text-[16px] lg:text-[20px] leading-[1.5]">
             Offrez à votre maman un moment de bien-être qu&apos;elle n&apos;oubliera pas. Soins visage, massages, pédicure médicale… choisissez le soin qui lui ressemble.
           </p>
-          <div>
+          <div className="flex flex-wrap gap-3">
             <Link
               href="/cadeaux"
               className="inline-flex bg-[#fbf8ef] text-[#44312b] font-heading font-bold text-[16px] leading-[1.3] px-6 py-3 rounded-[64px] whitespace-nowrap hover:bg-white transition-colors"
             >
               Découvrir nos bons cadeaux
+            </Link>
+            <Link
+              href="/#contact"
+              className="inline-flex border border-[#fbf8ef] text-[#fbf8ef] font-heading font-bold text-[16px] leading-[1.3] px-6 py-3 rounded-[64px] whitespace-nowrap hover:bg-white/10 transition-colors"
+            >
+              Nous contacter
             </Link>
           </div>
         </div>

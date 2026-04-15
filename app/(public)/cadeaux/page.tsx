@@ -60,7 +60,7 @@ export default async function CadeauxPage() {
           </div>
 
           {/* Promo image */}
-          <div className="rounded-xl overflow-hidden shadow-md w-full max-w-[420px]">
+          <div className="rounded-xl overflow-hidden shadow-md w-full max-w-[700px]">
             <img
               src="/images/promo-mothers-day.jpg"
               alt="Bon cadeau Fête des Mères – Taraya Institut"
