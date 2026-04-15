@@ -22,6 +22,9 @@ export type SiteSettings = {
   recaptcha_secret_key: string;
   google_maps_embed_url: string;
   google_maps_pin_title: string;
+  // Announcement banner
+  announcement_enabled: string;
+  announcement_text: string;
   // Section visibility (stored as "true"/"false" strings)
   section_services_enabled: string;
   section_pricing_enabled: string;
@@ -49,6 +52,8 @@ export const defaults: SiteSettings = {
   recaptcha_secret_key: "",
   google_maps_embed_url: "",
   google_maps_pin_title: "Taraya Institut",
+  announcement_enabled: "false",
+  announcement_text: "",
   section_services_enabled: "true",
   section_pricing_enabled: "true",
   section_faq_enabled: "false",

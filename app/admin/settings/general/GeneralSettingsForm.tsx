@@ -2,6 +2,26 @@
 
 import { useState } from "react";
 
+function Toggle({ name, label, checked }: { name: string; label: string; checked: boolean }) {
+  const [value, setValue] = useState(checked);
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <span className="font-body text-[#251d1b] text-[13px] font-medium">{label}</span>
+      <div className="flex items-center gap-2">
+        <input type="hidden" name={name} value={value ? "true" : "false"} />
+        <button
+          type="button"
+          onClick={() => setValue(v => !v)}
+          className={`inline-flex items-center justify-center w-11 h-6 rounded-full transition-colors ${value ? "bg-[#44312b]" : "bg-[#dad5cd]"}`}
+          aria-label={value ? "Désactiver" : "Activer"}
+        >
+          <span className={`w-4 h-4 bg-white rounded-full shadow-sm transition-transform ${value ? "translate-x-2.5" : "-translate-x-2.5"}`} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 type Settings = Record<string, string>;
 
 const inputCls = "input-admin";
@@ -58,6 +78,19 @@ export default function GeneralSettingsForm({ settings }: { settings: Settings }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+
+      {/* ── BANDEAU D'ANNONCE ────────────────────────────────── */}
+      <div className={cardCls}>
+        <SectionLabel>Bandeau d&apos;annonce</SectionLabel>
+        <Toggle name="announcement_enabled" label="Afficher le bandeau" checked={get("announcement_enabled") === "true"} />
+        <div className={fieldCls}>
+          <label className={labelCls}>Message</label>
+          <textarea name="announcement_text" defaultValue={get("announcement_text")} rows={2}
+            placeholder="Ex : Fermé du 15 au 20 juillet. Bonnes vacances !"
+            className={`${inputCls} resize-none`} />
+          <p className="font-body text-[#746e6b] text-[11px]">Affiché en haut de chaque page du site. Laissez vide pour désactiver.</p>
+        </div>
+      </div>
 
       {/* ── IDENTITÉ ─────────────────────────────────────────── */}
       <div className={cardCls}>

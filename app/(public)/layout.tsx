@@ -1,7 +1,10 @@
-export default function PublicLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return <>{children}</>;
+import AnnouncementBanner from "@/components/public/AnnouncementBanner";
+
+export default function PublicLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <AnnouncementBanner />
+      {children}
+    </>
+  );
 }
