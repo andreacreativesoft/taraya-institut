@@ -26,7 +26,7 @@ export default function PromoSection({ whatsapp }: { whatsapp: string }) {
 
       <div className="relative mx-auto max-w-[1280px] px-4 lg:px-6 flex flex-col items-center gap-8 text-center">
         <div className="flex flex-col gap-4 lg:gap-6 items-center">
-          <span className="font-body text-[#cb9559] text-[13px] uppercase tracking-[0.12em] font-medium">
+          <span className="font-body text-white text-[13px] uppercase tracking-[0.12em] font-medium">
             Promo
           </span>
           <h2 className="font-heading text-white text-[34px] lg:text-[48px] font-bold leading-[1.2]">
