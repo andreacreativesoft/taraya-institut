@@ -10,6 +10,7 @@ import MapSection from "@/components/public/MapSection";
 import PricingSection from "@/components/public/PricingSection";
 import WhyUsSection from "@/components/public/WhyUsSection";
 import PartnerSection from "@/components/public/PartnerSection";
+import PromoSection from "@/components/public/PromoSection";
 import CTASection from "@/components/public/CTASection";
 import Footer from "@/components/public/Footer";
 import BackToTop from "@/components/public/BackToTop";
@@ -107,6 +108,7 @@ export default async function HomePage() {
       <main>
 <AboutSection />
         <ForWhoSection />
+        <PromoSection whatsapp={settings.whatsapp} />
         <ServicesSection />
         <PedicureSection />
         <PricingSection />
