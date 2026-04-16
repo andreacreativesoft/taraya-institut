@@ -2,7 +2,6 @@ export const dynamic = "force-dynamic";
 
 import { getSettings } from "@/lib/settings";
 import HeroSection from "@/components/public/HeroSection";
-import MothersDaySection from "@/components/public/MothersDaySection";
 import AboutSection from "@/components/public/AboutSection";
 import ForWhoSection from "@/components/public/ForWhoSection";
 import ServicesSection from "@/components/public/ServicesSection";
@@ -106,8 +105,7 @@ export default async function HomePage() {
         subtitle={settings.hero_subtitle}
       />
       <main>
-        <MothersDaySection />
-        <AboutSection />
+<AboutSection />
         <ForWhoSection />
         <ServicesSection />
         <PedicureSection />
