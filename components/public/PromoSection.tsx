@@ -4,7 +4,7 @@ const imgOrnamentLeft  = "/images/cta-ornament-left.svg";
 export default function PromoSection({ whatsapp }: { whatsapp: string }) {
   const WHATSAPP_URL = `https://wa.me/${whatsapp.replace(/\D/g, "")}`;
   return (
-    <section className="bg-[#44312b] relative py-16 lg:py-24 overflow-hidden">
+    <section className="bg-[#44312b] relative pt-[94px] pb-[96px] overflow-hidden">
       {/* Mobile ornaments */}
       <div className="absolute lg:hidden pointer-events-none select-none"
         style={{ top: "-3.36%", right: "49.93%", bottom: "49.87%", left: "-41.6%" }}>
