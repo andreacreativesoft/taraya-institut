@@ -56,18 +56,24 @@ export default async function CadeauxPage() {
           {/* Desktop: 2 cols | Mobile: stacked */}
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center lg:items-stretch">
 
-            {/* Left — brown card */}
-            <div className="w-full lg:w-[608px] lg:flex-shrink-0 bg-[#91622d] rounded-lg relative flex flex-col items-center justify-start pt-[56px] pb-0 min-h-[400px] lg:min-h-[561px]">
-              {/* Title */}
-              <h1 className="font-heading font-bold text-white text-[34px] lg:text-[48px] leading-[1.2] text-center px-8 z-10 relative">
-                Bon cadeau<br />Fêtes des mères
-              </h1>
-              {/* Subtitle */}
-              <p className="font-body text-[#fbf8ef] text-[16px] lg:text-[20px] leading-[1.3] text-center px-8 mt-4 z-10 relative">
-                Pensez au bon cadeau chez Taraya Institut
-              </p>
-              {/* Lotus ornament */}
-              <div className="absolute inset-[41.69%_4.77%_-18%_4.77%] pointer-events-none select-none">
+            {/* Left — brown card wrapper (relative for ornament bleed) */}
+            <div className="w-full lg:w-[608px] lg:flex-shrink-0 relative min-h-[400px] lg:min-h-[561px]">
+              {/* Card: overflow-hidden keeps rounded corners intact */}
+              <div className="w-full h-full bg-[#91622d] rounded-lg overflow-hidden flex flex-col items-center justify-start pt-[56px] pb-0">
+                {/* Title */}
+                <h1 className="font-heading font-bold text-white text-[34px] lg:text-[48px] leading-[1.2] text-center px-8 z-10 relative">
+                  Bon cadeau<br />Fêtes des mères
+                </h1>
+                {/* Subtitle */}
+                <p className="font-body text-[#fbf8ef] text-[16px] lg:text-[20px] leading-[1.3] text-center px-8 mt-4 z-10 relative">
+                  Pensez au bon cadeau chez Taraya Institut
+                </p>
+              </div>
+              {/* Lotus ornament — positioned on wrapper so it bleeds below card */}
+              <div
+                className="absolute pointer-events-none select-none"
+                style={{ top: "41.69%", left: "4.77%", right: "4.77%", bottom: "-18%" }}
+              >
                 <img
                   src={imgOrnament}
                   alt=""
