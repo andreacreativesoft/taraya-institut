@@ -69,17 +69,18 @@ export default async function CadeauxPage() {
                   Pensez au bon cadeau chez Taraya Institut
                 </p>
               </div>
-              {/* Lotus ornament — positioned on wrapper so it bleeds below card */}
+              {/* Lotus ornament — mobile: bottom -31%, desktop: bottom -18% */}
               <div
-                className="absolute pointer-events-none select-none"
+                className="lg:hidden absolute pointer-events-none select-none"
+                style={{ top: "41.69%", left: "4.77%", right: "4.77%", bottom: "-31%" }}
+              >
+                <img src={imgOrnament} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-contain" />
+              </div>
+              <div
+                className="hidden lg:block absolute pointer-events-none select-none"
                 style={{ top: "41.69%", left: "4.77%", right: "4.77%", bottom: "-18%" }}
               >
-                <img
-                  src={imgOrnament}
-                  alt=""
-                  aria-hidden="true"
-                  className="absolute inset-0 w-full h-full object-contain"
-                />
+                <img src={imgOrnament} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-contain" />
               </div>
             </div>
 
