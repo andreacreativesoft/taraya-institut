@@ -4,7 +4,7 @@ import Footer from "@/components/public/Footer";
 
 const imgLogo    = "/images/logo.svg";
 const imgPhone   = "/images/icon-phone.svg";
-const imgOrnament = "/images/cadeaux-card-ornament.png";
+const imgOrnament = "/images/cadeaux-lotus-ornament.svg";
 
 export const metadata = {
   title: "Bons cadeaux – Taraya Institut",
@@ -67,12 +67,12 @@ export default async function CadeauxPage() {
                 Pensez au bon cadeau chez Taraya Institut
               </p>
               {/* Lotus ornament */}
-              <div className="w-full flex-1 flex items-end justify-center overflow-hidden mt-6">
+              <div className="absolute inset-[41.69%_4.77%_9.17%_4.77%] pointer-events-none select-none">
                 <img
                   src={imgOrnament}
                   alt=""
                   aria-hidden="true"
-                  className="w-[85%] max-w-[480px] object-contain"
+                  className="absolute inset-0 w-full h-full object-contain"
                 />
               </div>
             </div>
