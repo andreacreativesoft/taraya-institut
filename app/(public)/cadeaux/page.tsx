@@ -57,7 +57,7 @@ export default async function CadeauxPage() {
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center lg:items-stretch">
 
             {/* Left — brown card */}
-            <div className="w-full lg:w-[608px] lg:flex-shrink-0 bg-[#91622d] rounded-lg overflow-hidden relative flex flex-col items-center justify-start pt-[56px] pb-0 min-h-[400px] lg:min-h-[561px]">
+            <div className="w-full lg:w-[608px] lg:flex-shrink-0 bg-[#91622d] rounded-lg relative flex flex-col items-center justify-start pt-[56px] pb-0 min-h-[400px] lg:min-h-[561px]">
               {/* Title */}
               <h1 className="font-heading font-bold text-white text-[34px] lg:text-[48px] leading-[1.2] text-center px-8 z-10 relative">
                 Bon cadeau<br />Fêtes des mères
@@ -67,7 +67,7 @@ export default async function CadeauxPage() {
                 Pensez au bon cadeau chez Taraya Institut
               </p>
               {/* Lotus ornament */}
-              <div className="absolute inset-[41.69%_4.77%_9.17%_4.77%] pointer-events-none select-none">
+              <div className="absolute inset-[41.69%_4.77%_-18%_4.77%] pointer-events-none select-none">
                 <img
                   src={imgOrnament}
                   alt=""
