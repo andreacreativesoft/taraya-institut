@@ -2,8 +2,9 @@ import Link from "next/link";
 import { getSettings } from "@/lib/settings";
 import Footer from "@/components/public/Footer";
 
-const imgLogo  = "/images/logo.svg";
-const imgPhone = "/images/icon-phone.svg";
+const imgLogo    = "/images/logo.svg";
+const imgPhone   = "/images/icon-phone.svg";
+const imgOrnament = "/images/cadeaux-card-ornament.png";
 
 export const metadata = {
   title: "Bons cadeaux – Taraya Institut",
@@ -21,10 +22,10 @@ export default async function CadeauxPage() {
         <div className="mx-auto max-w-[1280px] px-4 lg:px-6 py-5 flex items-center justify-between gap-4">
           <div className="hidden lg:flex flex-1 gap-8 items-center">
             {[
-              { label: "À propos",  href: "/#a-propos"  },
-              { label: "Services",  href: "/#services"  },
-              { label: "Tarifs",    href: "/#tarifs"    },
-              { label: "Cadeaux",   href: "/cadeaux"    },
+              { label: "À propos", href: "/#a-propos" },
+              { label: "Services", href: "/#services" },
+              { label: "Tarifs",   href: "/#tarifs"   },
+              { label: "Cadeaux",  href: "/cadeaux"   },
             ].map(({ label, href }) => (
               <Link key={label} href={href}
                 className="font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">
@@ -42,43 +43,64 @@ export default async function CadeauxPage() {
               <span className="font-heading font-bold text-[#fbf8ef] text-[16px] leading-[1.3] whitespace-nowrap">WhatsApp</span>
             </a>
           </div>
-          {/* Mobile back link */}
           <Link href="/" className="lg:hidden text-white font-body text-[14px] hover:opacity-80">
             ← Accueil
           </Link>
         </div>
       </header>
 
-      <main className="bg-[#fbf8ef] py-12 lg:py-20">
-        <div className="mx-auto max-w-[1280px] px-4 lg:px-6 flex flex-col items-center gap-10 lg:gap-14">
+      {/* Gift card section */}
+      <main className="bg-[#fbf8ef] pt-[88px] pb-[64px]">
+        <div className="mx-auto max-w-[1280px] px-4 lg:px-6">
 
-          <div className="flex flex-col items-center gap-2 text-center">
-            <h1 className="font-heading text-[#251d1b] text-[34px] lg:text-[48px] font-bold leading-[1.2]">Bons cadeaux</h1>
-            <p className="font-body text-[#746e6b] text-[16px] lg:text-[20px] leading-[1.5] max-w-[600px]">
-              Offrez un moment de bien-être à celles qui vous sont chères.
-            </p>
+          {/* Desktop: 2 cols | Mobile: stacked */}
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center lg:items-stretch">
+
+            {/* Left — brown card */}
+            <div className="w-full lg:w-[608px] lg:flex-shrink-0 bg-[#91622d] rounded-lg overflow-hidden relative flex flex-col items-center justify-start pt-[56px] pb-0 min-h-[400px] lg:min-h-[561px]">
+              {/* Title */}
+              <h1 className="font-heading font-bold text-white text-[34px] lg:text-[48px] leading-[1.2] text-center px-8 z-10 relative">
+                Bon cadeau<br />Fêtes des mères
+              </h1>
+              {/* Subtitle */}
+              <p className="font-body text-[#fbf8ef] text-[16px] lg:text-[20px] leading-[1.3] text-center px-8 mt-4 z-10 relative">
+                Pensez au bon cadeau chez Taraya Institut
+              </p>
+              {/* Lotus ornament */}
+              <div className="w-full flex-1 flex items-end justify-center overflow-hidden mt-6">
+                <img
+                  src={imgOrnament}
+                  alt=""
+                  aria-hidden="true"
+                  className="w-[85%] max-w-[480px] object-contain"
+                />
+              </div>
+            </div>
+
+            {/* Right — content */}
+            <div className="flex-1 flex flex-col gap-8 justify-center min-w-0">
+              <h2 className="font-heading font-bold text-[#251d1b] text-[34px] lg:text-[48px] leading-[1.2]">
+                Offrez un moment de bien-être à celles qui vous sont chères.
+              </h2>
+
+              <div className="h-px bg-[#dad5cd] w-full" />
+
+              <div className="flex flex-col gap-6">
+                <p className="font-body text-[#746e6b] text-[18px] lg:text-[20px] leading-[1.3]">
+                  Pour commander un bon cadeau ou en savoir plus, contactez-nous directement.
+                </p>
+
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 font-heading font-bold text-[#cb9559] text-[18px] leading-[1.2] hover:opacity-80 transition-opacity w-fit">
+                  Nous contacter
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                    <path d="M2 1.5L6.5 5L2 8.5" stroke="#cb9559" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
           </div>
-
-          {/* Promo image */}
-          <div className="rounded-xl overflow-hidden shadow-md w-full max-w-[700px]">
-            <img
-              src="/images/promo-mothers-day.jpg"
-              alt="Bon cadeau Fête des Mères – Taraya Institut"
-              className="w-full h-auto"
-            />
-          </div>
-
-          {/* CTA */}
-          <div className="flex flex-col items-center gap-4">
-            <p className="font-body text-[#746e6b] text-[15px] text-center">
-              Pour commander un bon cadeau ou en savoir plus, contactez-nous directement.
-            </p>
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"
-              className="bg-[#44312b] text-[#fbf8ef] font-heading font-bold text-[16px] leading-[1.3] px-8 py-3 rounded-[64px] whitespace-nowrap hover:bg-[#5a3f37] transition-colors">
-              Nous contacter
-            </a>
-          </div>
-
         </div>
       </main>
 
