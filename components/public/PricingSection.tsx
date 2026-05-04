@@ -55,7 +55,8 @@ export default async function PricingSection() {
           <h2 className="font-heading text-white text-[34px] lg:text-[48px] font-bold leading-[1.2]">Nos tarifs</h2>
           <p className="font-body text-white text-[16px] lg:text-[20px] leading-[1.4]">
             Trouvez le soin qui vous correspond.<br />
-            {`Retrouvez ci-dessous l'ensemble des prestations et leurs tarifs.`}
+            {`Retrouvez ci-dessous l'ensemble des prestations et leurs tarifs.`}<br />
+            Paiements par cash ou Payconiq uniquement.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
