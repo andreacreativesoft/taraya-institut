@@ -25,7 +25,7 @@ export default function PedicureSection() {
         {/* Text + features */}
         <div className="flex-1 flex flex-col gap-8">
           <div className="flex flex-col gap-4">
-            <h2 className="font-heading text-[#251d1b] text-[34px] lg:text-[48px] font-bold leading-[1.2]">La pédicure, notre spécialité</h2>
+            <h2 className="font-heading text-[#251d1b] text-[34px] lg:text-[48px] font-bold leading-[1.2]">Pédicure médicale, notre spécialité à Zaventem</h2>
             <p className="font-body text-[#746e6b] text-[16px] lg:text-[20px] leading-[1.4]">
               Pédicure médicale et esthétique. La pédicure est au cœur de mon expertise. Après plus de 15 ans de pratique et une spécialisation approfondie, je propose des soins adaptés à chaque besoin.
             </p>
