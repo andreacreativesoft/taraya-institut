@@ -32,6 +32,19 @@ export type SiteSettings = {
   section_pricing_enabled: string;
   section_faq_enabled: string;
   section_forms_enabled: string;
+  // Section texts
+  pedicure_title: string;
+  pedicure_subtitle: string;
+  services_title: string;
+  services_subtitle: string;
+  promo_label: string;
+  promo_title: string;
+  promo_body: string;
+  pricing_title: string;
+  pricing_subtitle: string;
+  pricing_payment_note: string;
+  cta_title: string;
+  cta_body: string;
 };
 
 export const defaults: SiteSettings = {
@@ -62,6 +75,19 @@ export const defaults: SiteSettings = {
   section_pricing_enabled: "true",
   section_faq_enabled: "false",
   section_forms_enabled: "true",
+  // Section texts
+  pedicure_title: "Pédicure médicale, notre spécialité à Zaventem",
+  pedicure_subtitle: "Pédicure médicale et esthétique. La pédicure est au cœur de mon expertise. Après plus de 15 ans de pratique et une spécialisation approfondie, je propose des soins adaptés à chaque besoin.",
+  services_title: "Nos services",
+  services_subtitle: "Des soins pensés pour vous, de la tête aux pieds.\nChez Taraya, chaque soin est réalisé avec le temps et l'attention qu'il mérite. Découvrez nos prestations, toutes pensées pour vous offrir un vrai moment de bien-être.",
+  promo_label: "Promo",
+  promo_title: "-15% sur tous les soins visage durant le mois de MAI",
+  promo_body: "Le printemps s'invite sur votre peau ! Profitez de -15% sur l'ensemble de nos soins visage Phyt's tout au long du mois de mai. Uniquement sur rendez-vous.",
+  pricing_title: "Nos tarifs",
+  pricing_subtitle: "Trouvez le soin qui vous correspond.\nRetrouvez ci-dessous l'ensemble des prestations et leurs tarifs.",
+  pricing_payment_note: "Paiements par cash ou Payconiq uniquement.",
+  cta_title: "Prête à prendre un moment pour vous ?",
+  cta_body: "Vous souhaitez réserver ou vous avez une question ? Écrivez-moi sur WhatsApp.\nTout rendez-vous annulé moins de 24 heures à l'avance sera facturé.",
 };
 
 export async function getSettings(): Promise<SiteSettings> {

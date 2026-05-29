@@ -35,7 +35,7 @@ function ServiceCard({ title, description, image, imageAlt }: Omit<ServiceData, 
   );
 }
 
-export default async function ServicesSection() {
+export default async function ServicesSection({ title, subtitle }: { title?: string; subtitle?: string }) {
   const services = await db.service.findMany({
     where: { active: true },
     orderBy: { order: "asc" },
@@ -47,10 +47,9 @@ export default async function ServicesSection() {
     <section id="services" className="bg-[#fbf8ef] py-8 lg:py-24">
       <div className="mx-auto max-w-[1280px] px-4 lg:px-6 flex flex-col gap-8 lg:gap-16">
         <div className="flex flex-col gap-4 items-center text-center">
-          <h2 className="font-heading text-[#251d1b] text-[34px] lg:text-[48px] font-bold leading-[1.2]">Nos services</h2>
-          <p className="font-body text-[#746e6b] text-[16px] lg:text-[20px] leading-[1.4] max-w-[864px]">
-            Des soins pensés pour vous, de la tête aux pieds.<br />
-            {`Chez Taraya, chaque soin est réalisé avec le temps et l'attention qu'il mérite. Découvrez nos prestations, toutes pensées pour vous offrir un vrai moment de bien-être.`}
+          <h2 className="font-heading text-[#251d1b] text-[34px] lg:text-[48px] font-bold leading-[1.2]">{title ?? "Nos services"}</h2>
+          <p className="font-body text-[#746e6b] text-[16px] lg:text-[20px] leading-[1.4] max-w-[864px] whitespace-pre-line">
+            {subtitle ?? "Des soins pensés pour vous, de la tête aux pieds.\nChez Taraya, chaque soin est réalisé avec le temps et l'attention qu'il mérite. Découvrez nos prestations, toutes pensées pour vous offrir un vrai moment de bien-être."}
           </p>
         </div>
 

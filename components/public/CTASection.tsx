@@ -1,7 +1,7 @@
 const imgOrnamentRight = "/images/cta-ornament-right.svg";
 const imgOrnamentLeft  = "/images/cta-ornament-left.svg";
 
-export default function CTASection({ whatsapp }: { whatsapp: string }) {
+export default function CTASection({ whatsapp, title, body }: { whatsapp: string; title?: string; body?: string }) {
   const WHATSAPP_URL = `https://wa.me/${whatsapp.replace(/\D/g, "")}`;
   return (
     <section id="contact" className="bg-[#44312b] relative py-16 lg:py-24 overflow-hidden">
@@ -25,12 +25,11 @@ export default function CTASection({ whatsapp }: { whatsapp: string }) {
       </div>
       <div className="relative mx-auto max-w-[1280px] px-4 lg:px-6 flex flex-col items-center gap-8 text-center">
         <div className="flex flex-col gap-4 lg:gap-6 items-center">
-          <h2 className="font-heading text-white text-[34px] lg:text-[48px] font-bold leading-[1.2]">
-            Prête à prendre un moment pour vous&nbsp;?
+          <h2 className="font-heading text-white text-[34px] lg:text-[48px] font-bold leading-[1.2] whitespace-pre-line">
+            {title ?? "Prête à prendre un moment pour vous ?"}
           </h2>
-          <p className="font-body text-white text-[16px] lg:text-[20px] leading-[1.4] max-w-[768px]">
-            Vous souhaitez réserver ou vous avez une question&nbsp;? Écrivez-moi sur WhatsApp.<br />
-            Tout rendez-vous annulé moins de 24 heures à l&rsquo;avance sera facturé.
+          <p className="font-body text-white text-[16px] lg:text-[20px] leading-[1.4] max-w-[768px] whitespace-pre-line">
+            {body ?? "Vous souhaitez réserver ou vous avez une question ? Écrivez-moi sur WhatsApp.\nTout rendez-vous annulé moins de 24 heures à l'avance sera facturé."}
           </p>
         </div>
         <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"

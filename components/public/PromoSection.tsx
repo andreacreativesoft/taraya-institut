@@ -1,7 +1,7 @@
 const imgOrnamentRight = "/images/cta-ornament-right.svg";
 const imgOrnamentLeft  = "/images/cta-ornament-left.svg";
 
-export default function PromoSection({ whatsapp }: { whatsapp: string }) {
+export default function PromoSection({ whatsapp, label, title, body }: { whatsapp: string; label?: string; title?: string; body?: string }) {
   const WHATSAPP_URL = `https://wa.me/${whatsapp.replace(/\D/g, "")}`;
   return (
     <section className="bg-[#44312b] relative mt-[94px] mb-[96px] pt-[64px] pb-[96px] overflow-hidden">
@@ -27,13 +27,13 @@ export default function PromoSection({ whatsapp }: { whatsapp: string }) {
       <div className="relative mx-auto max-w-[1280px] px-4 lg:px-6 flex flex-col items-center gap-8 text-center">
         <div className="flex flex-col gap-4 lg:gap-6 items-center">
           <span className="font-body text-white text-[20px] leading-[1.3] font-normal text-center">
-            Promo
+            {label ?? "Promo"}
           </span>
-          <h2 className="font-heading text-white text-[34px] lg:text-[48px] font-bold leading-[1.2]">
-            -15% sur tous les soins visage<br />durant le mois de MAI
+          <h2 className="font-heading text-white text-[34px] lg:text-[48px] font-bold leading-[1.2] whitespace-pre-line">
+            {title ?? "-15% sur tous les soins visage\ndurant le mois de MAI"}
           </h2>
-          <p className="font-body text-white text-[16px] lg:text-[20px] leading-[1.4] max-w-[768px]">
-            Le printemps s&apos;invite sur votre peau&nbsp;! Profitez de -15% sur l&apos;ensemble de nos soins visage Phyt&apos;s tout au long du mois de mai. Uniquement sur rendez-vous.
+          <p className="font-body text-white text-[16px] lg:text-[20px] leading-[1.4] max-w-[768px] whitespace-pre-line">
+            {body ?? "Le printemps s'invite sur votre peau ! Profitez de -15% sur l'ensemble de nos soins visage Phyt's tout au long du mois de mai. Uniquement sur rendez-vous."}
           </p>
         </div>
         <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"

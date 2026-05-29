@@ -10,7 +10,7 @@ const features = [
   { icon: imgPlus,  title: "La pédicure médicale",   desc: "La pédicure médicale va plus loin. En plus du soin esthétique, elle permet de traiter les callosités au bistouri, les ongles incarnés et d\u2019autres problèmes spécifiques. Un soin précis, réalisé avec expertise et attention." },
 ];
 
-export default function PedicureSection() {
+export default function PedicureSection({ title, subtitle }: { title?: string; subtitle?: string }) {
   return (
     <section id="pedicure" className="bg-[#fbf8ef]">
       <div className="mx-auto max-w-[1280px] px-4 lg:px-6 py-8 lg:py-0 flex flex-col lg:flex-row gap-8 lg:gap-16 items-start lg:items-center lg:pb-22">
@@ -25,9 +25,9 @@ export default function PedicureSection() {
         {/* Text + features */}
         <div className="flex-1 flex flex-col gap-8">
           <div className="flex flex-col gap-4">
-            <h2 className="font-heading text-[#251d1b] text-[34px] lg:text-[48px] font-bold leading-[1.2]">Pédicure médicale, notre spécialité à Zaventem</h2>
+            <h2 className="font-heading text-[#251d1b] text-[34px] lg:text-[48px] font-bold leading-[1.2]">{title ?? "Pédicure médicale, notre spécialité à Zaventem"}</h2>
             <p className="font-body text-[#746e6b] text-[16px] lg:text-[20px] leading-[1.4]">
-              Pédicure médicale et esthétique. La pédicure est au cœur de mon expertise. Après plus de 15 ans de pratique et une spécialisation approfondie, je propose des soins adaptés à chaque besoin.
+              {subtitle ?? "Pédicure médicale et esthétique. La pédicure est au cœur de mon expertise. Après plus de 15 ans de pratique et une spécialisation approfondie, je propose des soins adaptés à chaque besoin."}
             </p>
           </div>
           <div className="flex flex-col gap-8">

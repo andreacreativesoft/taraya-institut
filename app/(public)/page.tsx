@@ -108,14 +108,14 @@ export default async function HomePage() {
       <main>
 <AboutSection />
         <ForWhoSection />
-        <PromoSection whatsapp={settings.whatsapp} />
-        <ServicesSection />
-        <PedicureSection />
-        <PricingSection />
+        <PromoSection whatsapp={settings.whatsapp} label={settings.promo_label} title={settings.promo_title} body={settings.promo_body} />
+        <ServicesSection title={settings.services_title} subtitle={settings.services_subtitle} />
+        <PedicureSection title={settings.pedicure_title} subtitle={settings.pedicure_subtitle} />
+        <PricingSection title={settings.pricing_title} subtitle={settings.pricing_subtitle} paymentNote={settings.pricing_payment_note} />
         <WhyUsSection />
         <PartnerSection />
         <MapSection />
-        <CTASection whatsapp={settings.whatsapp} />
+        <CTASection whatsapp={settings.whatsapp} title={settings.cta_title} body={settings.cta_body} />
       </main>
       <Footer
         phone={settings.phone}

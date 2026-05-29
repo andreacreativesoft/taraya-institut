@@ -16,6 +16,10 @@ export default function SettingsPage() {
           <p className="font-heading text-[#251d1b] text-[18px] font-bold">SEO & Analytics</p>
           <p className="font-body text-[#746e6b] text-[13px] mt-1">Méta-données, Google Analytics, Facebook Pixel, reCAPTCHA, Google Maps</p>
         </Link>
+        <Link href="/admin/settings/texts" className="bg-white rounded-xl border border-[#dad5cd] p-6 hover:border-[#cab3a0] hover:shadow-sm transition-all">
+          <p className="font-heading text-[#251d1b] text-[18px] font-bold">Textes des sections</p>
+          <p className="font-body text-[#746e6b] text-[13px] mt-1">Titres et sous-titres : Pédicure, Services, Promo, Tarifs, Contact</p>
+        </Link>
       </div>
     </div>
   );

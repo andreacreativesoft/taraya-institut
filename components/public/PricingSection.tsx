@@ -25,7 +25,7 @@ function PricingCard({ title, items }: { title: string; items: PriceItem[] }) {
   );
 }
 
-export default async function PricingSection() {
+export default async function PricingSection({ title, subtitle, paymentNote }: { title?: string; subtitle?: string; paymentNote?: string }) {
   let categories: Category[] = [];
   try {
     const rows = await db.pricingCategory.findMany({
@@ -52,11 +52,10 @@ export default async function PricingSection() {
       </div>
       <div className="relative mx-auto max-w-[1280px] px-4 lg:px-6 flex flex-col gap-8 lg:gap-12">
         <div className="flex flex-col gap-2 lg:gap-4 items-center text-center text-white">
-          <h2 className="font-heading text-white text-[34px] lg:text-[48px] font-bold leading-[1.2]">Nos tarifs</h2>
-          <p className="font-body text-white text-[16px] lg:text-[20px] leading-[1.4]">
-            Trouvez le soin qui vous correspond.<br />
-            {`Retrouvez ci-dessous l'ensemble des prestations et leurs tarifs.`}<br />
-            Paiements par cash ou Payconiq uniquement.
+          <h2 className="font-heading text-white text-[34px] lg:text-[48px] font-bold leading-[1.2]">{title ?? "Nos tarifs"}</h2>
+          <p className="font-body text-white text-[16px] lg:text-[20px] leading-[1.4] whitespace-pre-line">
+            {(subtitle ?? "Trouvez le soin qui vous correspond.\nRetrouvez ci-dessous l'ensemble des prestations et leurs tarifs.")}
+            {(paymentNote ?? "Paiements par cash ou Payconiq uniquement.") ? `\n${paymentNote ?? "Paiements par cash ou Payconiq uniquement."}` : ""}
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">

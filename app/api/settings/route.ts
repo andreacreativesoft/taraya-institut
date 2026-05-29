@@ -83,6 +83,19 @@ export async function POST(req: NextRequest) {
       section_pricing_enabled:  sectionVal(body.section_pricing_enabled),
       section_faq_enabled:      sectionVal(body.section_faq_enabled),
       section_forms_enabled:    sectionVal(body.section_forms_enabled),
+      // Section texts
+      pedicure_title:       sanitizeText(body.pedicure_title, 200),
+      pedicure_subtitle:    sanitizeText(body.pedicure_subtitle, 500),
+      services_title:       sanitizeText(body.services_title, 200),
+      services_subtitle:    sanitizeText(body.services_subtitle, 500),
+      promo_label:          sanitizeText(body.promo_label, 100),
+      promo_title:          sanitizeText(body.promo_title, 200),
+      promo_body:           sanitizeText(body.promo_body, 500),
+      pricing_title:        sanitizeText(body.pricing_title, 200),
+      pricing_subtitle:     sanitizeText(body.pricing_subtitle, 500),
+      pricing_payment_note: sanitizeText(body.pricing_payment_note, 200),
+      cta_title:            sanitizeText(body.cta_title, 200),
+      cta_body:             sanitizeText(body.cta_body, 500),
     };
 
     // Only upsert keys that were actually submitted in this request

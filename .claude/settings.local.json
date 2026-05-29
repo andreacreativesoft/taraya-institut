@@ -57,7 +57,17 @@
       "Bash(echo \"exit: $?\")",
       "Bash(mysql -u root taraya_db -e \"SELECT COUNT\\(*\\) FROM AuditLog;\")",
       "Bash(mysql -u root taraya_db -e \"DESCRIBE AuditLog;\")",
-      "Bash(node -e \"console.log\\(require\\(''crypto''\\).randomBytes\\(32\\).toString\\(''hex''\\)\\)\")"
+      "Bash(node -e \"console.log\\(require\\(''crypto''\\).randomBytes\\(32\\).toString\\(''hex''\\)\\)\")",
+      "WebFetch(domain:mediumorchid-sparrow-651682.hostingersite.com)",
+      "Bash(find C:/laragon/www/taraya-institut/app -name *.tsx)",
+      "WebFetch(domain:tarayainstitut.be)",
+      "Skill(claude-api)",
+      "Skill(claude-api:*)",
+      "Bash(timeout /t 8 /nobreak)",
+      "mcp__5be42bdf-4e8a-4b8c-930a-c739f16b4daa__get_design_context",
+      "Bash(curl -s \"https://www.figma.com/api/mcp/asset/6a8f9159-b38a-4240-b03c-0fc12b3a092b\" -o /c/laragon/www/taraya-institut/public/images/cadeaux-card-ornament.png)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "mcp__Claude_in_Chrome__browser_batch"
     ]
   }
 }
