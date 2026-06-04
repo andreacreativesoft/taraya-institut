@@ -81,8 +81,10 @@ export async function POST(req: NextRequest) {
       announcement_button_url:   sanitizeUrl(body.announcement_button_url),
       section_services_enabled: sectionVal(body.section_services_enabled),
       section_pricing_enabled:  sectionVal(body.section_pricing_enabled),
+      section_promo_enabled:    sectionVal(body.section_promo_enabled),
       section_faq_enabled:      sectionVal(body.section_faq_enabled),
       section_forms_enabled:    sectionVal(body.section_forms_enabled),
+      nav_cadeaux_enabled:      sectionVal(body.nav_cadeaux_enabled),
       // Section texts
       pedicure_title:       sanitizeText(body.pedicure_title, 200),
       pedicure_subtitle:    sanitizeText(body.pedicure_subtitle, 500),

@@ -7,14 +7,17 @@ const imgPhone = "/images/icon-phone.svg";
 
 const WHATSAPP_URL = "https://wa.me/0471824764";
 
-const links = [
+const baseLinks = [
   { label: "À propos", href: "#a-propos" },
   { label: "Services", href: "#services" },
   { label: "Tarifs",   href: "#tarifs"   },
-  { label: "Cadeaux",  href: "/cadeaux"  },
 ];
 
-export default function MobileMenu({ onClose }: { onClose: () => void }) {
+export default function MobileMenu({ onClose, showCadeaux = true }: { onClose: () => void; showCadeaux?: boolean }) {
+  const links = showCadeaux
+    ? [...baseLinks, { label: "Cadeaux", href: "/cadeaux" }]
+    : baseLinks;
+
   return (
     <div className="fixed inset-0 z-50 bg-[#44312b] flex flex-col lg:hidden">
       {/* Navbar row */}

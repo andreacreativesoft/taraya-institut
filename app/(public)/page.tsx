@@ -105,11 +105,14 @@ export default async function HomePage() {
         phone={settings.phone}
         title={settings.hero_title}
         subtitle={settings.hero_subtitle}
+        showCadeaux={settings.nav_cadeaux_enabled !== "false"}
       />
       <main>
 <AboutSection />
         <ForWhoSection />
-        <PromoSection whatsapp={settings.whatsapp} label={settings.promo_label} title={settings.promo_title} body={settings.promo_body} />
+        {settings.section_promo_enabled !== "false" && (
+          <PromoSection whatsapp={settings.whatsapp} label={settings.promo_label} title={settings.promo_title} body={settings.promo_body} />
+        )}
         <ServicesSection title={settings.services_title} subtitle={settings.services_subtitle} />
         <PedicureSection title={settings.pedicure_title} subtitle={settings.pedicure_subtitle} />
         <PricingSection title={settings.pricing_title} subtitle={settings.pricing_subtitle} paymentNote={settings.pricing_payment_note} />

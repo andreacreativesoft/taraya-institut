@@ -144,10 +144,14 @@ export default function SeoSettingsForm({ settings, userRole }: { settings: Sett
       {userRole === "SUPER_ADMIN" && (
         <div className={`${cardCls} lg:col-span-2`}>
           <SectionLabel>Visibilité des sections</SectionLabel>
-          <Toggle name="section_services_enabled" label="Services" checked={get("section_services_enabled") !== "false"} />
-          <Toggle name="section_pricing_enabled" label="Tarifs" checked={get("section_pricing_enabled") !== "false"} />
-          <Toggle name="section_faq_enabled" label="FAQ" checked={get("section_faq_enabled") === "true"} />
-          <Toggle name="section_forms_enabled" label="Formulaires" checked={get("section_forms_enabled") !== "false"} />
+          <Toggle name="section_services_enabled" label="Services"    checked={get("section_services_enabled") !== "false"} />
+          <Toggle name="section_pricing_enabled"  label="Tarifs"     checked={get("section_pricing_enabled")  !== "false"} />
+          <Toggle name="section_promo_enabled"    label="Promo"      checked={get("section_promo_enabled")    !== "false"} />
+          <Toggle name="section_faq_enabled"      label="FAQ"        checked={get("section_faq_enabled")      === "true"}  />
+          <Toggle name="section_forms_enabled"    label="Formulaires" checked={get("section_forms_enabled")   !== "false"} />
+          <div className="border-t border-[#f0ece4] pt-3 mt-1">
+            <Toggle name="nav_cadeaux_enabled" label="Lien Cadeaux dans le menu" checked={get("nav_cadeaux_enabled") !== "false"} />
+          </div>
         </div>
       )}
 

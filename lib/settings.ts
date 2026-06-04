@@ -30,8 +30,10 @@ export type SiteSettings = {
   // Section visibility (stored as "true"/"false" strings)
   section_services_enabled: string;
   section_pricing_enabled: string;
+  section_promo_enabled: string;
   section_faq_enabled: string;
   section_forms_enabled: string;
+  nav_cadeaux_enabled: string;
   // Section texts
   pedicure_title: string;
   pedicure_subtitle: string;
@@ -73,8 +75,10 @@ export const defaults: SiteSettings = {
   announcement_button_url: "",
   section_services_enabled: "true",
   section_pricing_enabled: "true",
+  section_promo_enabled: "true",
   section_faq_enabled: "false",
   section_forms_enabled: "true",
+  nav_cadeaux_enabled: "true",
   // Section texts
   pedicure_title: "Pédicure médicale, notre spécialité à Zaventem",
   pedicure_subtitle: "Pédicure médicale et esthétique. La pédicure est au cœur de mon expertise. Après plus de 15 ans de pratique et une spécialisation approfondie, je propose des soins adaptés à chaque besoin.",

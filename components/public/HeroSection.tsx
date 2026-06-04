@@ -11,7 +11,7 @@ const imgPhone = "/images/icon-phone.svg";
 const DEFAULT_TITLE    = "Un institut de beauté dédié à votre bien-être";
 const DEFAULT_SUBTITLE = `"Là où l'on se pose, où l'on se dépose et où l'on ressort plus légère."\nTaraya Institut est un cocon réservé aux femmes, pensé pour celles qui ont besoin de souffler. Des soins réalisés avec soin et attention, qui prennent le temps que vous méritez.`;
 
-export default function HeroSection({ whatsapp, phone, title, subtitle }: { whatsapp: string; phone?: string; title?: string; subtitle?: string }) {
+export default function HeroSection({ whatsapp, phone, title, subtitle, showCadeaux = true }: { whatsapp: string; phone?: string; title?: string; subtitle?: string; showCadeaux?: boolean }) {
   const heroTitle    = title    || DEFAULT_TITLE;
   const heroSubtitle = subtitle || DEFAULT_SUBTITLE;
   const WHATSAPP_URL = `https://wa.me/${whatsapp.replace(/\D/g, "")}`;
@@ -20,7 +20,7 @@ export default function HeroSection({ whatsapp, phone, title, subtitle }: { what
 
   return (
     <>
-      {menuOpen && <MobileMenu onClose={() => setMenuOpen(false)} />}
+      {menuOpen && <MobileMenu onClose={() => setMenuOpen(false)} showCadeaux={showCadeaux} />}
 
       <section className="relative w-full min-h-[95svh] lg:min-h-[90vh] flex flex-col overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
@@ -50,10 +50,12 @@ export default function HeroSection({ whatsapp, phone, title, subtitle }: { what
                   {link}
                 </a>
               ))}
-              <a href="/cadeaux"
-                className="font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">
-                Cadeaux
-              </a>
+              {showCadeaux && (
+                <a href="/cadeaux"
+                  className="font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">
+                  Cadeaux
+                </a>
+              )}
             </div>
             {/* Logo */}
             <Link href="/" aria-label="Taraya Institut — Accueil">
