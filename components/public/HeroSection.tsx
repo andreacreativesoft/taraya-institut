@@ -11,10 +11,11 @@ const imgPhone = "/images/icon-phone.svg";
 const DEFAULT_TITLE    = "Un institut de beauté dédié à votre bien-être";
 const DEFAULT_SUBTITLE = `"Là où l'on se pose, où l'on se dépose et où l'on ressort plus légère."\nTaraya Institut est un cocon réservé aux femmes, pensé pour celles qui ont besoin de souffler. Des soins réalisés avec soin et attention, qui prennent le temps que vous méritez.`;
 
-export default function HeroSection({ whatsapp, title, subtitle }: { whatsapp: string; title?: string; subtitle?: string }) {
+export default function HeroSection({ whatsapp, phone, title, subtitle }: { whatsapp: string; phone?: string; title?: string; subtitle?: string }) {
   const heroTitle    = title    || DEFAULT_TITLE;
   const heroSubtitle = subtitle || DEFAULT_SUBTITLE;
   const WHATSAPP_URL = `https://wa.me/${whatsapp.replace(/\D/g, "")}`;
+  const TEL_URL      = phone ? `tel:${phone.replace(/\s/g, "")}` : null;
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -94,11 +95,13 @@ export default function HeroSection({ whatsapp, title, subtitle }: { whatsapp: s
                   className="bg-[#fbf8ef] text-[#44312b] font-heading font-bold text-[16px] leading-[1.3] px-5 py-2.5 rounded-[64px] whitespace-nowrap hover:bg-white transition-colors">
                   Prendre rendez-vous
                 </a>
-                <a href="tel:+32471824764"
-                  className="flex items-center gap-2 border border-[#fbf8ef] rounded-[64px] px-5 py-2.5 hover:bg-white/10 transition-colors whitespace-nowrap">
-                  <img src={imgPhone} alt="" className="w-[14px] h-[14px] object-contain shrink-0" />
-                  <span className="font-heading font-bold text-[#fbf8ef] text-[16px] leading-[1.3]">0471824764</span>
-                </a>
+                {TEL_URL && (
+                  <a href={TEL_URL}
+                    className="flex items-center gap-2 border border-[#fbf8ef] rounded-[64px] px-5 py-2.5 hover:bg-white/10 transition-colors whitespace-nowrap">
+                    <img src={imgPhone} alt="" className="w-[14px] h-[14px] object-contain shrink-0" />
+                    <span className="font-heading font-bold text-[#fbf8ef] text-[16px] leading-[1.3]">{phone}</span>
+                  </a>
+                )}
               </div>
               <p className="font-body text-[#fbf8ef] text-[14px] lg:text-[16px] leading-[1.5] tracking-[0.14px] lg:tracking-[0.16px]">
                 Uniquement sur rendez-vous

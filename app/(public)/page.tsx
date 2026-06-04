@@ -102,6 +102,7 @@ export default async function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       <HeroSection
         whatsapp={settings.whatsapp}
+        phone={settings.phone}
         title={settings.hero_title}
         subtitle={settings.hero_subtitle}
       />
