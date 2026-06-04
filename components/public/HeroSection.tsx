@@ -89,10 +89,17 @@ export default function HeroSection({ whatsapp, title, subtitle }: { whatsapp: s
               </p>
             </div>
             <div className="flex flex-col gap-3 items-center">
-              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"
-                className="bg-[#fbf8ef] text-[#44312b] font-heading font-bold text-[16px] leading-[1.3] px-5 py-2.5 rounded-[64px] whitespace-nowrap hover:bg-white transition-colors">
-                Prendre rendez-vous
-              </a>
+              <div className="flex flex-wrap gap-3 items-center justify-center">
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"
+                  className="bg-[#fbf8ef] text-[#44312b] font-heading font-bold text-[16px] leading-[1.3] px-5 py-2.5 rounded-[64px] whitespace-nowrap hover:bg-white transition-colors">
+                  Prendre rendez-vous
+                </a>
+                <a href="tel:+32472620039"
+                  className="flex items-center gap-2 border border-[#fbf8ef] rounded-[64px] px-5 py-2.5 hover:bg-white/10 transition-colors whitespace-nowrap">
+                  <img src={imgPhone} alt="" className="w-[14px] h-[14px] object-contain shrink-0" />
+                  <span className="font-heading font-bold text-[#fbf8ef] text-[16px] leading-[1.3]">+32 472 62 00 39</span>
+                </a>
+              </div>
               <p className="font-body text-[#fbf8ef] text-[14px] lg:text-[16px] leading-[1.5] tracking-[0.14px] lg:tracking-[0.16px]">
                 Uniquement sur rendez-vous
               </p>
