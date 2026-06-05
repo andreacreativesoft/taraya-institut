@@ -14,7 +14,8 @@ type Props = {
 
 export default function Footer({ phone, email, address, instagram, facebook }: Props) {
   const phoneClean = phone.replace(/\s/g, "");
-  const phoneHref = phoneClean.startsWith("+") ? `tel:${phoneClean}` : `tel:+${phoneClean}`;
+  const phoneDisplay = phone.replace(/^\+\d{2}/, "0");
+  const phoneHref = `tel:${phoneClean}`;
 
   return (
     <footer className="bg-[#fbf8ef]">
@@ -30,7 +31,7 @@ export default function Footer({ phone, email, address, instagram, facebook }: P
           <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center lg:text-left w-full">
             {[
               { title: "Adresse", content: <p>{address}</p> },
-              { title: "Téléphone", content: <a href={phoneHref} className="hover:opacity-80">{phone}</a> },
+              { title: "Téléphone", content: <a href={phoneHref} className="hover:opacity-80">{phoneDisplay}</a> },
               { title: "Heures d\u2019ouverture", content: <p>Du lundi au vendredi,<br />9h à 18h et le Samedi,<br />9h à 13h</p> },
               { title: "Email", content: <a href={`mailto:${email}`} className="hover:opacity-80 break-all">{email}</a> },
             ].map(({ title, content }) => (
