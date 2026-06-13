@@ -219,7 +219,7 @@ export default async function PedicureMedicalePage() {
             </h2>
             <div className="h-px bg-[#dad5cd]" />
             <p className="font-body text-[#746e6b] text-[16px] lg:text-[18px] leading-[1.7]">
-              Pour les soins des pieds, nous travaillons avec la marque <strong className="text-[#251d1b]">Gehwol</strong>, fondée en Allemagne en 1868 par le pharmacien Eduard Gerlach, l&apos;un des premiers à formuler des produits spécifiquement conçus pour le soin des pieds. Une référence dans le milieu depuis plus de 150 ans.
+              Pour les soins des pieds, nous travaillons avec la marque <a href="https://www.gehwol.nl/" target="_blank" rel="noopener noreferrer nofollow" className="font-bold text-[#251d1b] underline underline-offset-2 hover:text-[#cb9559] transition-colors">Gehwol</a>, fondée en Allemagne en 1868 par le pharmacien Eduard Gerlach, l&apos;un des premiers à formuler des produits spécifiquement conçus pour le soin des pieds. Une référence dans le milieu depuis plus de 150 ans.
             </p>
             <p className="font-body text-[#746e6b] text-[16px] lg:text-[18px] leading-[1.7]">
               Nous utilisons également les produits <strong className="text-[#251d1b]">PHYT&apos;S</strong>, disponibles à l&apos;achat à l&apos;institut.
