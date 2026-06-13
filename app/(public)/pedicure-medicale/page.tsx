@@ -233,7 +233,56 @@ export default async function PedicureMedicalePage() {
           </div>
         </section>
 
-        {/* ── SECTION 6 : CTA ────────────────────────────────────── */}
+        {/* ── SECTION 6 : FAQ ────────────────────────────────────── */}
+        <section className="bg-[#fbf8ef] py-16 lg:py-24">
+          <div className="mx-auto max-w-[860px] px-4 lg:px-6 flex flex-col gap-10">
+            <h2 className="font-heading font-bold text-[#251d1b] text-[30px] lg:text-[42px] leading-[1.2]">
+              Questions fréquentes
+            </h2>
+            <div className="flex flex-col divide-y divide-[#dad5cd]">
+              {[
+                {
+                  q: "Quelle est la différence entre une pédicure médicale et une pédicure esthétique ?",
+                  a: "La pédicure esthétique embellit le pied : coupe, limage, vernis. La pédicure médicale traite des problèmes concrets comme les callosités, les ongles incarnés, les cors et les talons fissurés. L’objectif est de soulager et de prévenir la récidive, pas seulement de faire joli.",
+                },
+                {
+                  q: "Une pédicure médicale, est-ce douloureux ?",
+                  a: "Non. Le travail au scalpel et à la râpe se fait sur la corne et la peau morte, sans douleur. Au contraire : retirer un ongle incarné ou un cor soulage immédiatement. Beaucoup de clientes sont surprises de ressortir sans la gêne avec laquelle elles étaient venues.",
+                },
+                {
+                  q: "À quelle fréquence faut-il faire une pédicure médicale ?",
+                  a: "Pour un entretien régulier et garder des pieds en bon état, une séance par mois est l’idéal. Si vous avez un souci ponctuel comme un ongle incarné ou un cor, prévoyez plusieurs rendez-vous rapprochés le temps de le traiter.",
+                },
+                {
+                  q: "La pédicure médicale est-elle remboursée par la mutuelle en Belgique ?",
+                  a: "Certaines mutuelles interviennent partiellement, souvent pour les personnes diabétiques ou âgées, avec un plafond de séances par an. Les conditions changent selon l’organisme. Renseignez-vous auprès de votre mutuelle, nous fournissons un reçu sur demande.",
+                },
+                {
+                  q: "Combien de temps dure une séance ?",
+                  a: "Comptez environ 30 minutes pour un entretien ou un petit problème localisé. Pour des pieds très secs, un ongle incarné ou plusieurs zones à traiter, la séance peut aller jusqu’à une heure.",
+                },
+                {
+                  q: "Pédicure médicale ou podologue : qui consulter ?",
+                  a: "Pour les callosités, cors, ongles incarnés et talons secs du quotidien, la pédicure médicale est tout indiquée. Pour un pied diabétique, une plaie qui ne cicatrise pas, des semelles orthopédiques ou un trouble de la marche, orientez-vous vers un podologue ou un médecin.",
+                },
+              ].map(({ q, a }) => (
+                <details key={q} className="group py-5">
+                  <summary className="flex items-center justify-between gap-4 cursor-pointer list-none">
+                    <span className="font-heading font-bold text-[#251d1b] text-[17px] lg:text-[19px] leading-[1.3]">{q}</span>
+                    <span className="shrink-0 w-6 h-6 rounded-full border border-[#cb9559] flex items-center justify-center transition-transform group-open:rotate-45">
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                        <path d="M5 1v8M1 5h8" stroke="#cb9559" strokeWidth="1.5" strokeLinecap="round"/>
+                      </svg>
+                    </span>
+                  </summary>
+                  <p className="font-body text-[#746e6b] text-[15px] lg:text-[16px] leading-[1.7] mt-3 pr-10">{a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── SECTION 7 : CTA ────────────────────────────────────── */}
         <section className="bg-[#44312b] py-16 lg:py-24">
           <div className="mx-auto max-w-[1280px] px-4 lg:px-6 flex flex-col items-center gap-6 text-center">
             <h2 className="font-heading font-bold text-white text-[30px] lg:text-[42px] leading-[1.2] max-w-[600px]">
