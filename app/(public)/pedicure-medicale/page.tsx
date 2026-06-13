@@ -6,7 +6,7 @@ import Footer from "@/components/public/Footer";
 const imgLogo    = "/images/logo.svg";
 const imgPhone   = "/images/icon-phone.svg";
 const imgHero    = "/images/pedicure-medicale-soins-pieds-zaventem.webp";
-const imgBain    = "/images/bain-pieds-pedicure-esthetique-sterrebeek.webp";
+const imgBain    = "/images/manucure-pedicure-soins-mains-pieds-zaventem.webp";
 
 export const metadata = {
   title: "Pédicure médicale à Zaventem – Taraya Institut",
