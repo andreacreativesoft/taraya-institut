@@ -24,10 +24,11 @@ export default async function CadeauxPage() {
         <div className="mx-auto max-w-[1280px] px-4 lg:px-6 py-5 flex items-center justify-between gap-4">
           <div className="hidden lg:flex flex-1 gap-8 items-center">
             {[
-              { label: "À propos", href: "/#a-propos" },
-              { label: "Services", href: "/#services" },
-              { label: "Tarifs",   href: "/#tarifs"   },
-              { label: "Cadeaux",  href: "/cadeaux"   },
+              { label: "À propos",          href: "/#a-propos"         },
+              { label: "Services",          href: "/#services"         },
+              { label: "Tarifs",            href: "/#tarifs"           },
+              { label: "Pédicure médicale", href: "/pedicure-medicale" },
+              { label: "Cadeaux",           href: "/cadeaux"           },
             ].map(({ label, href }) => (
               <Link key={label} href={href}
                 className="font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">

@@ -8,7 +8,7 @@ import Footer from "@/components/public/Footer";
 const imgLogo    = "/images/logo.svg";
 const imgPhone   = "/images/icon-phone.svg";
 const imgHero    = "/images/pedicure-medicale-soins-pieds-zaventem.webp";
-const imgBain    = "/images/bain-pieds-pedicure-esthetique-sterrebeek.webp";
+const imgBain    = "/images/pedicure-in-progress-2306671.jpg";
 
 export const metadata = {
   title: "Pédicure médicale à Zaventem – Taraya Institut",
@@ -63,10 +63,11 @@ export default async function PedicureMedicalePage() {
         <div className="mx-auto max-w-[1280px] px-4 lg:px-6 py-5 flex items-center justify-between gap-4">
           <div className="hidden lg:flex flex-1 gap-8 items-center">
             {[
-              { label: "À propos", href: "/#a-propos" },
-              { label: "Services", href: "/#services" },
-              { label: "Tarifs",   href: "/#tarifs"   },
-              { label: "Cadeaux",  href: "/cadeaux"   },
+              { label: "À propos",          href: "/#a-propos"        },
+              { label: "Services",          href: "/#services"        },
+              { label: "Tarifs",            href: "/#tarifs"          },
+              { label: "Pédicure médicale", href: "/pedicure-medicale"},
+              ...(settings.nav_cadeaux_enabled !== "false" ? [{ label: "Cadeaux", href: "/cadeaux" }] : []),
             ].map(({ label, href }) => (
               <Link key={label} href={href}
                 className="font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">
@@ -184,7 +185,7 @@ export default async function PedicureMedicalePage() {
             <div className="w-full lg:w-[480px] lg:flex-shrink-0 h-[320px] lg:h-[520px] rounded-xl overflow-hidden relative">
               <Image
                 src={imgBain}
-                alt="Bain de pieds pédicure médicale Taraya Institut"
+                alt="Pédicure médicale en cours — Taraya Institut Sterrebeek"
                 fill className="object-cover" sizes="(max-width: 1024px) 100vw, 480px"
               />
             </div>
