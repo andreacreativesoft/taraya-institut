@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { SiteSettings } from "@/lib/settings";
 
 export default function TextsSettingsForm({ settings }: { settings: SiteSettings }) {
+  const router = useRouter();
   const [form, setForm] = useState({
     pedicure_title:       settings.pedicure_title,
     pedicure_subtitle:    settings.pedicure_subtitle,
@@ -32,7 +34,8 @@ export default function TextsSettingsForm({ settings }: { settings: SiteSettings
         body: JSON.stringify(form),
       });
       const data = await res.json();
-      setStatus(data.success ? "saved" : "error");
+      if (data.success) { setStatus("saved"); router.refresh(); }
+      else setStatus("error");
     } catch { setStatus("error"); }
     setTimeout(() => setStatus("idle"), 3000);
   };

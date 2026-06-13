@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Settings = Record<string, string>;
 
@@ -39,6 +40,7 @@ function Toggle({ name, label, checked }: { name: string; label: string; checked
 
 export default function SeoSettingsForm({ settings, userRole }: { settings: Settings; userRole: string }) {
   const get = (key: string) => settings[key] ?? "";
+  const router = useRouter();
 
   const [pending, setPending] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -64,6 +66,7 @@ export default function SeoSettingsForm({ settings, userRole }: { settings: Sett
 
       if (json.success) {
         setSuccess(true);
+        router.refresh();
       } else if (json.errors) {
         setErrors(json.errors);
       } else {

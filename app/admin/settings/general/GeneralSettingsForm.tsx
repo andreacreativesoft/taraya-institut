@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 function Toggle({ name, label, checked }: { name: string; label: string; checked: boolean }) {
   const [value, setValue] = useState(checked);
@@ -39,6 +40,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 export default function GeneralSettingsForm({ settings }: { settings: Settings }) {
   const get = (key: string) => settings[key] ?? "";
+  const router = useRouter();
 
   const [pending, setPending] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -64,6 +66,7 @@ export default function GeneralSettingsForm({ settings }: { settings: Settings }
 
       if (json.success) {
         setSuccess(true);
+        router.refresh();
       } else if (json.errors) {
         setErrors(json.errors);
       } else {
