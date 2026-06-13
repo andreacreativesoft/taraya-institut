@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Link from "next/link";
 import { getSettings } from "@/lib/settings";
 import Footer from "@/components/public/Footer";

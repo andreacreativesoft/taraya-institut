@@ -1,4 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+
+export const viewport: Viewport = {
+  themeColor: "#44312b",
+};
 import { Quattrocento, Questrial } from "next/font/google";
 import Script from "next/script";
 import { getSettings } from "@/lib/settings";
