@@ -50,6 +50,10 @@ export default function HeroSection({ whatsapp, phone, title, subtitle, showCade
                   {link}
                 </a>
               ))}
+              <a href="/pedicure-medicale"
+                className="font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">
+                Pédicure médicale
+              </a>
               {showCadeaux && (
                 <a href="/cadeaux"
                   className="font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">

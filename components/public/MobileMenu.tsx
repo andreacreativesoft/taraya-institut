@@ -8,9 +8,10 @@ const imgPhone = "/images/icon-phone.svg";
 const WHATSAPP_URL = "https://wa.me/0471824764";
 
 const baseLinks = [
-  { label: "À propos", href: "#a-propos" },
-  { label: "Services", href: "#services" },
-  { label: "Tarifs",   href: "#tarifs"   },
+  { label: "À propos",          href: "#a-propos"          },
+  { label: "Services",          href: "#services"          },
+  { label: "Tarifs",            href: "#tarifs"            },
+  { label: "Pédicure médicale", href: "/pedicure-medicale" },
 ];
 
 export default function MobileMenu({ onClose, showCadeaux = true }: { onClose: () => void; showCadeaux?: boolean }) {
