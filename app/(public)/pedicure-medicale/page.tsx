@@ -167,7 +167,7 @@ export default async function PedicureMedicalePage() {
                 </div>
               ))}
             </div>
-            <div className="bg-[#3a2923] rounded-xl p-6 lg:p-8 max-w-[720px]">
+            <div className="bg-[#3a2923] rounded-xl p-6 lg:p-8">
               <p className="font-body text-[#e8e0d5] text-[15px] lg:text-[16px] leading-[1.7]">
                 <span className="font-heading font-bold text-white">Durée :</span> une demi-heure suffit pour un entretien régulier ou un petit problème localisé. Pour des pieds très secs, des ongles incarnés ou plusieurs zones à traiter, comptez jusqu&apos;à une heure.
               </p>
