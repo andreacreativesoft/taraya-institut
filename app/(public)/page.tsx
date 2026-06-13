@@ -9,7 +9,6 @@ import PedicureSection from "@/components/public/PedicureSection";
 import MapSection from "@/components/public/MapSection";
 import PricingSection from "@/components/public/PricingSection";
 import WhyUsSection from "@/components/public/WhyUsSection";
-import PartnerSection from "@/components/public/PartnerSection";
 import PromoSection from "@/components/public/PromoSection";
 import CTASection from "@/components/public/CTASection";
 import Footer from "@/components/public/Footer";
@@ -117,7 +116,6 @@ export default async function HomePage() {
         <PedicureSection title={settings.pedicure_title} subtitle={settings.pedicure_subtitle} />
         <PricingSection title={settings.pricing_title} subtitle={settings.pricing_subtitle} paymentNote={settings.pricing_payment_note} />
         <WhyUsSection />
-        <PartnerSection />
         <MapSection />
         <CTASection whatsapp={settings.whatsapp} title={settings.cta_title} body={settings.cta_body} />
       </main>

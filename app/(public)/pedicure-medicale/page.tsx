@@ -4,11 +4,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { getSettings } from "@/lib/settings";
 import Footer from "@/components/public/Footer";
+import PartnerSection from "@/components/public/PartnerSection";
 
 const imgLogo    = "/images/logo.svg";
 const imgPhone   = "/images/icon-phone.svg";
 const imgHero    = "/images/pedicure-medicale-hero-zaventem.webp";
 const imgBain    = "/images/pedicure-in-progress-2306671.jpg";
+const imgDiff    = "/images/image-2026-06-13.jpeg";
 
 export const metadata = {
   title: "Pédicure médicale à Zaventem – Taraya Institut",
@@ -211,6 +213,38 @@ export default async function PedicureMedicalePage() {
           </div>
         </section>
 
+        {/* ── SECTION "MÉDICALE OU ESTHÉTIQUE" ──────────────────── */}
+        <section className="bg-white py-16 lg:py-24">
+          <div className="mx-auto max-w-[1280px] px-4 lg:px-6 flex flex-col lg:flex-row gap-10 lg:gap-16 items-center">
+            {/* Text — left on desktop */}
+            <div className="flex flex-col gap-6 flex-1">
+              <h2 className="font-heading font-bold text-[#251d1b] text-[30px] lg:text-[42px] leading-[1.2]">
+                Pédicure médicale ou esthétique&nbsp;: la vraie différence
+              </h2>
+              <div className="h-px bg-[#dad5cd]" />
+              <p className="font-body text-[#746e6b] text-[16px] lg:text-[18px] leading-[1.7]">
+                La pédicure esthétique embellit. On coupe, on lime, on pose un vernis, on repart avec de jolis pieds. C&apos;est agréable, mais ça ne soigne rien.
+              </p>
+              <p className="font-body text-[#746e6b] text-[16px] lg:text-[18px] leading-[1.7]">
+                La pédicure médicale, elle, traite. Callosités qui reviennent, ongles incarnés douloureux, talons secs et fissurés&nbsp;: ce sont des problèmes qui ne disparaissent pas seuls. Et plus on attend, plus ils s&apos;installent.
+              </p>
+              <div className="border-l-4 border-[#cb9559] pl-5">
+                <p className="font-body text-[#746e6b] text-[16px] lg:text-[18px] leading-[1.7]">
+                  Une précision honnête, parce qu&apos;elle compte&nbsp;: la pédicure médicale n&apos;est pas de la podologie. Un pied diabétique, une plaie qui ne cicatrise pas ou un trouble de la marche relèvent d&apos;un podologue ou d&apos;un médecin. Pour tout le reste, les soins du quotidien qui font mal et qui gâchent la marche, c&apos;est exactement notre terrain.
+                </p>
+              </div>
+            </div>
+            {/* Image — right on desktop */}
+            <div className="w-full lg:w-[480px] lg:flex-shrink-0 h-[320px] lg:h-[520px] rounded-xl overflow-hidden relative">
+              <Image
+                src={imgDiff}
+                alt="Pédicure médicale versus esthétique — Taraya Institut Sterrebeek"
+                fill className="object-cover" sizes="(max-width: 1024px) 100vw, 480px"
+              />
+            </div>
+          </div>
+        </section>
+
         {/* ── SECTION 5 : PRODUITS ───────────────────────────────── */}
         <section className="bg-[#f5f0e8] py-16 lg:py-20">
           <div className="mx-auto max-w-[1280px] px-4 lg:px-6 flex flex-col gap-8 max-w-[860px]">
@@ -232,6 +266,8 @@ export default async function PedicureMedicalePage() {
             </div>
           </div>
         </section>
+
+        <PartnerSection />
 
         {/* ── SECTION 6 : FAQ ────────────────────────────────────── */}
         <section className="bg-[#fbf8ef] py-16 lg:py-24">
