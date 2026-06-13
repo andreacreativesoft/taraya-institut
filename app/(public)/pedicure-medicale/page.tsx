@@ -7,7 +7,7 @@ import Footer from "@/components/public/Footer";
 
 const imgLogo    = "/images/logo.svg";
 const imgPhone   = "/images/icon-phone.svg";
-const imgHero    = "/images/pedicure-medicale-soins-pieds-zaventem.webp";
+const imgHero    = "/images/pedicure-medicale-hero-zaventem.webp";
 const imgBain    = "/images/pedicure-in-progress-2306671.jpg";
 
 export const metadata = {
