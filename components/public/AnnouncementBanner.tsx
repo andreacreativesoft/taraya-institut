@@ -14,7 +14,7 @@ export default async function AnnouncementBanner() {
   return (
     <div className="w-full bg-[#cb9559] px-4 py-2.5">
       <div className="mx-auto max-w-[1280px] flex items-center justify-center gap-4 flex-wrap">
-        <p className="font-body text-[#fbf8ef] text-[13px] lg:text-[14px] leading-[1.5] text-center">
+        <p className="font-body text-[#fbf8ef] text-[15px] lg:text-[16px] leading-[1.5] text-center">
           {settings.announcement_text}
         </p>
         {hasButton && (
