@@ -63,33 +63,29 @@ export default async function PedicureMedicalePage() {
       {/* ── NAVBAR ─────────────────────────────────────────────── */}
       <header className="w-full bg-[#44312b]">
         <div className="mx-auto max-w-[1280px] px-4 lg:px-6 py-5 flex items-center justify-between gap-4">
+          {/* Desktop nav — left */}
           <div className="hidden lg:flex flex-1 gap-8 items-center">
-            {[
-              { label: "À propos",          href: "/#a-propos"        },
-              { label: "Services",          href: "/#services"        },
-              { label: "Tarifs",            href: "/#tarifs"          },
-              { label: "Pédicure médicale", href: "/pedicure-medicale"},
-              ...(settings.nav_cadeaux_enabled !== "false" ? [{ label: "Cadeaux", href: "/cadeaux" }] : []),
-            ].map(({ label, href }) => (
-              <Link key={label} href={href}
-                className="font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">
-                {label}
-              </Link>
-            ))}
+            <Link href="/#a-propos" className="font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">À propos</Link>
+            <Link href="/#services" className="font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">Services</Link>
           </div>
+          {/* Logo */}
           <Link href="/" aria-label="Taraya Institut — Accueil">
             <img src={imgLogo} alt="Taraya Institut" className="w-[190px] lg:w-[337px] h-[25px] lg:h-[44px] object-contain shrink-0" />
           </Link>
-          <div className="hidden lg:flex flex-1 justify-end">
+          {/* Desktop nav — right + WhatsApp | Mobile: back */}
+          <div className="flex flex-1 items-center justify-end gap-6 lg:gap-8">
+            <Link href="/#tarifs" className="hidden lg:block font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">Tarifs</Link>
+            <Link href="/pedicure-medicale" className="hidden lg:block font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">Pédicure médicale</Link>
+            {settings.nav_cadeaux_enabled !== "false" && (
+              <Link href="/cadeaux" className="hidden lg:block font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">Cadeaux</Link>
+            )}
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2 border border-[#fbf8ef] rounded-[64px] px-5 py-2.5 hover:bg-white/10 transition-colors">
+              className="hidden lg:flex items-center gap-2 border border-[#fbf8ef] rounded-[64px] px-5 py-2.5 hover:bg-white/10 transition-colors">
               <img src={imgPhone} alt="" className="w-[14px] h-[14px] object-contain shrink-0" />
               <span className="font-heading font-bold text-[#fbf8ef] text-[16px] leading-[1.3] whitespace-nowrap">WhatsApp</span>
             </a>
+            <Link href="/" className="lg:hidden text-white font-body text-[14px] hover:opacity-80">← Accueil</Link>
           </div>
-          <Link href="/" className="lg:hidden text-white font-body text-[14px] hover:opacity-80">
-            ← Accueil
-          </Link>
         </div>
       </header>
 

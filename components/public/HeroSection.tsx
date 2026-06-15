@@ -41,32 +41,25 @@ export default function HeroSection({ whatsapp, phone, title, subtitle, showCade
         {/* Navbar */}
         <nav className="relative z-10 w-full flex justify-center py-6 px-4 lg:px-6">
           <div className="w-full max-w-[1280px] flex items-center justify-between gap-4 lg:gap-8">
-            {/* Desktop nav links */}
+
+            {/* Desktop nav — left */}
             <div className="hidden lg:flex flex-1 gap-8 items-center">
-              {["À propos", "Services", "Tarifs"].map((link) => (
-                <a key={link}
-                  href={`#${link.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g,"-")}`}
-                  className="font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">
-                  {link}
-                </a>
-              ))}
-              <a href="/pedicure-medicale"
-                className="font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">
-                Pédicure médicale
-              </a>
-              {showCadeaux && (
-                <a href="/cadeaux"
-                  className="font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">
-                  Cadeaux
-                </a>
-              )}
+              <a href="#a-propos" className="font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">À propos</a>
+              <a href="#services" className="font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">Services</a>
             </div>
+
             {/* Logo */}
             <Link href="/" aria-label="Taraya Institut — Accueil">
               <img src={imgLogo} alt="Taraya Institut — logo institut de beauté et bien-être" className="w-[190px] lg:w-[337px] h-[25px] lg:h-[44px] object-contain shrink-0" />
             </Link>
-            {/* Desktop: WhatsApp | Mobile: hamburger */}
-            <div className="flex items-center gap-4 lg:flex-1 lg:justify-end">
+
+            {/* Desktop nav — right + WhatsApp | Mobile: hamburger */}
+            <div className="flex flex-1 items-center justify-end gap-6 lg:gap-8">
+              <a href="#tarifs" className="hidden lg:block font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">Tarifs</a>
+              <a href="/pedicure-medicale" className="hidden lg:block font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">Pédicure médicale</a>
+              {showCadeaux && (
+                <a href="/cadeaux" className="hidden lg:block font-body text-white text-[18px] leading-[1.4] whitespace-nowrap hover:opacity-80 transition-opacity">Cadeaux</a>
+              )}
               <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"
                 className="hidden lg:flex items-center gap-2 border border-[#fbf8ef] rounded-[64px] px-5 py-2.5 hover:bg-white/10 transition-colors">
                 <img src={imgPhone} alt="" className="w-[14px] h-[14px] object-contain shrink-0" />
@@ -81,6 +74,7 @@ export default function HeroSection({ whatsapp, phone, title, subtitle, showCade
                 </svg>
               </button>
             </div>
+
           </div>
         </nav>
 
