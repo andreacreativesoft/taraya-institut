@@ -338,6 +338,9 @@ export default async function PedicureMedicalePage() {
         address={settings.address}
         instagram={settings.instagram}
         facebook={settings.facebook}
+        openingWeekdays={settings.opening_hours_weekdays}
+        openingWednesday={settings.opening_hours_wednesday}
+        openingSaturday={settings.opening_hours_saturday}
       />
     </>
   );

@@ -10,9 +10,12 @@ type Props = {
   address: string;
   instagram: string;
   facebook: string;
+  openingWeekdays?: string;
+  openingWednesday?: string;
+  openingSaturday?: string;
 };
 
-export default function Footer({ phone, email, address, instagram, facebook }: Props) {
+export default function Footer({ phone, email, address, instagram, facebook, openingWeekdays, openingWednesday, openingSaturday }: Props) {
   const phoneClean = phone.replace(/\s/g, "");
   const phoneDisplay = phone.replace(/^\+\d{2}/, "0");
   const phoneHref = `tel:${phoneClean}`;
@@ -32,7 +35,7 @@ export default function Footer({ phone, email, address, instagram, facebook }: P
             {[
               { title: "Adresse", content: <p>{address}</p> },
               { title: "Téléphone", content: <a href={phoneHref} className="hover:opacity-80">{phoneDisplay}</a> },
-              { title: "Heures d\u2019ouverture", content: <p>Lun, Mar, Jeu, Ven : 9h–18h<br />Mercredi : 9h–16h30<br />Samedi : 9h–12h</p> },
+              { title: "Heures d\u2019ouverture", content: <p>{openingWeekdays || "Lun, Mar, Jeu, Ven : 9h–18h"}<br />{openingWednesday || "Mercredi : 9h–16h30"}<br />{openingSaturday || "Samedi : 9h–12h"}</p> },
               { title: "Email", content: <a href={`mailto:${email}`} className="hover:opacity-80 break-all">{email}</a> },
             ].map(({ title, content }) => (
               <div key={title} className="flex flex-col gap-2 lg:gap-3 items-center lg:items-start">

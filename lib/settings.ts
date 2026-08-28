@@ -47,6 +47,10 @@ export type SiteSettings = {
   pricing_payment_note: string;
   cta_title: string;
   cta_body: string;
+  // Opening hours
+  opening_hours_weekdays: string;
+  opening_hours_wednesday: string;
+  opening_hours_saturday: string;
 };
 
 export const defaults: SiteSettings = {
@@ -91,7 +95,11 @@ export const defaults: SiteSettings = {
   pricing_subtitle: "Trouvez le soin qui vous correspond.\nRetrouvez ci-dessous l'ensemble des prestations et leurs tarifs.",
   pricing_payment_note: "Paiements par cash ou Payconiq uniquement.",
   cta_title: "Prête à prendre un moment pour vous ?",
-  cta_body: "Vous souhaitez réserver ou vous avez une question ? Écrivez-moi sur WhatsApp.\nTout rendez-vous annulé moins de 24 heures à l'avance sera facturé.",
+  cta_body: "Vous souhaitez réserver ou vous avez une question ? Écrivez-moi sur WhatsApp.\nTout rendez-vous annulé moins de 24 heures à l'avance sera facturé.",
+  // Opening hours
+  opening_hours_weekdays: "Lun, Mar, Jeu, Ven : 9h-18h",
+  opening_hours_wednesday: "Mercredi : 9h-16h30",
+  opening_hours_saturday: "Samedi : 9h-12h",
 };
 
 export async function getSettings(): Promise<SiteSettings> {

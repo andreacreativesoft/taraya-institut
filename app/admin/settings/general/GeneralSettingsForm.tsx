@@ -179,6 +179,26 @@ export default function GeneralSettingsForm({ settings }: { settings: Settings }
         </div>
       </div>
 
+      {/* ── HORAIRES D'OUVERTURE ─────────────────────────────── */}
+      <div className={`${cardCls} lg:col-span-2`}>
+        <SectionLabel>Horaires d&apos;ouverture</SectionLabel>
+        <p className="font-body text-[#746e6b] text-[11px]">Affiché dans le pied de page sur toutes les pages.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className={fieldCls}>
+            <label className={labelCls}>Lun / Mar / Jeu / Ven</label>
+            <input name="opening_hours_weekdays" defaultValue={get("opening_hours_weekdays")} placeholder="Lun, Mar, Jeu, Ven : 9h–18h" className={inputCls} />
+          </div>
+          <div className={fieldCls}>
+            <label className={labelCls}>Mercredi</label>
+            <input name="opening_hours_wednesday" defaultValue={get("opening_hours_wednesday")} placeholder="Mercredi : 9h–16h30" className={inputCls} />
+          </div>
+          <div className={fieldCls}>
+            <label className={labelCls}>Samedi</label>
+            <input name="opening_hours_saturday" defaultValue={get("opening_hours_saturday")} placeholder="Samedi : 9h–12h" className={inputCls} />
+          </div>
+        </div>
+      </div>
+
       {success && <p className="lg:col-span-2 text-green-600 font-body text-[13px]">✓ Paramètres enregistrés avec succès</p>}
       {errors.form && <p className="lg:col-span-2 text-red-500 font-body text-[13px] bg-red-50 border border-red-200 rounded-lg px-4 py-3">{errors.form}</p>}
       <div className="lg:col-span-2 flex justify-end">
