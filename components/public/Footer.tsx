@@ -32,7 +32,7 @@ export default function Footer({ phone, email, address, instagram, facebook }: P
             {[
               { title: "Adresse", content: <p>{address}</p> },
               { title: "Téléphone", content: <a href={phoneHref} className="hover:opacity-80">{phoneDisplay}</a> },
-              { title: "Heures d\u2019ouverture", content: <p>Du lundi au vendredi,<br />9h à 18h et le Samedi,<br />9h à 13h</p> },
+              { title: "Heures d\u2019ouverture", content: <p>Lun, Mar, Jeu, Ven : 9h–18h<br />Mercredi : 9h–16h30<br />Samedi : 9h–12h</p> },
               { title: "Email", content: <a href={`mailto:${email}`} className="hover:opacity-80 break-all">{email}</a> },
             ].map(({ title, content }) => (
               <div key={title} className="flex flex-col gap-2 lg:gap-3 items-center lg:items-start">
@@ -73,3 +73,4 @@ export default function Footer({ phone, email, address, instagram, facebook }: P
     </footer>
   );
 }
+
