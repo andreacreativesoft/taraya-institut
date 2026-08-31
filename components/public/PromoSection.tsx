@@ -30,13 +30,13 @@ export default function PromoSection({ whatsapp, label, title, body }: { whatsap
 
       <div className="relative mx-auto max-w-[1280px] px-4 lg:px-6 flex flex-col items-center gap-6 text-center">
 
-        {/* Badge */}
-        <span className="inline-flex border border-[#cb9559] text-[#cb9559] font-heading font-bold text-[11px] tracking-[0.12em] uppercase px-5 py-1.5 rounded-full">
+        {/* Badge — square like the flyer */}
+        <span className="inline-flex bg-[#cb9559] text-white font-heading font-bold text-[11px] tracking-[0.12em] uppercase px-5 py-2 rounded-sm">
           {displayLabel}
         </span>
 
-        {/* Title */}
-        <h2 className="font-heading text-white text-[36px] lg:text-[56px] font-bold leading-[1.15] whitespace-pre-line max-w-[720px]">
+        {/* Title — single line */}
+        <h2 className="font-heading text-white text-[30px] lg:text-[56px] font-bold leading-[1.15] whitespace-nowrap">
           {displayTitle}
         </h2>
 
