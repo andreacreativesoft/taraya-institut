@@ -109,7 +109,7 @@ export default async function HomePage() {
       <main>
 <AboutSection />
         <ForWhoSection />
-        {settings.section_promo_enabled !== "false" && (
+        {false && settings.section_promo_enabled !== "false" && (
           <PromoSection whatsapp={settings.whatsapp} label={settings.promo_label} title={settings.promo_title} body={settings.promo_body} />
         )}
         <ServicesSection title={settings.services_title} subtitle={settings.services_subtitle} />
